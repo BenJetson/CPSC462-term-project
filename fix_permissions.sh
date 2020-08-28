@@ -9,7 +9,7 @@ chmod 744 ./src
 
 # Change the permissions for all files to rw- for current user and r-- for
 # the group and world.
-chmod -R 644 ./src/*
+( shopt -s dotglob; chmod -R 644 ./src/* )
 
 # Change the permisiions of all subdirectories so that the current user has rwx
 # and all others have r--. Allows my user to cd into the folder but prevents
