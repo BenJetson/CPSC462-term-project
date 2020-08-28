@@ -25,7 +25,7 @@ DEPLOY_DIR="$WEB_ROOT/$APP_NAME"
 # Ensure the deploy directory exists.
 ssh webapp mkdir -p "$DEPLOY_DIR"
 # Copy source files to the remote server.
-rsync -e ssh -rvptd ./src/ webapp:"$DEPLOY_DIR/"
+rsync -e ssh -rvptd --delete-before ./src/ webapp:"$DEPLOY_DIR/"
 
 # Ensure that the secret directory exists.
 ssh webapp mkdir -p "$SECRET_DIR"
