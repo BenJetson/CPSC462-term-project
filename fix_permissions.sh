@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "✅ Fixing disk permissions..."
+
 # Make the secret file rw- for the current user but --- (no access) for others.
 chmod 600 .env
 
