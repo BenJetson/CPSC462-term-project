@@ -55,7 +55,11 @@ rsync -e ssh -vpt .env webapp:"$SECRET_DIR/$APP_NAME.env"
 
 # shellcheck disable=SC1091
 source .env
-cat << EOF > .my.cnf
+
+rm -f .my.cnf
+(umask 177; touch .my.cnf)
+
+cat << EOF >> .my.cnf
 # Warning: generated as part of deploy.sh. Will be overwritten!
 
 [client]
@@ -69,6 +73,7 @@ mysql --defaults-file=".my.cnf" -e "DROP DATABASE IF EXISTS $DB_NAME"
 mysql --defaults-file=".my.cnf" -e "CREATE DATABASE $DB_NAME"
 
 echo "database=\"$DB_NAME\"" >> .my.cnf
+chmod u-w .my.cnf
 
 echo "📀 Deploying database schema..."
 mysql --defaults-file=".my.cnf" < ./db/schema.sql
