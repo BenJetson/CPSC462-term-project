@@ -12,7 +12,7 @@ DEPLOY_DIR="$WEB_ROOT/$APP_NAME"
 
 URL="https://webapp.cs.clemson.edu/~bfgodfr/$APP_NAME"
 
-echo "😁 Starting deploy!"
+echo; echo "😁 Starting deploy!"; echo
 
 exit_trap() {
     retval=$?
@@ -24,10 +24,17 @@ exit_trap() {
         echo "🎉 SUCCESS: Deploy finished."
         echo "🌎 View live at $URL."
     fi
+    echo
 
     exit $retval
 }
 trap exit_trap EXIT
+
+if [ ! -f .env ]; then
+    echo "🛑 FATAL: Environment not sane - missing configuration file!"
+    echo "ℹ️  Must copy .env.example to .env and enter deployment parameters."
+    exit 1
+fi
 
 # First fix the disk permissions on the local copies. rsync will copy the
 # permission bits from the local machine, so they need to be accurate.
