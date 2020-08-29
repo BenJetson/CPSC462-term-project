@@ -18,7 +18,7 @@ chmod 711 ./src
 # Change the permisiions of all subdirectories so that the current user has rwx
 # and all others have --x. Gives me full permissions for the directory but
 # prevents others from listing the contents or modifying the directory listing
-# (can still access files, respecting file permissions).folder.
+# (can still access files, respecting file permissions).
 find ./src -type d -exec chmod 711 {} \;
 
 # Change the permissions for PHP files, should be rw- by user and ---
