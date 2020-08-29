@@ -53,9 +53,25 @@ ssh webapp mkdir -v -m 711 -p "$SECRET_DIR"
 # Copy the secret file to the server.
 rsync -e ssh -vpt .env webapp:"$SECRET_DIR/$APP_NAME.env"
 
-echo "🧼 Clearing the database...     🙅‍ not yet implemented."
-# TODO: Clear the database.
-echo "📀 Deploying database schema... 🙅‍ not yet implemented."
-# TODO: Apply the schema to the database.
-echo "🐍 Deploying sample data...     🙅‍ not yet implemented."
-# TODO: Load sample data to the database.
+# shellcheck disable=SC1091
+source .env
+cat << EOF > .my.cnf
+# Warning: generated as part of deploy.sh. Will be overwritten!
+
+[client]
+host="$DB_ADDR"
+user="$DB_USER"
+password="$DB_PASS"
+EOF
+
+echo "🧼 Clearing the database..."
+mysql --defaults-file=".my.cnf" -e "DROP DATABASE IF EXISTS $DB_NAME"
+mysql --defaults-file=".my.cnf" -e "CREATE DATABASE $DB_NAME"
+
+echo "database=\"$DB_NAME\"" >> .my.cnf
+
+echo "📀 Deploying database schema..."
+mysql --defaults-file=".my.cnf" < ./db/schema.sql
+
+echo "🐍 Deploying sample data..."
+mysql --defaults-file=".my.cnf" < ./db/sample_data.sql
