@@ -4,7 +4,8 @@
   "config": {
     "platform": {
       "php": "5.5.9"
-    }
+    },
+    "vendor-dir": "./src/vendor"
   },
   "require": {
     "vlucas/phpdotenv": "^4.1"
