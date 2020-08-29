@@ -75,15 +75,19 @@ user="$DB_USER"
 password="$DB_PASS"
 EOF
 
-echo "🧼 Clearing the database..."
-mysql --defaults-file=".my.cnf" -e "DROP DATABASE IF EXISTS $DB_NAME"
-mysql --defaults-file=".my.cnf" -e "CREATE DATABASE $DB_NAME"
+if [[ $* == *--no-db* ]]; then
+    echo "ℹ️  Skipping database deployment (--no-db set)."
+else
+    echo "🧼 Clearing the database..."
+    mysql --defaults-file=".my.cnf" -e "DROP DATABASE IF EXISTS $DB_NAME"
+    mysql --defaults-file=".my.cnf" -e "CREATE DATABASE $DB_NAME"
 
-echo "database=\"$DB_NAME\"" >> .my.cnf
-chmod u-w .my.cnf
+    echo "database=\"$DB_NAME\"" >> .my.cnf
+    chmod u-w .my.cnf
 
-echo "📀 Deploying database schema..."
-mysql --defaults-file=".my.cnf" < ./db/schema.sql
+    echo "📀 Deploying database schema..."
+    mysql --defaults-file=".my.cnf" < ./db/schema.sql
 
-echo "🐍 Deploying sample data..."
-mysql --defaults-file=".my.cnf" < ./db/sample_data.sql
+    echo "🐍 Deploying sample data..."
+    mysql --defaults-file=".my.cnf" < ./db/sample_data.sql
+fi
