@@ -1,0 +1,62 @@
+account
+---
+account_id integer pk autoincrement
+email unique text
+email_changed_at timestamp
+email_confirmed bool
+name text
+pass_hash text
+pass_salt text
+pass_changed_at timestamp
+pass_attempts integer
+pass_locked_at timestamp
+is_admin bool
+is_banned bool
+
+article
+---
+article_id integer pk autoincrement
+article_category_id integer fk >- article_category.article_category_id
+author integer fk >- account.account_id
+body text
+updated_at timestamp
+
+article_category
+---
+article_category_id integer pk autoincrement
+name text
+
+article_comment
+---
+article_comment_id integer pk autoincrement
+article_id integer fk >- article.article_id
+author integer fk >- account.account_id
+posted_at timestamp
+body text
+
+article_rating
+---
+article_id integer pk fk >- article.article_id
+account_id integer pk fk  >- account.account_id
+stars integer
+
+help_ticket
+---
+help_ticket_id integer pk autoincrement
+submitter integer fk >- account.account_id
+assignee nullable integer fk >- account.account_id
+submitted_at timestamp
+is_closed bool default=false
+closed_by_submitter bool
+closed_at timestamp
+subject text
+body text
+
+help_ticket_comment
+---
+help_ticket_comment_id integer pk autoincrement
+help_ticket_id integer fk >- help_ticket.help_ticket_id
+author integer fk >- account.account_id
+posted_at timestamp
+body text
+
