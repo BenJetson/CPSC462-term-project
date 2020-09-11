@@ -1,1 +1,1 @@
-# soc-webapp-php-demo
+# CPSC 462 Term Project
