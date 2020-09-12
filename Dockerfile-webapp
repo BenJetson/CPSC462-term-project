@@ -39,3 +39,6 @@ COPY ./docker/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 RUN a2enmod rewrite
 
 CMD [ "apachectl", "-D", "FOREGROUND" ]
+
+EXPOSE 80
+EXPOSE 443
