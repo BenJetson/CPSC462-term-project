@@ -1,6 +1,6 @@
 {
-  "name": "benjetson/soc-webapp-php-demo",
-  "description": "Just a sample project to test PHP.",
+  "name": "benjetson/cpsc462-term-project",
+  "description": "My CPSC 462 term project: an IT helpdesk/KB web portal written in PHP with a mySQL database.",
   "config": {
     "platform": {
       "php": "5.5.9"

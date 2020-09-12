@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ab8ae836e850c9fa8ca96e0afcddea98",
+    "content-hash": "c9eee34b4d3c14801540404960f93a60",
     "packages": [
         {
             "name": "phpoption/phpoption",
