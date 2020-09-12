@@ -1,0 +1,18 @@
+version: "3"
+services:
+  webapp:
+    build:
+      context: ./
+      dockerfile: Dockerfile-webapp
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./src:/var/www/html/~bfgodfr/4620/project
+  db:
+    build:
+      context: ./
+      dockerfile: Dockerfile-db
+    ports:
+      - "3306:3306"
+    env_file: .env.local

@@ -1,0 +1,26 @@
+
+FROM php:5.5-apache
+# FROM ubuntu:trusty
+
+RUN apt-get update
+RUN apt-get upgrade -y
+
+RUN docker-php-ext-install pdo pdo_mysql
+
+# RUN apt-get install -y \
+#     apache2 \
+#     php5 \
+#     php5-dev \
+#     libapache2-mod-php5 \
+#     php5-cli \
+#     php5-curl \
+#     php5-common \
+#     php5-mysql \
+#     php5-mcrypt \
+#     php5-json
+
+COPY ./docker/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+
+RUN a2enmod rewrite
+
+CMD [ "apache2-foreground" ]
