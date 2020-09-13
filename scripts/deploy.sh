@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
+echo
 
 fatal_error() {
     echo "🛑 FATAL: $1"
@@ -31,6 +32,13 @@ elif [[ "${TIER}" == "local" ]]; then
 elif [[ ":dev:prod:" != *:$TIER:* ]]; then
     fatal_error "tier must be either dev or prod."
 fi
+
+# Check to make sure that VPN is active.
+# TODO let this work from SoC servers as well, perhaps?
+# TODO not sure if this works with AnyConnect - working with OpenConnect now.
+ifconfig | grep utun2 > /dev/null || \
+    fatal_error "Must connect to CUVPN for deployment!"
+echo "🔌 VPN connection detected."
 
 # Ensure the script always starts at the repository root.
 # Source: https://code-maven.com/bash-shell-relative-path
