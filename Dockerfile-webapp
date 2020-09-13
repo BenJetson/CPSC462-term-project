@@ -39,6 +39,8 @@ COPY ./docker/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 RUN a2enmod rewrite
 
 COPY .env.local /var/secrets/.env
+RUN chgrp www-data /var/secrets/.env && \
+    chmod g+r /var/secrets/.env
 
 CMD [ "apachectl", "-D", "FOREGROUND" ]
 
