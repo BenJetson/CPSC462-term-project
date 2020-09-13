@@ -72,7 +72,6 @@ fi
 
 echo "🔑 Deploying secrets..."
 SECRET_FILE=".env.$TIER"
-SECRET_DEST="$SECRET_DIR/.env"
 
 # shellcheck disable=SC1090
 if [[ -f "$SECRET_FILE" ]]; then
@@ -85,13 +84,13 @@ fi
 # Ensure that the secret directory exists.
 ssh webapp mkdir -v -m 711 -p "$SECRET_DIR"
 # Copy the secret file to the server.
-rsync -e ssh -vpt "$SECRET_FILE" webapp:"$SECRET_DEST"
+rsync -e ssh -vpt "$SECRET_FILE" webapp:"$SECRET_DIR/.env"
 
 (
 umask 333; rm -f ./src/.htaccess; cat << EOF >> ./src/.htaccess
 # Warning: generated as part of deploy.sh. Will be overwritten!
 
-SetEnv SECRET_FILE "$SECRET_DEST"
+SetEnv SECRET_DIR "$SECRET_DIR"
 EOF
 )
 
