@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+set -e
+
+# Ensure the script always starts at the repository root.
+# Source: https://code-maven.com/bash-shell-relative-path
+cd "$(dirname "$(dirname "$(realpath "$0")")")"
+
 echo "✅ Fixing disk permissions..."
 
 # Make the secret file rw- for the current user but --- (no access) for others.
