@@ -7,8 +7,11 @@ run:
 stop:
 	docker-compose down
 
+.PHONY: halt
+halt: stop ;
+
 .PHONY: clean
-clean:
+clean: stop
 	yes | docker-compose rm
 
 .PHONY: build
@@ -16,7 +19,7 @@ build: clean
 	docker-compose build
 
 .PHONY: rebuild-run
-rebuild-run: stop clean build run ;
+rebuild-run: clean build run ;
 
 .PHONY: deploy
 deploy:
