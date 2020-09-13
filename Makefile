@@ -3,6 +3,13 @@
 run:
 	docker-compose up
 
+.PHONY: logs
+logs:
+	docker-compose logs -f
+
+.PHONY: log
+log: logs ;
+
 .PHONY: stop
 stop:
 	docker-compose down
