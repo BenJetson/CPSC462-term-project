@@ -1,2 +1,8 @@
+
 .env
+.env.prod
+.env.dev
+
 .my.cnf
+
+src/.htaccess
