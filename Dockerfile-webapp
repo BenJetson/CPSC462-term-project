@@ -43,4 +43,3 @@ COPY .env.local /var/secrets/.env
 CMD [ "apachectl", "-D", "FOREGROUND" ]
 
 EXPOSE 80
-EXPOSE 443
