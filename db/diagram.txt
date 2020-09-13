@@ -4,14 +4,21 @@ account_id integer pk autoincrement
 email unique text
 email_changed_at timestamp
 email_confirmed bool
-name text
+first_name text
+last_name text
+dob date
+telephone text
+address_line_1 text
+address_line_2 text
+city text
+state text
+zip integer
 pass_hash text
-pass_salt text
 pass_changed_at timestamp
 pass_attempts integer
 pass_locked_at timestamp
 is_admin bool
-is_banned bool
+is_disabled bool
 
 article
 ---
