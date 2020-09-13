@@ -6,7 +6,6 @@ services:
       dockerfile: Dockerfile-webapp
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - ./src:/var/www/html/~bfgodfr/4620/project
   db:
