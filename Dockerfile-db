@@ -1,6 +1,13 @@
 
 FROM mysql:5.5.52
 
+# Since this database is just running on the local computer and is not exposed
+# to the open internet, a blank password is acceptable.
+# All other tiers (dev/prod) are secured by a password.
 ENV MYSQL_ALLOW_EMPTY_PASSWORD='yes'
+
+# Add database migrations.
+ADD db/schema.sql /docker-entrypoint-initdb.d
+ADD db/sample_data.sql /docker-entrypoint-initdb.d
 
 EXPOSE 3306
