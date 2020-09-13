@@ -33,12 +33,10 @@ elif [[ ":dev:prod:" != *:$TIER:* ]]; then
     fatal_error "tier must be either dev or prod."
 fi
 
-# Check to make sure that VPN is active.
-# TODO let this work from SoC servers as well, perhaps?
-# TODO not sure if this works with AnyConnect - working with OpenConnect now.
-ifconfig | grep utun2 > /dev/null || \
-    fatal_error "Must connect to CUVPN for deployment!"
-echo "🔌 VPN connection detected."
+# Check to make sure that it is possible to reach the Clemson network.
+ssh webapp "echo OK" > /dev/null 2>&1 || \
+    fatal_error "Must connect to the Clemson network or CUVPN for deployment!"
+echo "🔌 Connection to the Clemson network established."
 
 # Ensure the script always starts at the repository root.
 # Source: https://code-maven.com/bash-shell-relative-path
@@ -73,6 +71,7 @@ echo; echo "😁 Starting deploy!"; echo
 #     -t, --times                 preserve times
 #     -d, --dirs                  transfer directories without recursing
 
+echo
 echo "🔑 Deploying secrets..."
 SECRET_FILE=".env.$TIER"
 
@@ -96,6 +95,7 @@ SetEnv SECRET_DIR "$SECRET_DIR"
 EOF
 )
 
+echo
 echo "📝 Deploying application source..."
 # Ensure the deploy directory exists with correct permissions.
 ssh webapp mkdir -v -m 711 -p "$DEPLOY_DIR"
@@ -115,6 +115,7 @@ user="$MYSQL_USER"
 password="$MYSQL_PASSWORD"
 EOF
 
+echo
 if [[ $* == *--no-db* ]]; then
     echo "ℹ️  Skipping database deployment (--no-db set)."
 else
