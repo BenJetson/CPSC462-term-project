@@ -53,11 +53,6 @@ URL="https://webapp.cs.clemson.edu/~bfgodfr/$APP_PATH"
 
 echo; echo "😁 Starting deploy!"; echo
 
-if [ ! -f .env ]; then
-    echo "ℹ️  Should copy .env.example to .env.$TIER and enter parameters."
-    fatal_error "Environment not sane - missing configuration file!"
-fi
-
 # First fix the disk permissions on the local copies. rsync will copy the
 # permission bits from the local machine, so they need to be accurate.
 ./scripts/fix_permissions.sh
@@ -76,7 +71,6 @@ SECRET_FILE=".env.$TIER"
 # shellcheck disable=SC1090
 if [[ -f "$SECRET_FILE" ]]; then
     source "$SECRET_FILE"
-    chmod 400 "$SECRET_FILE"
 else
     fatal_error "secret file $SECRET_FILE does not exist."
 fi

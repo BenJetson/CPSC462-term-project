@@ -9,7 +9,7 @@ cd "$(dirname "$(dirname "$(realpath "$0")")")"
 echo "✅ Fixing disk permissions..."
 
 # Make the secret file rw- for the current user but --- (no access) for others.
-chmod 600 .env
+chmod 600 .env*
 
 # Make the current directory rwx for current user but --x for others.
 # Gives me full permissions for the directory but prevents others from listing
