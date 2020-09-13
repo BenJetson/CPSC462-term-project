@@ -1,6 +1,6 @@
 
-.PHONY: local
-local:
+.PHONY: run
+run:
 	docker-compose up
 
 .PHONY: stop
@@ -14,6 +14,9 @@ clean:
 .PHONY: build
 build: clean
 	docker-compose build
+
+.PHONY: rebuild-run
+rebuild-run: stop clean build run ;
 
 .PHONY: deploy
 deploy:
