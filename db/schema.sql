@@ -1,8 +1,8 @@
 
-CREATE TABLE account (
-    account_id integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+CREATE TABLE user (
+    user_id integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
     is_admin   boolean NOT NULL DEFAULT false,
-    is_banned  boolean NOT NULL DEFAULT false,
+    is_disabled  boolean NOT NULL DEFAULT false,
 
     email            varchar(254) NOT NULL UNIQUE,
     email_changed_at datetime     NOT NULL DEFAULT '1970-01-01 00:00:00',
@@ -24,7 +24,7 @@ CREATE TABLE account (
     pass_attempts   integer  NOT NULL DEFAULT 0,
     pass_locked_at  datetime NOT NULL DEFAULT '1970-01-01 00:00:00'
 )
-COMMENT = 'account stores the data associated with each user account';
+COMMENT = 'user stores the data associated with each user account';
 
 DELIMITER $$
 CREATE PROCEDURE check_phone_number(IN telephone varchar(12))
@@ -37,15 +37,15 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE TRIGGER account_telephone_check
-BEFORE INSERT ON account
+CREATE TRIGGER user_telephone_check
+BEFORE INSERT ON user
 FOR EACH ROW
 BEGIN
     CALL check_phone_number(NEW.telephone);
 END$$
 DELIMITER ;
 
-INSERT INTO account (
+INSERT INTO user (
     is_admin,
     email,
     email_confirmed,

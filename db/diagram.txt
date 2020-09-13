@@ -1,6 +1,6 @@
-account
+user
 ---
-account_id integer pk autoincrement
+user_id integer pk autoincrement
 email unique text
 email_changed_at timestamp
 email_confirmed bool
@@ -24,7 +24,7 @@ article
 ---
 article_id integer pk autoincrement
 article_category_id integer fk >- article_category.article_category_id
-author integer fk >- account.account_id
+author integer fk >- user.user_id
 body text
 updated_at timestamp
 
@@ -37,21 +37,21 @@ article_comment
 ---
 article_comment_id integer pk autoincrement
 article_id integer fk >- article.article_id
-author integer fk >- account.account_id
+author integer fk >- user.user_id
 posted_at timestamp
 body text
 
 article_rating
 ---
 article_id integer pk fk >- article.article_id
-account_id integer pk fk  >- account.account_id
+user_id integer pk fk  >- user.user_id
 stars integer
 
 help_ticket
 ---
 help_ticket_id integer pk autoincrement
-submitter integer fk >- account.account_id
-assignee nullable integer fk >- account.account_id
+submitter integer fk >- user.user_id
+assignee nullable integer fk >- user.user_id
 submitted_at timestamp
 is_closed bool default=false
 closed_by_submitter bool
@@ -63,7 +63,7 @@ help_ticket_comment
 ---
 help_ticket_comment_id integer pk autoincrement
 help_ticket_id integer fk >- help_ticket.help_ticket_id
-author integer fk >- account.account_id
+author integer fk >- user.user_id
 posted_at timestamp
 body text
 
