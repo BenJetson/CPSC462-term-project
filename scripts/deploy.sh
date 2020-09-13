@@ -100,7 +100,7 @@ ssh webapp mkdir -v -m 711 -p "$DEPLOY_DIR"
 # Copy source files to the remote server.
 rsync -e ssh -rvptd --delete-before ./src/ webapp:"$DEPLOY_DIR/"
 
-# rm -f ./src/.htaccess
+rm -f ./src/.htaccess
 rm -f .my.cnf
 (umask 177; touch .my.cnf)
 
