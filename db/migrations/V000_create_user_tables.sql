@@ -37,8 +37,17 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE TRIGGER user_telephone_check
+CREATE TRIGGER user_telephone_insert_check
 BEFORE INSERT ON user
+FOR EACH ROW
+BEGIN
+    CALL check_phone_number(NEW.telephone);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER user_telephone_update_check
+BEFORE UPDATE ON user
 FOR EACH ROW
 BEGIN
     CALL check_phone_number(NEW.telephone);

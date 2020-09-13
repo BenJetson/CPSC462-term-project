@@ -128,9 +128,10 @@ else
     echo "database=\"$MYSQL_DATABASE\"" >> .my.cnf
     chmod u-w .my.cnf
 
-    echo "📀 Deploying database schema..."
-    mysql --defaults-file=".my.cnf" < ./db/schema.sql
-
-    echo "🐍 Deploying sample data..."
-    mysql --defaults-file=".my.cnf" < ./db/sample_data.sql
+    echo "📀 Migrating database..."
+    for f in ./db/migrations/*.sql; do
+        printf "\tRunning migration %s... " "$(basename "$f" .sql)"
+        mysql --defaults-file=".my.cnf" < "$f"
+        printf "success.\n"
+    done
 fi

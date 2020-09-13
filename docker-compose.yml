@@ -15,3 +15,5 @@ services:
     ports:
       - "3306:3306"
     env_file: .env.local
+    volumes:
+      - ./db/migrations:/docker-entrypoint-initdb.d
