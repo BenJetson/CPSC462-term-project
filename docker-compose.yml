@@ -7,8 +7,11 @@ services:
       dockerfile: Dockerfile-webapp
     ports:
       - "80:80"
+    restart: always
     volumes:
       - ./src:/var/www/html/~bfgodfr/4620/project
+    depends_on:
+      - db
   db:
     build:
       context: ./
@@ -25,5 +28,7 @@ services:
     restart: always
     ports:
       - 8080:80
+    depends_on:
+      - db
 volumes:
   persistent-dbstore:
