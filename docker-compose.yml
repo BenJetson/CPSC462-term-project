@@ -1,6 +1,7 @@
 version: "3"
 services:
   webapp:
+    stop_signal: SIGWINCH
     build:
       context: ./
       dockerfile: Dockerfile-webapp

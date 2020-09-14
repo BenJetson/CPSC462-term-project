@@ -11,4 +11,9 @@ set -e
 # Apache gets grumpy about PID files pre-existing
 rm -f /var/run/apache2/apache2.pid
 
-exec apachectl -D FOREGROUND
+# Must source Apache environment variables before starting the daemon.
+# See also: https://askubuntu.com/a/147065
+# shellcheck disable=SC1091
+source /etc/apache2/envvars
+
+exec apache2 -DFOREGROUND
