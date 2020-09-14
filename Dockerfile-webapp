@@ -42,6 +42,12 @@ COPY .env.local /var/secrets/.env
 RUN chgrp www-data /var/secrets/.env && \
     chmod g+r /var/secrets/.env
 
-CMD [ "apachectl", "-D", "FOREGROUND" ]
+# Invoke custom script to ensure that the Apache server reliably starts.
+# Copied from the official PHP image in the Docker library.
+#
+# Source:
+# https://github.com/docker-library/php/commit/a51c16e5f91be6243452471d1454dca5b168e3d4
+COPY ./docker/apache2-foreground.sh /usr/local/bin/apache2-foreground
+CMD ["apache2-foreground"]
 
 EXPOSE 80
