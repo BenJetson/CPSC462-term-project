@@ -18,9 +18,12 @@ services:
     env_file: .env.local
     volumes:
       - ./db/migrations:/docker-entrypoint-initdb.d
+      - persistent-dbstore:/var/lib/mysql
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     env_file: .env.local
     restart: always
     ports:
       - 8080:80
+volumes:
+  persistent-dbstore:

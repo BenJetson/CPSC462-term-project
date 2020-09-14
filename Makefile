@@ -18,7 +18,8 @@ stop:
 halt: stop ;
 
 .PHONY: clean
-clean: stop
+clean:
+	docker-compose down -v
 	yes | docker-compose rm
 
 .PHONY: build
