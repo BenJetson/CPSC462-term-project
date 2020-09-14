@@ -1,7 +1,7 @@
 
 CREATE TABLE user (
-    user_id integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    is_admin   boolean NOT NULL DEFAULT false,
+    user_id      integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    is_admin     boolean NOT NULL DEFAULT false,
     is_disabled  boolean NOT NULL DEFAULT false,
 
     email            varchar(254) NOT NULL UNIQUE,
