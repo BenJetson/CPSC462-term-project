@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * ATTENTION
  *
@@ -30,7 +28,7 @@ require_once './includes/autoload.php';
  * @return string
  * @throws RangeException
  */
-function safe_encrypt(string $message, string $key)
+function safe_encrypt($message,  $key)
 {
     if (mb_strlen($key, '8bit') !== SODIUM_CRYPTO_SECRETBOX_KEYBYTES) {
         throw new RangeException(
@@ -47,8 +45,7 @@ function safe_encrypt(string $message, string $key)
                 $key
             )
     );
-    sodium_memzero($message);
-    sodium_memzero($key);
+
     return $cipher;
 }
 
@@ -62,7 +59,7 @@ function safe_encrypt(string $message, string $key)
  * @return string
  * @throws Exception
  */
-function safe_decrypt(string $encrypted, string $key)
+function safe_decrypt($encrypted,  $key)
 {
     $decoded = base64_decode($encrypted);
     $nonce = mb_substr(
@@ -86,7 +83,6 @@ function safe_decrypt(string $encrypted, string $key)
     if (!is_string($plain)) {
         throw new Exception('Invalid MAC');
     }
-    sodium_memzero($ciphertext);
-    sodium_memzero($key);
+
     return $plain;
 }
