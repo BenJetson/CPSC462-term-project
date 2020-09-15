@@ -105,6 +105,18 @@ class AccessToken implements \JsonSerializable
 
         return $token;
     }
+
+    public static function destroyCookie()
+    {
+        if (isset($_COOKIE[self::COOKIE_NAME])) {
+            // Unset cookie in PHP.
+            unset($_COOKIE[self::COOKIE_NAME]);
+
+            // Send a null cookie that expires yesterday to the browser so that
+            // the browser will delete its local copy of the cookie.
+            setcookie(self::COOKIE_NAME, null, time() - (60 * 60 * 24));
+        }
+    }
 }
 
 function password_grant(PDO $pdo, $email, $password)
@@ -112,10 +124,12 @@ function password_grant(PDO $pdo, $email, $password)
     $user = get_user_by_email($pdo, $email);
 
     if (!$user) {
+        AccessToken::destroyCookie();
         return false;
     }
 
     if ($user->is_disabled) {
+        AccessToken::destroyCookie();
         return false;
     }
 
@@ -125,6 +139,8 @@ function password_grant(PDO $pdo, $email, $password)
 
     if (!$matches) {
         // TODO: Bump attempts and lockout time.
+
+        AccessToken::destroyCookie();
         return false;
     }
 
