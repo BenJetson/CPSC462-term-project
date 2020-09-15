@@ -51,31 +51,32 @@ class AccessToken implements \JsonSerializable
         return array(
             "user_id"   => $this->user_id,
             "issued_at" => $this->issued_at->format(DateTime::RFC3339),
-            "ip"        => $this->issued_at,
+            "ip"        => $this->ip,
         );
     }
 
     public function setCookie()
     {
+        // Encode the cookie into JSON and encrypt it using the secret.
         $token_plain = json_encode($this);
         $key = base64_decode($_SERVER["LOGIN_SECRET"]);
         $token_cipher = safe_encrypt($token_plain, $key);
 
-        // setcookie(self::COOKIE_NAME, $token_cipher, array(
-        //     "httponly" => true,
-        //     "secure"   => $_SERVER["HTTPS"],
-        //     "domain"   => "localhost", // FIXME
-        //     "path"     => "~bfgodfr/4620/project", // FIXME
-        //     "expires"  => time() + (60 * 60 * 24 * 365), // FIXME
-        // ));
+        // The option values needed to set the cookie.
+        $expires = time() + (60 * 60 * 24 * 365);
+        $path = "";
+        $domain = "";
+        $secure = isset($_SERVER["HTTPS"]) ? $_SERVER["HTTPS"] : false;
+        $httpOnly = true;
+
         setcookie(
-            self::COOKIE_NAME, //key
-            $token_cipher, // value
-            time() + (60 * 60 * 24 * 365), // FIXME expires
-            "~bfgodfr/4620/project", // FIXME path
-            "localhost", // FIXME domain
-            $_SERVER["HTTPS"], //https
-            true // HTTPONly
+            self::COOKIE_NAME,
+            $token_cipher,
+            $expires,
+            $path,
+            $domain,
+            $secure,
+            $httpOnly
         );
     }
 
