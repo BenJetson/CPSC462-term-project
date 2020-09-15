@@ -46,7 +46,12 @@ require_once 'includes/login.php';
         </tr>
         <tr>
             <th>Token</th>
-            <td><?= print_r(AccessToken::fetchFromCookie(), true) ?></td>
+            <td>
+                <?php
+                $token = AccessToken::fetchFromCookie();
+                echo $token === null ? "null" : json_encode($token);
+                ?>
+            </td>
         </tr>
     </table>
 </div>
