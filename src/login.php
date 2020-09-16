@@ -23,6 +23,11 @@ if ($loginAttempted) {
 
     setcookie(REMEMBER_ME_COOKIE, $rememberMeEmail, 0, "", "", false, true);
     $_COOKIE[REMEMBER_ME_COOKIE] = $rememberMeEmail; // FIXME
+
+    if ($grantStatus) {
+        header('Location: whoami.php');
+        exit;
+    }
 }
 
 ?>
