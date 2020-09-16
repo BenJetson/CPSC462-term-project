@@ -32,9 +32,9 @@ if ($loginAttempted) {
 
 ?>
 
-<div class="container py-5">
-    <h1>Login</h1>
-    <p class="py-4"><em>Authentication is required to proceed.</em></p>
+<div class="container py-5" id="login-container">
+    <h1 class="text-center">Login</h1>
+    <p class="py-4 text-center"><em>Authentication is required to proceed.</em></p>
 
     <?php if ($loginAttempted && !$grantStatus) : ?>
         <div class="alert alert-danger" role="alert">
