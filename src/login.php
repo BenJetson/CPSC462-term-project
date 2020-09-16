@@ -31,6 +31,9 @@ if ($loginAttempted) {
     }
 }
 
+$isRemembered = isset($_COOKIE[REMEMBER_ME_COOKIE])
+    && $_COOKIE[REMEMBER_ME_COOKIE] !== "";
+
 ?>
 
 <div class="container py-5" id="login-container">
@@ -46,20 +49,20 @@ if ($loginAttempted) {
     <form method="POST" action="" id="login-form" novalidate>
         <div class="form-group">
             <label for="user-email">Email</label>
-            <input type="email" class="form-control" id="user-email" name="email" value="<?= $_COOKIE[REMEMBER_ME_COOKIE] ?>" required />
+            <input type="email" class="form-control" id="user-email" name="email" value="<?= $_COOKIE[REMEMBER_ME_COOKIE] ?>" required <?= !$isRemembered ? "autofocus" : "" ?> />
             <div class="invalid-feedback">
                 Please enter your email address.
             </div>
         </div>
         <div class="form-group">
             <label for="user-password">Password</label>
-            <input type="password" class="form-control" id="user-password" name="password" required />
+            <input type="password" class="form-control" id="user-password" name="password" required <?= $isRemembered ? "autofocus" : "" ?> />
             <div class="invalid-feedback">
                 Password cannot be blank.
             </div>
         </div>
         <div class="form-group custom-control custom-switch">
-            <input class="custom-control-input" type="checkbox" id="remember-me" name="remember-me" <?= isset($_COOKIE[REMEMBER_ME_COOKIE]) && $_COOKIE[REMEMBER_ME_COOKIE] !== "" ? "checked" : "" ?> />
+            <input class="custom-control-input" type="checkbox" id="remember-me" name="remember-me" <?= $isRemembered ? "checked" : "" ?> />
             <label class="custom-control-label" for="remember-me">Remember my email address.</label>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
