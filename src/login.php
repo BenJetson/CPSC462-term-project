@@ -79,41 +79,5 @@ if ($loginAttempted) {
     })
 </script>
 
-<div class="container">
-    <h2>Received Data</h2>
-    <table>
-        <tr>
-            <th>PostCount</th>
-            <td><?= count($_POST) ?></td>
-        </tr>
-        <tr>
-            <th>LoginReady</th>
-            <td><?= count($_POST) === 2 && isset($_POST["email"]) && isset($_POST["password"]) ? "true" : "false" ?></td>
-        </tr>
-        <tr>
-            <th>Email</th>
-            <td><?= $_POST["email"] ?></td>
-        </tr>
-        <tr>
-            <th>Password</th>
-            <td><?= $_POST["password"] ?></td>
-        </tr>
-        <tr>
-            <th>Grant</th>
-            <td><?= $grantStatus ? "true" : "false" ?></td>
-        </tr>
-        <tr>
-            <th>Token</th>
-            <td>
-                <?php
-                $token = AccessToken::fetchFromCookie();
-                echo $token === null ? "null" : json_encode($token);
-                ?>
-            </td>
-        </tr>
-    </table>
-</div>
-
-
 <?php
 require_once('includes/footer.php');
