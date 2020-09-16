@@ -19,6 +19,7 @@ services:
     ports:
       - "3306:3306"
     env_file: .env.local
+    restart: always
     volumes:
       - ./db/migrations:/docker-entrypoint-initdb.d
       - persistent-dbstore:/var/lib/mysql
