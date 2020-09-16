@@ -51,7 +51,7 @@ $isRemembered = isset($_COOKIE[REMEMBER_ME_COOKIE])
             <label for="user-email">Email</label>
             <input type="email" class="form-control" id="user-email" name="email" value="<?= $_COOKIE[REMEMBER_ME_COOKIE] ?>" required <?= !$isRemembered ? "autofocus" : "" ?> />
             <div class="invalid-feedback">
-                Please enter your email address.
+                Please enter a valid email address.
             </div>
         </div>
         <div class="form-group">
