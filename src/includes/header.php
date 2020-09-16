@@ -12,3 +12,12 @@
 </head>
 
 <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <?php
+            // FIXME need to send users to a homepage from this link
+            ?>
+            <a class="navbar-brand" href="#">IT Helpdesk</a>
+        </div>
+    </nav>
