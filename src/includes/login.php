@@ -69,6 +69,8 @@ class AccessToken implements \JsonSerializable
         $secure = isset($_SERVER["HTTPS"]) ? $_SERVER["HTTPS"] : false;
         $httpOnly = true;
 
+        // Send the cookie to the client so it will store the cookie.
+        // This data will be available on the next page load.
         setcookie(
             self::COOKIE_NAME,
             $token_cipher,
@@ -78,6 +80,10 @@ class AccessToken implements \JsonSerializable
             $secure,
             $httpOnly
         );
+
+        // Set the cookie manually on the $_COOKIE array so that scripts invoked
+        // by the current page load can access the token.
+        $_COOKIE[self::COOKIE_NAME] = $token_cipher;
     }
 
     public static function fetchFromCookie()
