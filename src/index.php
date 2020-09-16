@@ -1,8 +1,8 @@
 <?php
 
-require_once './includes/autoload.php';
-require_once './includes/secrets.php';
-require_once './includes/db-connect.php';
+require_once 'includes/autoload.php';
+require_once 'includes/secrets.php';
+require_once 'includes/db-connect.php';
 
 ?>
 <!DOCTYPE html>

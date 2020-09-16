@@ -1,8 +1,9 @@
 <?php
 
-require_once('includes/header.php');
+require_once 'includes/header.php';
 require_once 'includes/db-connect.php';
-require_once 'includes/login.php';
+
+include 'includes/login.php';
 
 define("REMEMBER_ME_COOKIE", "remember-me-email");
 
@@ -80,4 +81,4 @@ if ($loginAttempted) {
 </script>
 
 <?php
-require_once('includes/footer.php');
+include 'includes/footer.php';

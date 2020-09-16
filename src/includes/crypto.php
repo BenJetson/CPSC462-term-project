@@ -16,7 +16,7 @@
  * Terms: https://creativecommons.org/licenses/by-sa/4.0/
  */
 
-require_once './includes/autoload.php';
+require_once 'autoload.php';
 
 /**
  * Encrypt a message
