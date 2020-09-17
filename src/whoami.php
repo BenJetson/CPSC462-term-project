@@ -4,7 +4,7 @@ require_once 'includes/db-connect.php';
 require_once 'includes/login.php';
 require_once 'includes/page.php';
 require_once 'includes/components/navbar.php';
-require_once 'includes/components/auth_status.php';
+require_once 'includes/components/auth-status.php';
 
 
 $token = AccessToken::fetchFromCookie();
