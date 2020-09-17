@@ -31,14 +31,14 @@ class Navbar implements Component
                         <li class="nav-item">
                             <a class="nav-link" href="#">Home</a>
                         </li>
-                        <?php if ($this->user !== null) : ?>
+                        <?php if ($this->user === null) : ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="login.php">Login</a>
                             </li>
                         <?php else : ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <div class="avatar bg-secondary"><?= $this->user->first_name[0] . $this->user->last_name[0] ?></div>
+                                    <div class="avatar"><?= $this->user->first_name[0] . $this->user->last_name[0] ?></div>
                                     <?= $this->user->first_name . " " . $this->user->last_name ?>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">

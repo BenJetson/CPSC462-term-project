@@ -2,3 +2,11 @@
   margin-top: 5vh;
   max-width: 400px;
 }
+
+.avatar {
+  display: inline;
+  padding: 0.25em;
+  background-color: grey;
+  color: lightgrey;
+  border-radius: 50%;
+}
