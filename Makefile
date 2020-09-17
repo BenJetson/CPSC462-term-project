@@ -23,7 +23,7 @@ clean:
 	yes | docker-compose rm
 
 .PHONY: build
-build: clean
+build: clean composer
 	docker-compose build
 
 .PHONY: rebuild-run
