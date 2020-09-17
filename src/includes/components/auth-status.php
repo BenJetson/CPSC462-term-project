@@ -32,7 +32,7 @@ class AuthStatus implements Component
                     </p>
                 </div>
             <?php elseif ($this->token !== null) : ?>
-                <div class="jumbotron my-5">
+                <div class="jumbotron">
                     <h2 class="display-4">You are currently <strong>signed out</strong>.</h2>
                     <p class="lead">
                         The access token presented is valid but does not match any known user.
@@ -45,7 +45,7 @@ class AuthStatus implements Component
                     </p>
                 </div>
             <?php else : ?>
-                <div class="jumbotron my-5">
+                <div class="jumbotron">
                     <h2 class="display-4">You are currently <strong>signed out</strong>.</h2>
                     <p class="lead">Either no access token was presented or the access token was invalid.</p>
                     <p>This can happen if you left your session idle for some time or if you have never signed in on this computer before.</p>
