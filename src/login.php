@@ -1,9 +1,13 @@
 <?php
 
-require_once 'includes/header.php';
 require_once 'includes/db-connect.php';
 
 include 'includes/login.php';
+
+require_once 'includes/page.php';
+require_once 'includes/components/navbar.php';
+require_once 'includes/components/login.php';
+
 
 define("REMEMBER_ME_COOKIE", "remember-me-email");
 
@@ -33,55 +37,17 @@ if ($loginAttempted) {
 
 $isRemembered = isset($_COOKIE[REMEMBER_ME_COOKIE])
     && $_COOKIE[REMEMBER_ME_COOKIE] !== "";
+$rememberedEmail = $_COOKIE[REMEMBER_ME_COOKIE];
 
-?>
+$title = "Login";
+$page = new Page($title, [
+    new Navbar($user, $title),
+    new Login(
+        $loginAttempted,
+        $grantStatus,
+        $isRemembered,
+        $rememberedEmail
+    ),
+]);
 
-<div class="container py-5" id="login-container">
-    <h1 class="text-center">Login</h1>
-    <p class="py-4 text-center"><em>Authentication is required to proceed.</em></p>
-
-    <?php if ($loginAttempted && !$grantStatus) : ?>
-        <div class="alert alert-danger" role="alert">
-            The email address or password provided was incorrect.
-        </div>
-    <?php endif; ?>
-
-    <form method="POST" action="" id="login-form" novalidate>
-        <div class="form-group">
-            <label for="user-email">Email</label>
-            <input type="email" class="form-control" id="user-email" name="email" value="<?= $_COOKIE[REMEMBER_ME_COOKIE] ?>" required <?= !$isRemembered ? "autofocus" : "" ?> />
-            <div class="invalid-feedback">
-                Please enter a valid email address.
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="user-password">Password</label>
-            <input type="password" class="form-control" id="user-password" name="password" required <?= $isRemembered ? "autofocus" : "" ?> />
-            <div class="invalid-feedback">
-                Password cannot be blank.
-            </div>
-        </div>
-        <div class="form-group custom-control custom-switch">
-            <input class="custom-control-input" type="checkbox" id="remember-me" name="remember-me" <?= $isRemembered ? "checked" : "" ?> />
-            <label class="custom-control-label" for="remember-me">Remember my email address.</label>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div>
-
-<script>
-    window.addEventListener("load", function() {
-        let form = document.getElementById("login-form");
-        form.addEventListener("submit", function(event) {
-            if (!form.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-
-            form.classList.add('was-validated');
-        })
-    })
-</script>
-
-<?php
-include 'includes/footer.php';
+$page->render();
