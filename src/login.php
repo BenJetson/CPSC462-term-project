@@ -39,9 +39,8 @@ $isRemembered = isset($_COOKIE[REMEMBER_ME_COOKIE])
     && $_COOKIE[REMEMBER_ME_COOKIE] !== "";
 $rememberedEmail = $_COOKIE[REMEMBER_ME_COOKIE];
 
-$title = "Login";
-$page = new Page($title, [
-    new Navbar($user, $title),
+$page = new Page("Login", [
+    new Navbar($user, null),
     new Login(
         $loginAttempted,
         $grantStatus,

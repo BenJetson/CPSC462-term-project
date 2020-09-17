@@ -53,9 +53,11 @@ class Navbar implements Component
                 </div>
             </div>
         </nav>
-        <div class="container py-4">
-            <h1><?= $this->title ?></h1>
-        </div>
+        <?php if ($this->title !== null) : ?>
+            <div class="container py-4">
+                <h1><?= $this->title ?></h1>
+            </div>
+        <?php endif; ?>
 <?php
     }
 
