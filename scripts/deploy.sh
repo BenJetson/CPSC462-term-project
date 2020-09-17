@@ -59,9 +59,15 @@ URL="https://webapp.cs.clemson.edu/~bfgodfr/$APP_PATH"
 
 echo; echo "😁 Starting deploy!"; echo
 
+# Run composer to make sure dependencies are up to date prior to deploy.
+echo "🎛️ Composing dependencies..."
+make composer
+
 # First fix the disk permissions on the local copies. rsync will copy the
 # permission bits from the local machine, so they need to be accurate.
 ./scripts/fix_permissions.sh
+
+exit 5;
 
 # From the rsync manpage:
 #     -e, --rsh=COMMAND           specify the remote shell to use

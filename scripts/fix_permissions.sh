@@ -6,6 +6,7 @@ set -e
 # Source: https://code-maven.com/bash-shell-relative-path
 cd "$(dirname "$(dirname "$(realpath "$0")")")"
 
+echo
 echo "✅ Fixing disk permissions..."
 
 # Make the secret file rw- for the current user but --- (no access) for others.
