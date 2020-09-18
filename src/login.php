@@ -1,9 +1,7 @@
 <?php
 
 require_once 'includes/db-connect.php';
-
-include 'includes/login.php';
-
+require_once 'includes/login.php';
 require_once 'includes/page.php';
 require_once 'includes/components/navbar.php';
 require_once 'includes/components/login.php';
