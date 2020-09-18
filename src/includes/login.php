@@ -12,7 +12,7 @@ class AccessToken implements \JsonSerializable
     public $ip;
 
     const COOKIE_NAME = "helpdesk_session_token";
-    const VALID_PERIOD = "P1H";
+    const VALID_PERIOD = "PT1H";
 
     public function __construct($user_id)
     {
@@ -27,8 +27,7 @@ class AccessToken implements \JsonSerializable
         $expiryTime = $this->issued_at->add($validFor);
         $now = new DateTime("now");
 
-        return $now < $expiryTime;
-        // FIXME check this logic
+        return $expiryTime < $now;
     }
 
     public function isValidForCurrentIP()
@@ -108,6 +107,11 @@ class AccessToken implements \JsonSerializable
         $token = new AccessToken((int) $obj->user_id);
         $token->issued_at = new DateTime($obj->issued_at);
         $token->ip = (string) $obj->ip;
+
+        if ($token->hasExpired()) {
+            self::destroyCookie();
+            return null;
+        }
 
         return $token;
     }
