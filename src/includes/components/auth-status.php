@@ -12,6 +12,7 @@ class AuthStatus implements Component
         $this->token = $token;
         $this->user = $user;
     }
+
     public function render()
     {
 ?>
@@ -22,7 +23,7 @@ class AuthStatus implements Component
                     <p class="lead">The access token presented is valid and was matched to a user.</p>
                     <p>
                         This access token was issued to:
-                        <strong><?= $this->user->first_name . " " . $this->user->last_name . " (" . $this->user->email . ")." ?></strong>
+                        <strong><?= $this->user->first_name . " " . $this->user->last_name . " (" . $this->user->email . ")" ?></strong>
                         at <?= $this->token->issued_at->format("Y-m-d H:i:s") ?> for <?= $this->token->ip ?>.
                     </p>
                     <hr class="my-4">
