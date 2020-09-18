@@ -4,17 +4,20 @@ require_once __DIR__ . "/../page.php";
 
 class Login implements Component
 {
+    private $wasLoggedOut;
     private $loginAttempted;
     private $grantStatus;
     private $isRemembered;
     private $rememberedEmail;
 
     public function __construct(
+        $wasLoggedOut,
         $loginAttempted,
         $grantStatus,
         $isRemembered,
         $rememberedEmail
     ) {
+        $this->wasLoggedOut = $wasLoggedOut;
         $this->loginAttempted = $loginAttempted;
         $this->grantStatus = $grantStatus;
         $this->isRemembered = $isRemembered;
@@ -27,6 +30,16 @@ class Login implements Component
         <div class="container py-5" id="login-container">
             <h1 class="text-center">Login</h1>
             <p class="py-4 text-center"><em>Authentication is required to proceed.</em></p>
+
+            <?php if ($this->wasLoggedOut) : ?>
+                <div class="alert alert-warning" role="alert">
+                    <p class="h4">Attention</p>
+                    <p class="mb-0">
+                        Your previous session was signed out because you
+                        returned to the login page.
+                    </p>
+                </div>
+            <?php endif; ?>
 
             <?php if ($this->loginAttempted && !$this->grantStatus) : ?>
                 <div class="alert alert-danger" role="alert">

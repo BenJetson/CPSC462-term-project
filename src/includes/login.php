@@ -121,7 +121,10 @@ class AccessToken implements \JsonSerializable
             // Send a null cookie that expires yesterday to the browser so that
             // the browser will delete its local copy of the cookie.
             setcookie(self::COOKIE_NAME, null, time() - (60 * 60 * 24));
+
+            return true;
         }
+        return false;
     }
 }
 

@@ -11,6 +11,7 @@ require_once 'includes/components/login.php';
 
 define("REMEMBER_ME_COOKIE", "remember-me-email");
 
+$wasLoggedOut = AccessToken::destroyCookie();
 $loginAttempted = isset($_POST["email"]) && isset($_POST["password"]);
 $grantStatus = false;
 
@@ -42,6 +43,7 @@ $rememberedEmail = $_COOKIE[REMEMBER_ME_COOKIE];
 $page = new Page("Login", [
     new Navbar(null, null),
     new Login(
+        $wasLoggedOut,
         $loginAttempted,
         $grantStatus,
         $isRemembered,
