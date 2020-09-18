@@ -2,18 +2,16 @@
 
 require_once 'includes/db-connect.php';
 require_once 'includes/login.php';
+require_once 'includes/page.php';
+require_once 'includes/components/navbar.php';
+require_once 'includes/components/logout-notice.php';
 
 AccessToken::destroyCookie();
 
-include 'includes/header.php';
+$title = "Logout";
+$page = new Page($title, [
+    new Navbar(null, $title),
+    new LogoutNotice(),
+]);
 
-?>
-
-<div class="container py-5">
-    <h1>Logout Success</h1>
-    <p>Your session is now closed.</p>
-</div>
-
-<?php
-
-include 'includes/footer.php';
+$page->render();
