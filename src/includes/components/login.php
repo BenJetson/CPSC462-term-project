@@ -41,9 +41,12 @@ class Login implements Component
                 </div>
             <?php endif; ?>
 
-            <?php if ($this->loginAttempted && !$this->grantStatus) : ?>
+            <?php if ($this->loginAttempted && !$this->grantStatus->granted) : ?>
                 <div class="alert alert-danger" role="alert">
-                    The email address or password provided was incorrect.
+                    <p class="h4">Access Denied</p>
+                    <p class="mb-0">
+                        <?= $this->grantStatus->reason ?>
+                    </p>
                 </div>
             <?php endif; ?>
 

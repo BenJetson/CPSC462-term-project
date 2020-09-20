@@ -21,14 +21,14 @@ if ($loginAttempted) {
     );
 
     $rememberMeEmail = "";
-    if ($grantStatus && isset($_POST["remember-me"]) && $_POST["remember-me"] === "on") {
+    if ($grantStatus->granted && isset($_POST["remember-me"]) && $_POST["remember-me"] === "on") {
         $rememberMeEmail = $_POST["email"];
     }
 
     setcookie(REMEMBER_ME_COOKIE, $rememberMeEmail, 0, "", "", false, true);
     $_COOKIE[REMEMBER_ME_COOKIE] = $rememberMeEmail; // FIXME
 
-    if ($grantStatus) {
+    if ($grantStatus->granted) {
         header('Location: whoami.php');
         exit;
     }

@@ -132,34 +132,90 @@ class AccessToken implements \JsonSerializable
     }
 }
 
+class PasswordGrantStatus
+{
+    public $granted;
+    public $reason;
+
+    const REASON_GENERIC = "The email address or password provided was incorrect.";
+    const REASON_LOCKOUT = "This account is locked due to multiple failed login attempts. Try again in a few minutes.";
+    const REASON_DISABLED = "This accout is currently disabled. Contact the administrator for assistance.";
+
+    public function __construct($granted, $reason)
+    {
+        $this->granted = $granted;
+        $this->reason = $reason;
+    }
+}
+
+define("LOCKOUT_ATTEMPTS", 5);
+define("LOCKOUT_DURATION", "PT5M");
+
 function password_grant(PDO $pdo, $email, $password)
 {
+    // Always clear the previous access token.
+    AccessToken::destroyCookie();
+
+    // User is not yet authenticated, so no information may be revealed about
+    // whether the account exists, the lockout state, or anything.
+    //
+    // Rejection at this point yields "username or password incorrect" message.
+
     $user = get_user_by_email($pdo, $email);
-
     if (!$user) {
-        AccessToken::destroyCookie();
-        return false;
+        return new PasswordGrantStatus(
+            false,
+            PasswordGrantStatus::REASON_GENERIC
+        );
     }
-
-    if ($user->is_disabled) {
-        AccessToken::destroyCookie();
-        return false;
-    }
-
-    // TODO: Check to see if attempts exceeded.
 
     $matches = password_verify($password, $user->pass_hash);
 
     if (!$matches) {
-        // TODO: Bump attempts and lockout time.
+        update_user_bump_lockout($pdo, $user->user_id);
 
-        AccessToken::destroyCookie();
-        return false;
+        return new PasswordGrantStatus(
+            false,
+            PasswordGrantStatus::REASON_GENERIC
+        );
     }
 
+    // User has been authenticated. We will now perform some sanity checks to
+    // ensure that the grant may pass.
+    //
+    // Rejection at this point can, if desired, reveal a reason for failure
+    // where appropriate to do so.
+
+    // Check for disabled account.
+    if ($user->is_disabled) {
+        return new PasswordGrantStatus(
+            false,
+            PasswordGrantStatus::REASON_DISABLED
+        );
+    }
+
+    // Check for lockout.
+    if ($user->pass_attempts >= LOCKOUT_ATTEMPTS) {
+        $lockoutDuration = new DateInterval(LOCKOUT_DURATION);
+        $lockoutEnd = $user->pass_locked_at->add($lockoutDuration);
+        $now = new DateTime("now");
+
+        if ($now < $lockoutEnd) {
+            return new PasswordGrantStatus(
+                false,
+                PasswordGrantStatus::REASON_LOCKOUT
+            );
+        }
+    }
+
+    // Password accepted. Grant an access token.
     $token = new AccessToken($user->user_id);
     $token->setCookie();
 
-    // Password accepted. Grant an access token.
-    return true;
+    // Clear lockout status if necessary.
+    if ($user->pass_attempts > 0) {
+        update_user_clear_lockout($pdo, $user->user_id);
+    }
+
+    return new PasswordGrantStatus(true, null);
 }

@@ -53,3 +53,39 @@ function get_user_by_email(PDO $pdo, $email)
 
     return $stmt->fetchObject("User");
 }
+
+function get_user_by_token(PDO $pdo)
+{
+    $token = AccessToken::fetchFromCookie();
+    if ($token === null) {
+        return null;
+    }
+
+    return get_user_by_id($pdo, $token->user_id);
+}
+
+function update_user_bump_lockout(PDO $pdo, $userID)
+{
+    $stmt = $pdo->prepare("
+        UPDATE user
+        SET
+            pass_attempts = pass_attempts + 1,
+            pass_locked_at = NOW()
+        WHERE user_id = :user_id
+    ");
+
+    $stmt->bindParam("user_id", $userID);
+    $stmt->execute();
+}
+
+function update_user_clear_lockout(PDO $pdo, $userID)
+{
+    $stmt = $pdo->prepare("
+        UPDATE user
+        SET pass_attempts = 0
+        WHERE user_id = :user_id
+    ");
+
+    $stmt->bindParam("user_id", $userID);
+    $stmt->execute();
+}
