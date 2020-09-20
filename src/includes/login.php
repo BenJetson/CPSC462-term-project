@@ -161,6 +161,13 @@ function password_grant(PDO $pdo, $email, $password)
     //
     // Rejection at this point yields "username or password incorrect" message.
 
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($password) < 1) {
+        return new PasswordGrantStatus(
+            false,
+            PasswordGrantStatus::REASON_GENERIC
+        );
+    }
+
     $user = get_user_by_email($pdo, $email);
     if (!$user) {
         return new PasswordGrantStatus(
