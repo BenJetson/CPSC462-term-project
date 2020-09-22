@@ -67,8 +67,6 @@ make composer
 # permission bits from the local machine, so they need to be accurate.
 ./scripts/fix_permissions.sh
 
-exit 5;
-
 # From the rsync manpage:
 #     -e, --rsh=COMMAND           specify the remote shell to use
 #     -r, --recursive             recurse into directories
