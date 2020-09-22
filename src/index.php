@@ -1,38 +1,23 @@
 <?php
 
-require_once 'includes/autoload.php';
-require_once 'includes/secrets.php';
 require_once 'includes/db-connect.php';
+require_once 'includes/db/user.php';
+require_once 'includes/page.php';
+require_once 'includes/error-page.php';
+require_once 'includes/components/navbar.php';
 
-?>
-<!DOCTYPE html>
-<html>
+$user = get_user_by_token($db);
+if ($user === null) {
+    $errPage = new RequestStatusPage(HTTPStatus::STATUS_NOT_AUTHORIZED);
+    $errPage->render();
+    exit();
+}
 
-<body>
-    <p><?= $_SERVER["SUPER_SECRET"] ?></p>
-    <!-- <p><//?= phpinfo() ?//></p> -->
+// TODO make a real page for this!
+$page = new RequestStatusPage(
+    HTTPStatus::STATUS_OK,
+    $user,
+    "Welcome to the helpdesk! This homepage is still a work in progress."
+);
 
-    <?php
-
-    $stmt = $db->prepare("SELECT email FROM account");
-    $stmt->execute();
-
-    echo "<p>" . $stmt->fetchColumn(0) . "</p>";
-    // echo "<p>" . $stmt->fetchColumn(0) . "</p>";
-    // echo "<p>" . $stmt->fetchColumn(0) . "</p>";
-
-    ?>
-</body>
-
-</html>
-
-<?php
-
-// echo mail(
-//     "benjetson5236@gmail.com",
-//     "Test Message",
-//     "This is a test to see if mail is working.\n\nThis automated message was sent to you via an application written by Ben Godfrey. If you did not request this message, please reach out to bfgodfr@clemson.edu for assistance.",
-//     "From: Demo Application <noreply@clemson.edu>\r\n"
-// );
-
-?>
+$page->render();
