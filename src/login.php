@@ -7,6 +7,8 @@ require_once 'includes/components/navbar.php';
 require_once 'includes/components/noscript-warning.php';
 require_once 'includes/components/login.php';
 
+// TODO make sure this is everywhere.
+ini_set('display_errors', 0);
 
 define("REMEMBER_ME_COOKIE", "remember-me-email");
 
