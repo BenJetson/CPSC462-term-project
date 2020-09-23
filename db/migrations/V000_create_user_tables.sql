@@ -11,13 +11,13 @@ CREATE TABLE user (
     first_name text        NOT NULL,
     last_name  text        NOT NULL,
     dob        date        NOT NULL,
-    telephone  varchar(12) NOT NULL,
+    telephone  char(12)    NOT NULL,
 
     address_line_1 text       NOT NULL,
     address_line_2 text       NOT NULL,
     address_city   text       NOT NULL,
-    address_state  varchar(2) NOT NULL,
-    address_zip    varchar(5) NOT NULL,
+    address_state  char(2)    NOT NULL,
+    address_zip    char(5)    NOT NULL,
 
     pass_hash       text     NOT NULL,
     pass_changed_at datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
