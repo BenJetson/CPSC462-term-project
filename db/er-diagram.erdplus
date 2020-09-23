@@ -1,0 +1,368 @@
+﻿{
+  "version": 2,
+  "www": "erdplus.com",
+  "shapes": [
+    {
+      "type": "Entity",
+      "details": {
+        "name": "User",
+        "type": "regular",
+        "x": 927,
+        "y": 384,
+        "id": 1
+      }
+    },
+    {
+      "type": "Entity",
+      "details": {
+        "name": "Article",
+        "type": "regular",
+        "x": 1154,
+        "y": 241,
+        "id": 2
+      }
+    },
+    {
+      "type": "Entity",
+      "details": {
+        "name": "Article Comment",
+        "type": "regular",
+        "x": 1206,
+        "y": 478,
+        "id": 3
+      }
+    },
+    {
+      "type": "Entity",
+      "details": {
+        "name": "Article Rating",
+        "type": "regular",
+        "x": 1378,
+        "y": 572,
+        "id": 4
+      }
+    },
+    {
+      "type": "Entity",
+      "details": {
+        "name": "Article Category",
+        "type": "regular",
+        "x": 1282,
+        "y": 120,
+        "id": 5
+      }
+    },
+    {
+      "type": "Entity",
+      "details": {
+        "name": "Help Ticket",
+        "type": "regular",
+        "x": 620,
+        "y": 336,
+        "id": 6
+      }
+    },
+    {
+      "type": "Entity",
+      "details": {
+        "name": "Help Ticket Comment",
+        "type": "regular",
+        "x": 616,
+        "y": 548,
+        "id": 7
+      }
+    },
+    {
+      "type": "Relationship",
+      "details": {
+        "name": "Authors",
+        "isIdentifying": false,
+        "x": 1044,
+        "y": 310,
+        "slots": [
+          {
+            "slotIndex": 0,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 1
+          },
+          {
+            "slotIndex": 1,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 2
+          }
+        ],
+        "id": 8
+      }
+    },
+    {
+      "type": "Relationship",
+      "details": {
+        "name": "Submits",
+        "isIdentifying": false,
+        "x": 787,
+        "y": 319,
+        "slots": [
+          {
+            "slotIndex": 0,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 1
+          },
+          {
+            "slotIndex": 1,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 6
+          }
+        ],
+        "id": 9
+      }
+    },
+    {
+      "type": "Relationship",
+      "details": {
+        "name": "Assigned",
+        "isIdentifying": false,
+        "x": 781,
+        "y": 401,
+        "slots": [
+          {
+            "slotIndex": 0,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 1
+          },
+          {
+            "slotIndex": 1,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 6
+          }
+        ],
+        "id": 10
+      }
+    },
+    {
+      "type": "Relationship",
+      "details": {
+        "name": "Writes",
+        "isIdentifying": false,
+        "x": 827,
+        "y": 501,
+        "slots": [
+          {
+            "slotIndex": 0,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 1
+          },
+          {
+            "slotIndex": 1,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 7
+          }
+        ],
+        "id": 17
+      }
+    },
+    {
+      "type": "Relationship",
+      "details": {
+        "name": "Writes",
+        "isIdentifying": false,
+        "x": 1056,
+        "y": 468,
+        "slots": [
+          {
+            "slotIndex": 0,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 1
+          },
+          {
+            "slotIndex": 1,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 3
+          }
+        ],
+        "id": 20
+      }
+    },
+    {
+      "type": "Relationship",
+      "details": {
+        "name": "Submits",
+        "isIdentifying": false,
+        "x": 1113,
+        "y": 570,
+        "slots": [
+          {
+            "slotIndex": 0,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 1
+          },
+          {
+            "slotIndex": 1,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 4
+          }
+        ],
+        "id": 23
+      }
+    }
+  ],
+  "connectors": [
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 0,
+        "id": 11
+      },
+      "source": 1,
+      "destination": 9
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 1,
+        "id": 12
+      },
+      "source": 6,
+      "destination": 9
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 0,
+        "id": 13
+      },
+      "source": 1,
+      "destination": 10
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 1,
+        "id": 14
+      },
+      "source": 6,
+      "destination": 10
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 0,
+        "id": 15
+      },
+      "source": 1,
+      "destination": 8
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 1,
+        "id": 16
+      },
+      "source": 2,
+      "destination": 8
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 0,
+        "id": 18
+      },
+      "source": 1,
+      "destination": 17
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 1,
+        "id": 19
+      },
+      "source": 7,
+      "destination": 17
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 0,
+        "id": 21
+      },
+      "source": 1,
+      "destination": 20
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 1,
+        "id": 22
+      },
+      "source": 3,
+      "destination": 20
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 0,
+        "id": 24
+      },
+      "source": 1,
+      "destination": 23
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 1,
+        "id": 25
+      },
+      "source": 4,
+      "destination": 23
+    }
+  ],
+  "width": 2000,
+  "height": 1000
+}
