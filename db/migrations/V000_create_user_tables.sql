@@ -5,7 +5,7 @@ CREATE TABLE user (
     is_disabled  boolean NOT NULL DEFAULT false,
 
     email            varchar(254) NOT NULL UNIQUE,
-    email_changed_at datetime     NOT NULL DEFAULT '1970-01-01 00:00:00',
+    email_changed_at datetime     NOT NULL,
     email_confirmed  boolean      NOT NULL DEFAULT false,
 
     first_name text        NOT NULL,
@@ -20,9 +20,9 @@ CREATE TABLE user (
     address_zip    char(5)    NOT NULL,
 
     pass_hash       text     NOT NULL,
-    pass_changed_at datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
+    pass_changed_at datetime NOT NULL,
     pass_attempts   integer  NOT NULL DEFAULT 0,
-    pass_locked_at  datetime NOT NULL DEFAULT '1970-01-01 00:00:00'
+    pass_locked_at  datetime NOT NULL
 )
 COMMENT = 'user stores the data associated with each user account';
 
@@ -37,20 +37,33 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE TRIGGER user_telephone_insert_check
+CREATE TRIGGER user_telephone_insert
 BEFORE INSERT ON user
 FOR EACH ROW
 BEGIN
     CALL check_phone_number(NEW.telephone);
+
+    SET NEW.email_changed_at = NOW();
+    SET NEW.pass_changed_at = NOW();
+    SET NEW.pass_locked_at = FROM_UNIXTIME(0);
 END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE TRIGGER user_telephone_update_check
+CREATE TRIGGER user_telephone_update
 BEFORE UPDATE ON user
 FOR EACH ROW
 BEGIN
     CALL check_phone_number(NEW.telephone);
+
+    IF (NEW.email != OLD.email) THEN
+        SET NEW.email_changed_at = NOW();
+        SET NEW.email_confirmed = FALSE;
+    END IF;
+
+    IF (NEW.pass_hash != OLD.pass_hash) THEN
+        SET NEW.pass_changed_at = NOW();
+    END IF;
 END$$
 DELIMITER ;
 
@@ -80,6 +93,6 @@ INSERT INTO user (
     'Box 99999',
     'Clemson',
     'SC',
-    29632,
+    '29632',
     '$2y$10$.Jz6XTlb9bAAY6D/VHXAIuIP0Rj2.4XT4gkMZNpvCaLoCTSfhkTpe'
 );
