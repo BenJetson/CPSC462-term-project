@@ -22,14 +22,14 @@ class Navbar implements Component
                 <?php
                 // FIXME need to send users to a homepage from this link
                 ?>
-                <a class="navbar-brand" href="#">IT Helpdesk</a>
+                <a class="navbar-brand" href="index.php">IT Helpdesk</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navLinks" aria-controls="navLinks" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navLinks">
                     <ul class="navbar-nav w-100 justify-content-end mt-2 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
+                            <a class="nav-link" href="index.php">Home</a>
                         </li>
                         <?php if ($this->user === null) : ?>
                             <li class="nav-item">
