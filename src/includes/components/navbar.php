@@ -8,7 +8,7 @@ class Navbar implements Component
     private $user;
     private $title;
 
-    public function __construct(User $user, $title)
+    public function __construct($user, $title)
     {
         $this->user = $user;
         $this->title = $title;
