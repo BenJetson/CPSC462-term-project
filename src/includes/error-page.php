@@ -1,8 +1,8 @@
 <?php
 
 require_once 'page.php';
-require_once 'components/navbar.php';
-require_once 'components/alert-box.php';
+require_once 'components/Navbar.php';
+require_once 'components/AlertBox.php';
 
 class HTTPStatus
 {

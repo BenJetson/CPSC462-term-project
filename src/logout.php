@@ -1,10 +1,9 @@
 <?php
 
-require_once 'includes/db-connect.php';
+require_once 'includes/components/Navbar.php';
+require_once 'includes/components/LogoutNotice.php';
 require_once 'includes/login.php';
 require_once 'includes/page.php';
-require_once 'includes/components/navbar.php';
-require_once 'includes/components/logout-notice.php';
 
 AccessToken::destroyCookie();
 

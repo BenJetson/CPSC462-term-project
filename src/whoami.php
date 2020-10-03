@@ -1,11 +1,11 @@
 <?php
 
-require_once 'includes/login.php';
-require_once 'includes/page.php';
-require_once 'includes/components/navbar.php';
+require_once 'includes/components/AuthStatus.php';
+require_once 'includes/components/Navbar.php';
 require_once 'includes/db/connect.php';
 require_once 'includes/db/user.php';
-require_once 'includes/components/auth-status.php';
+require_once 'includes/login.php';
+require_once 'includes/page.php';
 
 
 $token = AccessToken::fetchFromCookie();

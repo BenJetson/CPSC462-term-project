@@ -2,9 +2,7 @@
 
 require_once 'includes/db/connect.php';
 require_once 'includes/db/user.php';
-require_once 'includes/page.php';
 require_once 'includes/error-page.php';
-require_once 'includes/components/navbar.php';
 
 $pdo = db_connect();
 
