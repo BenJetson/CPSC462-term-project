@@ -1,6 +1,7 @@
 <?php
 
-require_once 'includes/db-connect.php';
+require_once 'includes/db/connect.php';
+require_once 'includes/db/user.php';
 require_once 'includes/login.php';
 require_once 'includes/page.php';
 require_once 'includes/components/navbar.php';
@@ -12,13 +13,15 @@ ini_set('display_errors', 0);
 
 define("REMEMBER_ME_COOKIE", "remember-me-email");
 
+$pdo = db_connect();
+
 $wasLoggedOut = AccessToken::destroyCookie();
 $loginAttempted = isset($_POST["email"]) && isset($_POST["password"]);
 $grantStatus = false;
 
 if ($loginAttempted) {
     $grantStatus = password_grant(
-        $db,
+        $pdo,
         $_POST["email"],
         $_POST["password"]
     );

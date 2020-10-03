@@ -1,12 +1,14 @@
 <?php
 
-require_once 'includes/db-connect.php';
+require_once 'includes/db/connect.php';
 require_once 'includes/db/user.php';
 require_once 'includes/page.php';
 require_once 'includes/error-page.php';
 require_once 'includes/components/navbar.php';
 
-$user = get_user_by_token($db);
+$pdo = db_connect();
+
+$user = get_user_by_token($pdo);
 if ($user === null) {
     $errPage = new RequestStatusPage(HTTPStatus::STATUS_NOT_AUTHORIZED);
     $errPage->render();
