@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/../page.php";
+require_once 'Component.php';
 
 class AlertBox implements Component
 {

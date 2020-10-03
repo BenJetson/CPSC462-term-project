@@ -1,10 +1,6 @@
 <?php
 
-interface Component
-{
-    public function render();
-    public function injectScripts();
-}
+require_once __DIR__ . '/../components/Component.php';
 
 class Page
 {

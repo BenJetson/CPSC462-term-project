@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . "/../types/User.php";
-require_once __DIR__ . "/../page.php";
+require_once 'Component.php';
 
 class Navbar implements Component
 {

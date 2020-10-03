@@ -5,8 +5,8 @@ require_once 'includes/components/Navbar.php';
 require_once 'includes/components/NoScriptWarning.php';
 require_once 'includes/db/connect.php';
 require_once 'includes/db/user.php';
+require_once 'includes/pages/Page.php';
 require_once 'includes/login.php';
-require_once 'includes/page.php';
 
 // TODO make sure this is everywhere.
 ini_set('display_errors', 0);
