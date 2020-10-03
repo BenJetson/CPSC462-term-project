@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/../types/user.php";
+require_once __DIR__ . "/../types/User.php";
 require_once __DIR__ . "/../page.php";
 
 class Navbar implements Component
@@ -8,7 +8,7 @@ class Navbar implements Component
     private $user;
     private $title;
 
-    public function __construct($user, $title)
+    public function __construct(User $user, $title)
     {
         $this->user = $user;
         $this->title = $title;
