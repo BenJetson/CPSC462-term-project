@@ -12,7 +12,6 @@ function db_connect()
         [
             PDO::MYSQL_ATTR_INIT_COMMAND => "
                 SET NAMES utf8;
-                SET time_zone = 'America/New_York';
             ",
         ]
     );
