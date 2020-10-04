@@ -21,8 +21,7 @@ class HTTPStatus
         self::STATUS_FORBIDDEN => "Forbidden",
         self::STATUS_NOT_FOUND => "Not Found",
         self::STATUS_INTERNAL_SERVER_ERROR => "Internal Server Error",
-        self::STATUS_NOT_IMPLEMENTED => "Not Implemented"
-
+        self::STATUS_NOT_IMPLEMENTED => "Not Implemented",
     );
 
     public static function describe($statusCode)
