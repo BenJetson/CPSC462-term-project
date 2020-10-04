@@ -7,8 +7,8 @@
       "details": {
         "name": "User",
         "type": "regular",
-        "x": 927,
-        "y": 384,
+        "x": 932,
+        "y": 378,
         "id": 1
       }
     },
@@ -18,7 +18,7 @@
         "name": "Article",
         "type": "regular",
         "x": 1154,
-        "y": 241,
+        "y": 242,
         "id": 2
       }
     },
@@ -47,8 +47,8 @@
       "details": {
         "name": "Article Category",
         "type": "regular",
-        "x": 1282,
-        "y": 120,
+        "x": 1387,
+        "y": 380,
         "id": 5
       }
     },
@@ -251,6 +251,96 @@
         ],
         "id": 23
       }
+    },
+    {
+      "type": "Relationship",
+      "details": {
+        "name": "For",
+        "isIdentifying": false,
+        "x": 1123,
+        "y": 388,
+        "slots": [
+          {
+            "slotIndex": 0,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 3
+          },
+          {
+            "slotIndex": 1,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 2
+          }
+        ],
+        "id": 26
+      }
+    },
+    {
+      "type": "Relationship",
+      "details": {
+        "name": "Regarding",
+        "isIdentifying": false,
+        "x": 662,
+        "y": 452,
+        "slots": [
+          {
+            "slotIndex": 0,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 7
+          },
+          {
+            "slotIndex": 1,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 6
+          }
+        ],
+        "id": 30
+      }
+    },
+    {
+      "type": "Relationship",
+      "details": {
+        "name": "Within",
+        "isIdentifying": false,
+        "x": 1271,
+        "y": 302,
+        "slots": [
+          {
+            "slotIndex": 0,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 2
+          },
+          {
+            "slotIndex": 1,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 5
+          }
+        ],
+        "id": 34
+      }
     }
   ],
   "connectors": [
@@ -361,6 +451,60 @@
       },
       "source": 4,
       "destination": 23
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 0,
+        "id": 28
+      },
+      "source": 3,
+      "destination": 26
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 1,
+        "id": 29
+      },
+      "source": 2,
+      "destination": 26
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 0,
+        "id": 31
+      },
+      "source": 7,
+      "destination": 30
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 1,
+        "id": 32
+      },
+      "source": 6,
+      "destination": 30
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 0,
+        "id": 35
+      },
+      "source": 2,
+      "destination": 34
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 1,
+        "id": 36
+      },
+      "source": 5,
+      "destination": 34
     }
   ],
   "width": 2000,
