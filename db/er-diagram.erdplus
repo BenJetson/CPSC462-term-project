@@ -37,8 +37,8 @@
       "details": {
         "name": "Article Rating",
         "type": "regular",
-        "x": 1378,
-        "y": 572,
+        "x": 1359,
+        "y": 540,
         "id": 4
       }
     },
@@ -47,8 +47,8 @@
       "details": {
         "name": "Article Category",
         "type": "regular",
-        "x": 1387,
-        "y": 380,
+        "x": 862,
+        "y": 203,
         "id": 5
       }
     },
@@ -227,8 +227,8 @@
       "details": {
         "name": "Submits",
         "isIdentifying": false,
-        "x": 1113,
-        "y": 570,
+        "x": 1091,
+        "y": 560,
         "slots": [
           {
             "slotIndex": 0,
@@ -317,8 +317,8 @@
       "details": {
         "name": "Within",
         "isIdentifying": false,
-        "x": 1271,
-        "y": 302,
+        "x": 1006,
+        "y": 222,
         "slots": [
           {
             "slotIndex": 0,
@@ -340,6 +340,36 @@
           }
         ],
         "id": 34
+      }
+    },
+    {
+      "type": "Relationship",
+      "details": {
+        "name": "Rates",
+        "isIdentifying": false,
+        "x": 1306,
+        "y": 378,
+        "slots": [
+          {
+            "slotIndex": 0,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 4
+          },
+          {
+            "slotIndex": 1,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 2
+          }
+        ],
+        "id": 37
       }
     }
   ],
@@ -505,6 +535,24 @@
       },
       "source": 5,
       "destination": 34
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 0,
+        "id": 38
+      },
+      "source": 4,
+      "destination": 37
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 1,
+        "id": 39
+      },
+      "source": 2,
+      "destination": 37
     }
   ],
   "width": 2000,
