@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script to ensure that the Apache server reliably starts.
-# Copied from the official PHP image in the Docker library.
+# Adapted from the official PHP image in the Docker library.
 #
 # Source:
 # https://github.com/docker-library/php/commit/a51c16e5f91be6243452471d1454dca5b168e3d4
