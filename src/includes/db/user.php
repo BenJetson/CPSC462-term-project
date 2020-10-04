@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . "/../login.php";
-require_once __DIR__ . "/../types/user.php";
+require_once __DIR__ . "/../types/User.php";
 
 define("GET_USER_QUERY", "
     SELECT
