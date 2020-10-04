@@ -8,8 +8,6 @@ require_once 'Page.php';
 class RequestStatusPage extends Page
 {
     private $statusCode;
-    private $message;
-    private $user;
 
     private static $defaultMessages = array(
         HTTPStatus::STATUS_OK =>
@@ -36,18 +34,18 @@ class RequestStatusPage extends Page
     {
         $this->statusCode = $statusCode;
 
-        $title = "$this->statusCode ";
-        $title .= HTTPSTatus::describe($this->statusCode);
+        $title = "$statusCode ";
+        $title .= HTTPSTatus::describe($statusCode);
 
-        $message = $this->message;
+        $message = $message;
         if (!isset($message)) {
-            $message = self::$defaultMessages[$this->statusCode];
+            $message = self::$defaultMessages[$statusCode];
         }
 
         parent::__construct($title, [
-            new Navbar($this->user, $title),
+            new Navbar($user, $title),
             new AlertBox(
-                HTTPStatus::isError($this->statusCode)
+                HTTPStatus::isError($statusCode)
                     ? AlertBox::TYPE_DANGER
                     : AlertBox::TYPE_INFO,
                 null,
