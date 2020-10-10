@@ -71,6 +71,9 @@ class Login implements Component
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+            <p class="py-3">
+                Don't have an account? <a href="register.php">Register</a>.
+            </p>
         </div>
     <?php
     }
