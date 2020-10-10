@@ -1,6 +1,6 @@
 <?php
 
-require_once 'comment.php';
+require_once 'Comment.php';
 
 class ArticleComment extends Comment
 {
