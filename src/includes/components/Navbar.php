@@ -22,7 +22,7 @@ class Navbar implements Component
                 <?php
                 // FIXME need to send users to a homepage from this link
                 ?>
-                <a class="navbar-brand" href="index.php">IT Helpdesk</a>
+                <a class="navbar-brand" href="index.php">🛠 IT Helpdesk</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navLinks" aria-controls="navLinks" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
