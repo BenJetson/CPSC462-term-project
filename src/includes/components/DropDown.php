@@ -20,7 +20,7 @@ abstract class DropDown implements Component
     {
 ?>
         <label for="<?= $this->id ?>"><?= $this->label ?></label>
-        <select id="<?= $this->id ?>" class="form-control">
+        <select id="<?= $this->id ?>" name="<?= $this->name ?>" class="form-control">
             <?php if (!isset($this->defaultValue)) : ?>
                 <option selected>Choose...</option>
             <?php endif; ?>
