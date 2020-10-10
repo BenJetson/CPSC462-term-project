@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Component.php';
+require_once 'PasswordMeter.php';
 require_once __DIR__ . '/../types/User.php';
 
 class UserProfileForm implements Component
@@ -19,11 +20,11 @@ class UserProfileForm implements Component
             <form action="register.php" method="post">
                 <p class="h3">Personal Info</p>
                 <div class="form-row">
-                    <div class="form-group col-12 col-md-6">
+                    <div class="form-group col-md-6">
                         <label for="first-name">First Name</label>
                         <input type="text" class="form-control" id="first-name" name="first-name" required />
                     </div>
-                    <div class="form-group col-12 col-md-6">
+                    <div class="form-group col-md-6">
                         <label for="last-name">Last Name</label>
                         <input type="text" class="form-control" id="last-name" name="last-name" required />
                     </div>
@@ -32,14 +33,21 @@ class UserProfileForm implements Component
                     <div class="form-group col">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="email" required />
+                        <p>
+                            <small>
+                                A message will be sent to this address to
+                                confirm. Email must be confirmed before you can
+                                comment or send help tickets.
+                            </small>
+                        </p>
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-12 col-md-6">
+                    <div class="form-group col-md-6">
                         <label for="phone">Telephone</label>
                         <input type="text" class="form-control" id="phone" name="phone" required />
                     </div>
-                    <div class="form-group col-12 col-md-6">
+                    <div class="form-group col-md-6">
                         <label for="dob">Date of Birth</label>
                         <input type="date" class="form-control" id="dob" name="dob" required />
                     </div>
@@ -76,13 +84,21 @@ class UserProfileForm implements Component
                         <input type="text" class="form-control" id="zip" name="zip" required />
                     </div>
                 </div>
-                <p class="h3">Password</p>
-                <div class="form-row">
-                    <div class="form-group col">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required />
+                <?php if (!isset($this->user) || !isset($this->user->user_id)) : ?>
+                    <p class="h3">Password</p>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <?php $pwdMeter = new PasswordMeter();
+                            $pwdMeter->render();
+                            $pwdMeter->injectScripts(); // FIXME
+                            ?>
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
