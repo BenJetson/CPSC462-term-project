@@ -7,10 +7,15 @@ require_once __DIR__ . '/../types/User.php';
 class UserProfileForm implements Component
 {
     private $user;
+    private $showPassword;
+    private $passMeter;
 
     public function __construct($user)
     {
         $this->user = $user;
+        $this->showPassword = !isset($this->user)
+            || !isset($this->user->user_id);
+        $this->passMeter = $this->showPassword ? new PasswordMeter() : null;
     }
 
     public function render()
@@ -84,7 +89,7 @@ class UserProfileForm implements Component
                         <input type="text" class="form-control" id="zip" name="zip" required />
                     </div>
                 </div>
-                <?php if (!isset($this->user) || !isset($this->user->user_id)) : ?>
+                <?php if ($this->showPassword) : ?>
                     <p class="h3">Password</p>
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -92,22 +97,18 @@ class UserProfileForm implements Component
                             <input type="password" class="form-control" id="password" name="password" required />
                         </div>
                         <div class="form-group col-md-6">
-                            <?php $pwdMeter = new PasswordMeter();
-                            $pwdMeter->render();
-                            $pwdMeter->injectScripts(); // FIXME
-                            ?>
+                            <?php $this->passMeter->render(); ?>
                         </div>
                     </div>
                 <?php endif; ?>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
-    <?php
+<?php
     }
 
     public function injectScripts()
     {
-    ?>
-<?php
+        !$this->showPassword ?: $this->passMeter->injectScripts();
     }
 }
