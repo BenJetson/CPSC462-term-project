@@ -44,30 +44,22 @@ END$$
 DELIMITER ;
 
 CREATE TABLE article_comment (
-    article_comment_id integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    comment_id integer NOT NULL,
     article_id integer NOT NULL,
-    author integer NOT NULL,
-    posted_at datetime NOT NULL,
-    body text,
+
+    PRIMARY KEY (comment_id, article_id),
 
     FOREIGN KEY (article_id)
         REFERENCES article(article_id)
         ON DELETE CASCADE,
 
-    FOREIGN KEY (author)
-        REFERENCES user(user_id)
+    FOREIGN KEY (comment_id)
+        REFERENCES comment(comment_id)
         ON DELETE CASCADE
+
 )
 COMMENT = 'article_comment stores user comments on knowledge articles';
 
-DELIMITER $$
-CREATE TRIGGER article_comment_insert
-BEFORE INSERT ON article_comment
-FOR EACH ROW
-BEGIN
-    SET NEW.posted_at = NOW();
-END$$
-DELIMITER ;
 
 CREATE TABLE article_rating (
     article_id integer NOT NULL,

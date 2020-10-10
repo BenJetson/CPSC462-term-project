@@ -30,27 +30,15 @@ END$$
 DELIMITER ;
 
 CREATE TABLE help_ticket_comment (
-    help_ticket_comment_id integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    comment_id integer NOT NULL,
     help_ticket_id integer NOT NULL,
-    author integer NOT NULL,
-    posted_at datetime NOT NULL,
-    body text,
 
     FOREIGN KEY (help_ticket_id)
         REFERENCES help_ticket(help_ticket_id)
         ON DELETE CASCADE,
 
-    FOREIGN KEY (author)
-        REFERENCES user(user_id)
+    FOREIGN KEY (comment_id)
+        REFERENCES comment(comment_id)
         ON DELETE CASCADE
 )
 COMMENT = 'help_ticket_comment stores follow up comments to help tickets';
-
-DELIMITER $$
-CREATE TRIGGER help_ticket_comment_insert
-BEFORE INSERT ON help_ticket_comment
-FOR EACH ROW
-BEGIN
-    SET NEW.posted_at = NOW();
-END$$
-DELIMITER ;

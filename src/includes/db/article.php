@@ -93,12 +93,16 @@ define("GET_ARTICLE_QUERY", "
         a.title,
         a.body,
         a.created_at,
-        a.updated_at
+        a.updated_at,
+        GROUP_CONCAT(ac.comment_id) AS comment_ids
     FROM article a
     INNER JOIN article_category c
         ON a.article_category_id = c.article_category_id
     INNER JOIN user u
         ON a.author = u.user_id
+    INNER JOIN article_comment ac
+        ON a.article_id = ac.article_id
+    GROUP BY a.article_id
 ");
 
 function get_article_by_id(PDO $pdo, $article_id)
@@ -131,7 +135,7 @@ function get_all_articles(PDO $pdo)
 function get_articles_in_category(PDO $pdo, $category_id)
 {
     $stmt = $pdo->prepare(GET_ARTICLE_QUERY . "
-        WHERE c.category_id = :category_id
+        HAVING c.category_id = :category_id
     ");
 
     $stmt->bindParam(":category_id", $category_id);
