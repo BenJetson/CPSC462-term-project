@@ -7,21 +7,21 @@ require_once __DIR__ . '/../types/User.php';
 class UserProfileForm implements Component
 {
     private $user;
-    private $showPassword;
+    private $isRegistration;
     private $passMeter;
 
     public function __construct($user)
     {
         $this->user = $user;
-        $this->showPassword = !isset($this->user)
+        $this->isRegistration = !isset($this->user)
             || !isset($this->user->user_id);
-        $this->passMeter = $this->showPassword ? new PasswordMeter() : null;
+        $this->passMeter = $this->isRegistration ? new PasswordMeter() : null;
     }
 
     public function render()
     {
 ?>
-        <div class="container">
+        <div class="container mb-5">
             <form action="register.php" method="post">
                 <p class="h3">Personal Info</p>
                 <div class="form-row">
@@ -89,7 +89,7 @@ class UserProfileForm implements Component
                         <input type="text" class="form-control" id="zip" name="zip" required />
                     </div>
                 </div>
-                <?php if ($this->showPassword) : ?>
+                <?php if ($this->isRegistration) : ?>
                     <p class="h3">Password</p>
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -100,6 +100,19 @@ class UserProfileForm implements Component
                             <?php $this->passMeter->render(); ?>
                         </div>
                     </div>
+                    <p class="h3">Terms and Conditions</p>
+                    <div class="card mb-3 bg-light">
+                        <div class="card-body overflow-auto" style="max-height: 150px;">
+                            <?php echo file_get_contents(__DIR__ . "/../assets/tos.html"); ?>
+                        </div>
+                    </div>
+                    <div class="form-group custom-control custom-switch">
+                        <input class="custom-control-input" type="checkbox" id="tos-accept" name="tos-accept" />
+                        <label class="custom-control-label" for="tos-accept">
+                            I have read the terms and conditions and agree to be
+                            bound by them.
+                        </label>
+                    </div>
                 <?php endif; ?>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
@@ -109,6 +122,6 @@ class UserProfileForm implements Component
 
     public function injectScripts()
     {
-        !$this->showPassword ?: $this->passMeter->injectScripts();
+        !$this->isRegistration ?: $this->passMeter->injectScripts();
     }
 }
