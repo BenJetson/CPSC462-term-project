@@ -20,6 +20,13 @@ pass_locked_at timestamp
 is_admin bool
 is_disabled bool
 
+comment
+---
+comment_id integer pk autoincrement
+author integer fk >- user.user_id
+posted_at timestamp
+body text
+
 article
 ---
 article_id integer pk autoincrement
@@ -35,11 +42,8 @@ name text
 
 article_comment
 ---
-article_comment_id integer pk autoincrement
-article_id integer fk >- article.article_id
-author integer fk >- user.user_id
-posted_at timestamp
-body text
+article_id integer fk >- article.article_id pk
+comment_id integer fk >- comment.comment_id pk
 
 article_rating
 ---
@@ -61,9 +65,5 @@ body text
 
 help_ticket_comment
 ---
-help_ticket_comment_id integer pk autoincrement
-help_ticket_id integer fk >- help_ticket.help_ticket_id
-author integer fk >- user.user_id
-posted_at timestamp
-body text
-
+help_ticket_id integer fk >- help_ticket.help_ticket_id pk
+comment_id integer fk >- comment.comment_id pk
