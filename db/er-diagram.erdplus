@@ -7,7 +7,7 @@
       "details": {
         "name": "User",
         "type": "regular",
-        "x": 932,
+        "x": 930,
         "y": 378,
         "id": 1
       }
@@ -18,7 +18,7 @@
         "name": "Article",
         "type": "regular",
         "x": 1154,
-        "y": 242,
+        "y": 241,
         "id": 2
       }
     },
@@ -27,8 +27,8 @@
       "details": {
         "name": "Article Comment",
         "type": "regular",
-        "x": 1206,
-        "y": 478,
+        "x": 1204,
+        "y": 592,
         "id": 3
       }
     },
@@ -47,8 +47,8 @@
       "details": {
         "name": "Article Category",
         "type": "regular",
-        "x": 862,
-        "y": 203,
+        "x": 1328,
+        "y": 145,
         "id": 5
       }
     },
@@ -57,8 +57,8 @@
       "details": {
         "name": "Help Ticket",
         "type": "regular",
-        "x": 620,
-        "y": 336,
+        "x": 619,
+        "y": 334,
         "id": 6
       }
     },
@@ -77,8 +77,8 @@
       "details": {
         "name": "Authors",
         "isIdentifying": false,
-        "x": 1044,
-        "y": 310,
+        "x": 1068,
+        "y": 325,
         "slots": [
           {
             "slotIndex": 0,
@@ -167,8 +167,8 @@
       "details": {
         "name": "Writes",
         "isIdentifying": false,
-        "x": 827,
-        "y": 501,
+        "x": 887,
+        "y": 511,
         "slots": [
           {
             "slotIndex": 0,
@@ -186,7 +186,7 @@
             "participation": "unspecified",
             "cardinality": "unspecified",
             "role": "",
-            "entityId": 7
+            "entityId": 40
           }
         ],
         "id": 17
@@ -195,10 +195,10 @@
     {
       "type": "Relationship",
       "details": {
-        "name": "Writes",
+        "name": "Associated With",
         "isIdentifying": false,
-        "x": 1056,
-        "y": 468,
+        "x": 1067,
+        "y": 682,
         "slots": [
           {
             "slotIndex": 0,
@@ -207,7 +207,7 @@
             "participation": "unspecified",
             "cardinality": "unspecified",
             "role": "",
-            "entityId": 1
+            "entityId": 40
           },
           {
             "slotIndex": 1,
@@ -227,8 +227,8 @@
       "details": {
         "name": "Submits",
         "isIdentifying": false,
-        "x": 1091,
-        "y": 560,
+        "x": 1069,
+        "y": 533,
         "slots": [
           {
             "slotIndex": 0,
@@ -257,8 +257,8 @@
       "details": {
         "name": "For",
         "isIdentifying": false,
-        "x": 1123,
-        "y": 388,
+        "x": 1148,
+        "y": 430,
         "slots": [
           {
             "slotIndex": 0,
@@ -317,8 +317,8 @@
       "details": {
         "name": "Within",
         "isIdentifying": false,
-        "x": 1006,
-        "y": 222,
+        "x": 1203,
+        "y": 166,
         "slots": [
           {
             "slotIndex": 0,
@@ -370,6 +370,326 @@
           }
         ],
         "id": 37
+      }
+    },
+    {
+      "type": "Entity",
+      "details": {
+        "name": "Comment",
+        "type": "regular",
+        "x": 904,
+        "y": 614,
+        "id": 40
+      }
+    },
+    {
+      "type": "Relationship",
+      "details": {
+        "name": "Associated With",
+        "isIdentifying": false,
+        "x": 735,
+        "y": 645,
+        "slots": [
+          {
+            "slotIndex": 0,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 40
+          },
+          {
+            "slotIndex": 1,
+            "minimum": "",
+            "maximum": "",
+            "participation": "unspecified",
+            "cardinality": "unspecified",
+            "role": "",
+            "entityId": 7
+          }
+        ],
+        "id": 42
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Title",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 1328,
+        "y": 61,
+        "id": 47
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Stars",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 1405,
+        "y": 469,
+        "id": 49
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Body",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 483,
+        "y": 330,
+        "id": 51
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Subject",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 494,
+        "y": 391,
+        "id": 53
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Created At",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 501,
+        "y": 270,
+        "id": 55
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Address",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": true,
+        "isUnique": false,
+        "x": 731,
+        "y": 198,
+        "id": 57
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Line 1",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 628,
+        "y": 230,
+        "id": 59
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Line 2",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 606,
+        "y": 177,
+        "id": 61
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "City",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 624,
+        "y": 122,
+        "id": 63
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "State",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 661,
+        "y": 67,
+        "id": 65
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "ZIP",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 742,
+        "y": 103,
+        "id": 67
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Name",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": true,
+        "isUnique": false,
+        "x": 854,
+        "y": 234,
+        "id": 69
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "First",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 816,
+        "y": 153,
+        "id": 71
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Last",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 909,
+        "y": 173,
+        "id": 73
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Email",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 981,
+        "y": 80,
+        "id": 75
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Phone",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 1028,
+        "y": 134,
+        "id": 77
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Is Admin?",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 1061,
+        "y": 198,
+        "id": 79
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Is Closed?",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 512,
+        "y": 458,
+        "id": 81
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Body",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 826,
+        "y": 700,
+        "id": 83
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Posted At",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 938,
+        "y": 709,
+        "id": 85
       }
     }
   ],
@@ -436,24 +756,6 @@
       },
       "source": 1,
       "destination": 17
-    },
-    {
-      "type": "RelationshipConnector",
-      "details": {
-        "slotIndex": 1,
-        "id": 19
-      },
-      "source": 7,
-      "destination": 17
-    },
-    {
-      "type": "RelationshipConnector",
-      "details": {
-        "slotIndex": 0,
-        "id": 21
-      },
-      "source": 1,
-      "destination": 20
     },
     {
       "type": "RelationshipConnector",
@@ -553,6 +855,202 @@
       },
       "source": 2,
       "destination": 37
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 0,
+        "id": 43
+      },
+      "source": 40,
+      "destination": 20
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 1,
+        "id": 44
+      },
+      "source": 40,
+      "destination": 17
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 0,
+        "id": 45
+      },
+      "source": 40,
+      "destination": 42
+    },
+    {
+      "type": "RelationshipConnector",
+      "details": {
+        "slotIndex": 1,
+        "id": 46
+      },
+      "source": 7,
+      "destination": 42
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 48
+      },
+      "source": 47,
+      "destination": 5
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 50
+      },
+      "source": 49,
+      "destination": 4
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 52
+      },
+      "source": 51,
+      "destination": 6
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 54
+      },
+      "source": 53,
+      "destination": 6
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 56
+      },
+      "source": 55,
+      "destination": 6
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 58
+      },
+      "source": 57,
+      "destination": 1
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 60
+      },
+      "source": 59,
+      "destination": 57
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 62
+      },
+      "source": 61,
+      "destination": 57
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 64
+      },
+      "source": 63,
+      "destination": 57
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 66
+      },
+      "source": 65,
+      "destination": 57
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 68
+      },
+      "source": 67,
+      "destination": 57
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 70
+      },
+      "source": 69,
+      "destination": 1
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 72
+      },
+      "source": 71,
+      "destination": 69
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 74
+      },
+      "source": 73,
+      "destination": 69
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 76
+      },
+      "source": 75,
+      "destination": 1
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 78
+      },
+      "source": 77,
+      "destination": 1
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 80
+      },
+      "source": 79,
+      "destination": 1
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 82
+      },
+      "source": 81,
+      "destination": 6
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 84
+      },
+      "source": 83,
+      "destination": 40
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 86
+      },
+      "source": 85,
+      "destination": 40
     }
   ],
   "width": 2000,
