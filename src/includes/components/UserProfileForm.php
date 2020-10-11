@@ -2,6 +2,7 @@
 
 require_once 'Component.php';
 require_once 'PasswordMeter.php';
+require_once 'ToS.php';
 require_once __DIR__ . '/../types/User.php';
 
 class UserProfileForm implements Component
@@ -100,16 +101,12 @@ class UserProfileForm implements Component
                             <?php $this->passMeter->render(); ?>
                         </div>
                     </div>
-                    <p class="h3">Terms and Conditions</p>
-                    <div class="card mb-3 bg-light">
-                        <div class="card-body overflow-auto" style="max-height: 150px;">
-                            <?php echo file_get_contents(__DIR__ . "/../assets/tos.html"); ?>
-                        </div>
-                    </div>
+                    <p class="h3">Terms of Service</p>
+                    <?php (new ToS("100px"))->render(); ?>
                     <div class="form-group custom-control custom-switch">
                         <input class="custom-control-input" type="checkbox" id="tos-accept" name="tos-accept" />
                         <label class="custom-control-label" for="tos-accept">
-                            I have read the terms and conditions and agree to be
+                            I have read the terms of service and agree to be
                             bound by them.
                         </label>
                     </div>
