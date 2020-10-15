@@ -107,7 +107,7 @@ echo
 echo "📝 Deploying application source..."
 
 # shellcheck disable=SC2087
-ssh webapp << EOF
+ssh webapp /usr/bin/env bash << EOF
 # Ensure the deploy directory exists with correct permissions.
 mkdir -v -m 711 -p "$DEPLOY_DIR"
 
