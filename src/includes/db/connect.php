@@ -20,5 +20,9 @@ function db_connect()
     // an error when processing a query.
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+    // mySQL supports prepared statements natively on 5.1.21 and higher and
+    // we are using 5.5. So let's turn off the PDO prepared statement emulation.
+    $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
     return $pdo;
 }
