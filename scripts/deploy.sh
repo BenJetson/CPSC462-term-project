@@ -55,6 +55,9 @@ APP_PATH="4620/$APP_NAME"
 DEPLOY_DIR="$WEB_ROOT/$APP_PATH"
 SECRET_DIR="$ROOT/secrets/$APP_PATH"
 
+LOG_DIR="$ROOT/logs"
+LOG_FILE="$LOG_DIR/$APP_NAME-errors.log"
+
 URL="https://webapp.cs.clemson.edu/~bfgodfr/$APP_PATH"
 
 echo; echo "😁 Starting deploy!"; echo
@@ -96,13 +99,26 @@ umask 333; rm -f ./src/.htaccess; cat << EOF >> ./src/.htaccess
 # Warning: generated as part of deploy.sh. Will be overwritten!
 
 SetEnv SECRET_DIR "$SECRET_DIR"
+SetEnv LOG_FILE "$LOG_FILE"
 EOF
 )
 
 echo
 echo "📝 Deploying application source..."
+
+# shellcheck disable=SC2087
+ssh webapp << EOF
 # Ensure the deploy directory exists with correct permissions.
-ssh webapp mkdir -v -m 711 -p "$DEPLOY_DIR"
+mkdir -v -m 711 -p "$DEPLOY_DIR"
+
+# Ensure that the log directory exists with correct permissions.
+mkdir -v -m 711 -p "$LOG_DIR"
+
+# Note deploy time in the log file.
+touch "$LOG_FILE"
+printf "\n\n*** Deploy at \$(date) ***\n\n" >> "$LOG_FILE"
+EOF
+
 # Copy source files to the remote server.
 rsync -e ssh -rvptd --delete-before ./src/ webapp:"$DEPLOY_DIR/"
 

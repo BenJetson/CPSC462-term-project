@@ -1,5 +1,7 @@
 <?php
 
+require 'includes/init.php';
+
 require_once 'includes/db/connect.php';
 require_once 'includes/db/user.php';
 require_once 'includes/pages/RequestStatusPage.php';

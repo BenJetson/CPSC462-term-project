@@ -1,5 +1,7 @@
 <?php
 
+require 'includes/init.php';
+
 require_once 'includes/components/Navbar.php';
 require_once 'includes/components/ToS.php';
 require_once 'includes/db/connect.php';

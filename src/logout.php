@@ -1,5 +1,7 @@
 <?php
 
+require 'includes/init.php';
+
 require_once 'includes/components/Navbar.php';
 require_once 'includes/components/LogoutNotice.php';
 require_once 'includes/pages/Page.php';
