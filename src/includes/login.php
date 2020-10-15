@@ -8,14 +8,24 @@ require_once 'db/user.php';
 /* TODO
  *
  * Idea: combine session with our login token.
- * Set cookie with random name.
+ *
+ * Generate random cookie.
  * Store cookie name in session.
- * Store some token attributes in the session.
+ * Generate random session key.
+ * Encrypt the login token with this key.
+ * Set the login token cookie using the ciphertext and cookie name.
+ * Store some token attributes in the session as well.
  *
  * Check for cookie name in session
  * Get cookie
+ * Decrypt token from cookie using key from session
  * Validate IP and token attributes
  * compare against session attributes
+ *
+ * Why
+ * If user changes their token only without the session attribute, it will be
+ * rejected. Also, the login token is never in the same place twice.
+ * ALSO eliminates the need for the static login secret in secrets file
  */
 
 class AccessToken implements \JsonSerializable
