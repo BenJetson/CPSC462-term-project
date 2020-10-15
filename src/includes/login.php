@@ -5,6 +5,19 @@ require_once 'secrets.php';
 require_once 'crypto.php';
 require_once 'db/user.php';
 
+/* TODO
+ *
+ * Idea: combine session with our login token.
+ * Set cookie with random name.
+ * Store cookie name in session.
+ * Store some token attributes in the session.
+ *
+ * Check for cookie name in session
+ * Get cookie
+ * Validate IP and token attributes
+ * compare against session attributes
+ */
+
 class AccessToken implements \JsonSerializable
 {
     public $user_id;
