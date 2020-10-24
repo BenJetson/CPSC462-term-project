@@ -2,7 +2,6 @@
 
 require_once __DIR__ . "/../types/Article.php";
 require_once __DIR__ . "/../types/ArticleCategory.php";
-require_once __DIR__ . "/../types/ArticleComment.php";
 
 
 // TODO need to fetch comments as well
@@ -108,7 +107,7 @@ define("GET_ARTICLE_QUERY", "
 function get_article_by_id(PDO $pdo, $article_id)
 {
     $stmt = $pdo->prepare(GET_ARTICLE_QUERY . "
-        WHERE a.article_id = :article_id
+        HAVING a.article_id = :article_id
     ");
 
     $stmt->bindParam(":article_id", $article_id);
