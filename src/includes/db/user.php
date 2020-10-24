@@ -68,6 +68,14 @@ function get_user_by_email(PDO $pdo, $email)
     return $stmt->fetchObject("User");
 }
 
+/**
+ * get_user_by_token will fetch the user object associated with the presently
+ * logged in user, or null if no user is logged in.
+ *
+ * @param PDO $pdo The database connection to use.
+ * @return ?User
+ * @throws PDOException when the database encounters an error.
+ */
 function get_user_by_token(PDO $pdo)
 {
     $token = AccessToken::fetchFromCookie();
