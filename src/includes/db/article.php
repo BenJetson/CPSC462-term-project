@@ -93,7 +93,7 @@ define("GET_ARTICLE_QUERY", "
         a.body,
         a.created_at,
         a.updated_at,
-        AVG(ar.stars) AS rating,
+        ROUND(AVG(ar.stars)) AS rating,
         COUNT(ar.stars) AS rating_count
     FROM article a
     INNER JOIN article_category c
