@@ -100,6 +100,9 @@ umask 333; rm -f ./src/.htaccess; cat << EOF >> ./src/.htaccess
 
 SetEnv SECRET_DIR "$SECRET_DIR"
 SetEnv LOG_FILE "$LOG_FILE"
+
+ErrorDocument 404 /~bfgodfr/$APP_PATH/not-found.php
+ErrorDocument 403 /~bfgodfr/$APP_PATH/not-found.php
 EOF
 )
 
