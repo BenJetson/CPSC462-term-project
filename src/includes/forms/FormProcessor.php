@@ -12,6 +12,17 @@ abstract class FormProcessor
     /** @var array[string]callable(PDO, User) */
     protected static $operation_map;
 
+    protected static function userError(User $user, $description)
+    {
+        // FIXME better way to do this?
+        (new RequestStatusPage(
+            HTTPStatus::STATUS_BAD_REQUEST,
+            $user,
+            $description
+        ))->render();
+        exit();
+    }
+
     public static function process(PDO $pdo, User $user)
     {
         if (!isset($_POST[self::OPERATION])) {
