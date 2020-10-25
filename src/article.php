@@ -7,6 +7,7 @@ require_once 'includes/components/Navbar.php';
 require_once 'includes/db/article.php';
 require_once 'includes/db/connect.php';
 require_once 'includes/db/user.php';
+require_once 'includes/forms/ArticleViewerFP.php';
 require_once 'includes/pages/Page.php';
 require_once 'includes/pages/RequestStatusPage.php';
 require_once 'includes/types/Article.php';
@@ -20,8 +21,13 @@ if ($user === null) {
     exit();
 }
 
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    ArticleViewerFP::process($pdo, $user);
+    exit();
+}
+
 if (!isset($_GET["article_id"])) {
-    $errorPage = new RequestStatusPage(HTTPStatus::STATUS_BAD_REQUEST);
+    $errPage = new RequestStatusPage(HTTPStatus::STATUS_BAD_REQUEST);
     $errPage->render();
     exit();
 }
