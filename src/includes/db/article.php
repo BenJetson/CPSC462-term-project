@@ -2,6 +2,7 @@
 
 require_once __DIR__ . "/../types/Article.php";
 require_once __DIR__ . "/../types/ArticleCategory.php";
+require_once 'comment.php';
 
 
 // TODO need to fetch comments as well
@@ -204,6 +205,26 @@ function delete_article(PDO $pdo, $article_id)
     ");
 
     $stmt->bindParam(":article_id", $article_id);
+
+    $stmt->execute();
+}
+
+function create_article_comment(PDO $pdo, $article_id, Comment $comment)
+{
+    $comment_id = create_comment($pdo, $comment);
+
+    $stmt = $pdo->prepare("
+        INSERT INTO article_comment (
+            article_id,
+            comment_id
+        VALUES (
+            :article_id,
+            :comment_id
+        )
+    ");
+
+    $stmt->bindParam(":article_id", $article_id);
+    $stmt->bindParam(":comment_id", $comment_id);
 
     $stmt->execute();
 }
