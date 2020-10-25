@@ -4,6 +4,25 @@
 // leaked to the end user.
 ini_set('display_errors', 0);
 
+// Start output buffer so that the error handler can flush.
+ob_start();
+
+// This function will be called on any uncaught errors/exceptions. It shall
+// render a nice page for the user to let them know an error has happened.
+function handle_error()
+{
+    ob_clean();
+
+    require_once 'pages/RequestStatusPage.php';
+    (new RequestStatusPage(
+        HTTPStatus::STATUS_INTERNAL_SERVER_ERROR
+    ))->render();
+}
+
+// Set error/exception handlers to use above function.
+set_error_handler("handle_error");
+set_exception_handler("handle_error");
+
 // Always start or resume the PHP session when a user requests a page.
 session_start();
 
