@@ -7,9 +7,15 @@ ini_set('display_errors', 0);
 // Start output buffer so that the error handler can flush.
 ob_start();
 
-// This function will be called on any uncaught errors/exceptions. It shall
-// render a nice page for the user to let them know an error has happened.
-function handle_error()
+// Set error/exception handlers to use below functions.
+set_error_handler("handle_error");
+set_exception_handler("handle_exception");
+register_shutdown_function("handle_shutdown");
+
+// This function will be called by the error/exception handlers. It shall
+// render a nice page for the user to let them know an error has happened,
+// flushing any other output already on the page.
+function render_server_error()
 {
     ob_clean();
 
@@ -19,9 +25,55 @@ function handle_error()
     ))->render();
 }
 
-// Set error/exception handlers to use above function.
-set_error_handler("handle_error");
-set_exception_handler("handle_error");
+function is_fatal_error($errno)
+{
+    // PHP error codes are frustratingly not discernable via bitwise operations.
+    // Thus the only way to know if an error is truly fatal is to see if the
+    // error code is on the list of fatal error codes.
+    //
+    // Source: PHP Manual https://www.php.net/manual/en/ref.errorfunc.php#59192
+
+    return in_array($errno, [
+        E_ERROR,
+        E_CORE_ERROR,
+        E_PARSE,
+        E_COMPILE_ERROR,
+        E_USER_ERROR,
+        E_RECOVERABLE_ERROR,
+    ]);
+}
+
+function handle_error($errno)
+{
+    if (is_fatal_error($errno)) {
+        render_server_error();
+    }
+
+    // Returning false will cascade and trigger the default error handler.
+    return false;
+}
+
+function handle_exception(Exception $e)
+{
+    render_server_error();
+
+    // Cascade and call the default exception handler by rethrowing.
+    restore_exception_handler();
+    throw $e;
+}
+
+function handle_shutdown()
+{
+    // This will catch certain other fatal errors that are not passed to the
+    // default error handler, such as compile errors.
+    //
+    // Inspired by: https://stackoverflow.com/a/7313887
+
+    $error = error_get_last();
+    if ($error) {
+        handle_error($error["type"]);
+    }
+}
 
 // Always start or resume the PHP session when a user requests a page.
 session_start();
