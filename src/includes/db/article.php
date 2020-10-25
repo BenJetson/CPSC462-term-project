@@ -93,14 +93,15 @@ define("GET_ARTICLE_QUERY", "
         a.body,
         a.created_at,
         a.updated_at,
-        GROUP_CONCAT(ac.comment_id) AS comment_ids
+        AVG(ar.stars) AS rating,
+        COUNT(ar.stars) AS rating_count
     FROM article a
     INNER JOIN article_category c
         ON a.article_category_id = c.article_category_id
     INNER JOIN user u
         ON a.author = u.user_id
-    INNER JOIN article_comment ac
-        ON a.article_id = ac.article_id
+    LEFT JOIN article_rating ar
+        ON a.article_id = ar.article_id
     GROUP BY a.article_id
 ");
 
