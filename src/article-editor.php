@@ -30,8 +30,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     exit();
 }
 
+$is_edit_mode = isset($_GET["article_id"]);
+
 $article = new Article();
-if (isset($_GET["article_id"])) {
+if ($is_edit_mode) {
     $article = get_article_by_id($pdo, $_GET["article_id"]);
 
     if (!$article) {
@@ -41,7 +43,7 @@ if (isset($_GET["article_id"])) {
     }
 }
 
-$title = "Article Editor";
+$title = $is_edit_mode ? "Article Editor" : "New Article";
 $page = new Page($title, [
     new Navbar($user, $title),
     new ArticleEditor($article),
