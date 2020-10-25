@@ -23,7 +23,7 @@ class ArticleViewer implements Component
                 <?= $this->article->updated_at->format("Y-m-d h:i:s a") ?>
                 by <?= $this->article->author_name ?>.
                 <br>
-                Rating: <?php (new StarRating(3, 432))->render(); ?>
+                Rating: <?php (new StarRating($this->article->rating, $this->article->rating_count))->render(); ?>
             </p>
 
             <?php foreach (explode("\n", $this->article->body) as $paragraph) : ?>
