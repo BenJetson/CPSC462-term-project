@@ -36,8 +36,9 @@ class ArticleViewer implements Component
                 <h2>Rate this Article</h2>
                 <form method="POST" action="article.php">
                     <input type="hidden" name="op" value="rate" />
+                    <input type="hidden" name="article_id" value="<?= $this->article->article_id ?>" />
                     <span>Rating:</span>
-                    <input type="range" min="1" max="5" name="rating" class="custom-range" />
+                    <input type="range" min="1" max="5" name="stars" class="custom-range" />
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
