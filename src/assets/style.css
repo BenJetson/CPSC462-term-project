@@ -10,3 +10,7 @@
   color: lightgrey;
   border-radius: 50%;
 }
+
+.star-rating .star-bright {
+  color: orange;
+}
