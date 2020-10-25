@@ -22,7 +22,7 @@ class ArticleEditor implements Component
                 <?php endif; ?>
                 <div class="form-group">
                     <label for="articleTitle">Title</label>
-                    <input type="text" class="form-control form-control-lg" name="title" id="articleTitle" placeholder="Title" />
+                    <input type="text" class="form-control form-control-lg font-weight-bold" autofocus name="title" id="articleTitle" placeholder="Title" value="<?= $this->article->title ?>" />
                 </div>
                 <div class="form-group">
                     <?php
