@@ -209,6 +209,30 @@ function delete_article(PDO $pdo, $article_id)
     $stmt->execute();
 }
 
+function set_article_rating(PDO $pdo, User $user, $article_id, $stars)
+{
+    $stmt = $pdo->prepare("
+        INSERT INTO article_rating (
+            user_id,
+            article_id,
+            stars
+        ) VALUES (
+            :user_id,
+            :article_id,
+            :stars_1
+        )
+        ON DUPLICATE KEY
+        UPDATE stars = :stars_2
+    ");
+
+    $stmt->bindParam(":user_id", $user->user_id);
+    $stmt->bindParam(":article_id", $article_id);
+    $stmt->bindParam(":stars_1", $stars);
+    $stmt->bindParam(":stars_2", $stars);
+
+    $stmt->execute();
+}
+
 function create_article_comment(PDO $pdo, $article_id, Comment $comment)
 {
     $comment_id = create_comment($pdo, $comment);
