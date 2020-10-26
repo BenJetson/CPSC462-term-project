@@ -6,13 +6,13 @@ INSERT INTO article_category (
     icon
 ) VALUES
     ('Random', 'Anything and everything, a little of both.', 'orange', 'fa-random'),
-    ('Computere', 'About computeres in general.', 'aqua', 'fa-desktop'),
+    ('Computere', 'About computeres in general.', 'mediumaquamarine', 'fa-desktop'),
     ('Mobile Devices', 'Get help with mobile devices like phones and tablets.', 'dodgerblue', 'fa-mobile-alt'),
     ('Networking', 'Get help with wireless and wired network access.', 'darkgreen', 'fa-wifi'),
     ('Security', 'Find out how to make your devices secure to keep you safe.', 'deeppink', 'fa-shield-alt'),
     ('Software', 'Learn about the software programs we license.', 'goldenrod', 'fa-rocket'),
     ('Hardware', 'Explore what hardware resources we have available.', 'lightcoral', 'fa-tools'),
-    ('Policies', 'Our internal policies for working with our products and services.', 'lightslategray', 'fa-file-alt'),
+    ('Policies', 'Our internal policies for working with our products and services.', 'brown', 'fa-file-alt'),
     ('Archive', 'Articles that are no longer maintained.', 'gray', 'fa-archive'),
     ('Developers', 'API documentation resources.', 'purple', 'fa-code');
 
