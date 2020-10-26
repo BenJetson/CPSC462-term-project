@@ -107,6 +107,7 @@ class ArticleViewer implements Component
                 <h2>Write a comment</h2>
                 <form method="POST" action="article.php">
                     <input type="hidden" name="op" value="comment" />
+                    <input type="hidden" name="article_id" value="<?= $this->article->article_id ?>" />
                     <div class="form-group">
                         <label for="commentInput" class="sr-only">Comment</label>
                         <textarea name="comment" id="commentInput" rows="3" class="form-control" placeholder="Comment"></textarea>
