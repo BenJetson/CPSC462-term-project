@@ -10,24 +10,24 @@ class ArticleViewerFP extends FormProcessor
     const OP_COMMENT = "comment";
 
     protected static $operation_map = [
-        self::OP_RATE => 'static::processRatingForm',
-        self::OP_COMMENT => 'static::processCommentForm',
+        self::OP_RATE => [
+            "handler" => "static::processRatingForm",
+            "req_fields" => [
+                ["article_id", FILTER_VALIDATE_INT],
+                ["stars", FILTER_VALIDATE_INT],
+            ],
+            "opt_fields" => [],
+        ],
+        self::OP_COMMENT => [
+            "handler" => "static::processCommentForm",
+            "req_fields" => [],
+            "opt_fields" => [],
+        ],
     ];
 
     protected static function processRatingForm(PDO $pdo, User $user)
     {
-        echo "Processing rating form";
-
-        if (!isset($_POST["article_id"])) {
-            self::userError($user, "missing article_id field");
-        }
-
-        if (!isset($_POST["stars"])) {
-            self::userError($user, "missing stars field");
-        }
-
         set_article_rating($pdo, $user, $_POST["article_id"], $_POST["stars"]);
-
         // TODO redirect?
     }
 
