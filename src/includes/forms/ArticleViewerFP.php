@@ -3,6 +3,7 @@
 require_once 'FormProcessor.php';
 require_once __DIR__ . "/../db/article.php";
 require_once __DIR__ . "/../types/User.php";
+require_once __DIR__ . "/../types/Comment.php";
 
 class ArticleViewerFP extends FormProcessor
 {
@@ -20,19 +21,33 @@ class ArticleViewerFP extends FormProcessor
         ],
         self::OP_COMMENT => [
             "handler" => "static::processCommentForm",
-            "req_fields" => [],
+            "req_fields" => [
+                ["article_id", FILTER_VALIDATE_INT],
+                ["comment"],
+            ],
             "opt_fields" => [],
         ],
     ];
 
+    private static function redirectToArticle($article_id)
+    {
+        $href = "article.php?article_id=" . $_POST["article_id"];
+        header("Location: $href");
+    }
+
     protected static function processRatingForm(PDO $pdo, User $user)
     {
         set_article_rating($pdo, $user, $_POST["article_id"], $_POST["stars"]);
-        // TODO redirect?
+        self::redirectToArticle($_POST["article_id"]);
     }
 
     protected static function processCommentForm(PDO $pdo, User $user)
     {
-        echo "Processing comment form";
+        $comment = new Comment();
+        $comment->author_id = $user->user_id;
+        $comment->body = $_POST["comment"];
+
+        create_article_comment($pdo, $_POST["article_id"], $comment);
+        self::redirectToArticle($_POST["article_id"]);
     }
 }
