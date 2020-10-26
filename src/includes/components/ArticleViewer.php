@@ -3,15 +3,19 @@
 require_once __DIR__ . '/../types/Article.php';
 require_once 'Component.php';
 require_once 'StarRating.php';
+require_once 'CommentSection.php';
 
 class ArticleViewer implements Component
 {
     /** @var Article */
     private $article;
+    /** @var Comment[] */
+    private $comments;
 
-    public function __construct(Article $article)
+    public function __construct(Article $article, array $comments)
     {
         $this->article = $article;
+        $this->comments = $comments;
     }
 
     public function render()
@@ -42,67 +46,7 @@ class ArticleViewer implements Component
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
-            <div>
-                <h2>Comments</h2>
-                <ul class="list-unstyled">
-                    <li class="media">
-                        <span class="h2 avatar mx-3">BG</span>
-                        <div class="media-body">
-                            <p class="h5 mt-0 mb-1">
-                                Ben Godfrey
-                            </p>
-                            <p class="text-muted small mt-0 mb-1">
-                                2020-03-04 11:43:23 PM
-                            </p>
-                            <p>
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                            </p>
-                        </div>
-                    </li>
-                    <li class="media">
-                        <span class="h2 avatar mx-3">BG</span>
-                        <div class="media-body">
-                            <p class="h5 mt-0 mb-1">
-                                Ben Godfrey
-                            </p>
-                            <p class="text-muted small mt-0 mb-1">
-                                2020-03-04 11:43:23 PM
-                            </p>
-                            <p>
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                                Some comment details
-                            </p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+            <?php (new CommentSection($this->comments))->render(); ?>
             <div>
                 <h2>Write a comment</h2>
                 <form method="POST" action="article.php">

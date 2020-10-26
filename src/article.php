@@ -39,10 +39,12 @@ if (!$article) {
     exit();
 }
 
+$comments = get_comments_for_article($pdo, $_GET["article_id"]);
+
 $title = $article->title;
 $page = new Page($title, [
     new Navbar($user, $title),
-    new ArticleViewer($article),
+    new ArticleViewer($article, $comments),
 ]);
 
 $page->render();
