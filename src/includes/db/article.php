@@ -11,7 +11,10 @@ require_once 'comment.php';
 define("GET_ARTICLE_CATEGORY_QUERY", "
     SELECT
         article_category_id,
-        title
+        title,
+        descr,
+        color,
+        icon
     FROM article_category
 ");
 

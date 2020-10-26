@@ -1,7 +1,10 @@
 
 CREATE TABLE article_category (
     article_category_id integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    title text
+    title text,
+    descr text,
+    color text,
+    icon text
 )
 COMMENT = 'article_category describes a category of knowledge articles';
 

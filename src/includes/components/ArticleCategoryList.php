@@ -21,8 +21,8 @@ class ArticleCategoryList implements Component
                     <div class="col mb-4">
                         <div class="card">
                             <div class="card-body">
-                                <p class="h5 card-title"><?= $category->title ?></p>
-                                <p class="card-text">// FIXME category description</p>
+                                <p class="h5 card-title" style="color: <?= $category->color ?>"><i class="fa <?= $category->icon ?>"></i>&nbsp;<?= $category->title ?></p>
+                                <p class="card-text"><?= $category->descr ?></p>
                                 <a class="stretched-link" href="<?= "article-list.php?category_id=$category->article_category_id" ?>"></a>
                             </div>
                         </div>
