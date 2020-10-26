@@ -264,3 +264,22 @@ function create_article_comment(PDO $pdo, $article_id, Comment $comment)
 
     $pdo->commit();
 }
+
+function get_comments_for_article(PDO $pdo, $article_id)
+{
+    $stmt = $pdo->prepare(GET_COMMENT_QUERY . "
+        INNER JOIN article_comment ac
+            ON c.comment_id = ac.comment_id
+        WHERE ac.article_id = :article_id
+    ");
+
+    $stmt->bindParam(":article_id", $article_id);
+
+    $stmt->execute();
+
+    $comments = $stmt->fetchAll(PDO::FETCH_CLASS, "Comment");
+    if (count($comments) < 1) {
+        return [];
+    }
+    return $comments;
+}
