@@ -5,6 +5,7 @@ class Comment
     public $comment_id;
     public $posted_at;
     public $author_name;
+    public $author_monogram;
     public $author_id;
     public $body;
 

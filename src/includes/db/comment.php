@@ -7,6 +7,7 @@ define("GET_COMMENT_QUERY", "
         c.comment_id,
         u.user_id AS author_id,
         build_full_name(u.first_name, u.last_name) AS author_name,
+        build_monogram(u.first_name, u.last_name) AS author_monogram,
         c.posted_at,
         c.body
     FROM comment c
