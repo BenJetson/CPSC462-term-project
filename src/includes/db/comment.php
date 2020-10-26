@@ -61,41 +61,35 @@ function get_all_comments_by_id(PDO $pdo, array $comment_ids)
 
 function create_comment(PDO $pdo, Comment $comment)
 {
-    $pdo->beginTransaction();
-    $comment_id = null;
-
-    try {
-        $stmt = $pdo->prepare("
-            INSERT INTO comment (
-                author,
-                body
-            ) VALUES (
-                :author,
-                :body
-            )
-        ");
-
-        $stmt->bindParam(":author", $comment->author_id);
-        $stmt->bindParam(":body", $comment->body);
-
-        $stmt->execute();
-
-        // Get the identifier of the comment just inserted.
-        $stmt = $pdo->prepare("
-            SELECT MAX(comment_id)
-            FROM comment
-        ");
-
-        $stmt->execute();
-
-        $comment_id = (int) $stmt->fetchColumn();
-    } catch (Exception $e) {
-        $pdo->rollBack();
-        throw $e;
+    if (!$pdo->inTransaction()) {
+        throw new RuntimeException("must be in transaction to create comment");
     }
 
-    $pdo->commit();
-    return $comment_id;
+    $stmt = $pdo->prepare("
+        INSERT INTO comment (
+            author,
+            body
+        ) VALUES (
+            :author,
+            :body
+        )
+    ");
+
+    $stmt->bindParam(":author", $comment->author_id);
+    $stmt->bindParam(":body", $comment->body);
+
+    $stmt->execute();
+
+    // Get the identifier of the comment just inserted.
+    // This is safe because we are inside a transaction.
+    $stmt = $pdo->prepare("
+        SELECT MAX(comment_id)
+        FROM comment
+    ");
+
+    $stmt->execute();
+
+    return (int) $stmt->fetchColumn();
 }
 
 function update_comment(PDO $pdo, Comment $comment)

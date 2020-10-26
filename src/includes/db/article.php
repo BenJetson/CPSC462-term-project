@@ -238,20 +238,29 @@ function set_article_rating(PDO $pdo, User $user, $article_id, $stars)
 
 function create_article_comment(PDO $pdo, $article_id, Comment $comment)
 {
-    $comment_id = create_comment($pdo, $comment);
+    $pdo->beginTransaction();
 
-    $stmt = $pdo->prepare("
-        INSERT INTO article_comment (
-            article_id,
-            comment_id
-        VALUES (
-            :article_id,
-            :comment_id
-        )
-    ");
+    try {
+        $comment_id = create_comment($pdo, $comment);
 
-    $stmt->bindParam(":article_id", $article_id);
-    $stmt->bindParam(":comment_id", $comment_id);
+        $stmt = $pdo->prepare("
+            INSERT INTO article_comment (
+                article_id,
+                comment_id
+            ) VALUES (
+                :article_id,
+                :comment_id
+            )
+        ");
 
-    $stmt->execute();
+        $stmt->bindParam(":article_id", $article_id);
+        $stmt->bindParam(":comment_id", $comment_id);
+
+        $stmt->execute();
+    } catch (Exception $e) {
+        $pdo->rollBack();
+        throw $e;
+    }
+
+    $pdo->commit();
 }
