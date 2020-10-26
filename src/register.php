@@ -11,8 +11,9 @@ require_once 'includes/login.php';
 $pdo = db_connect();
 AccessToken::destroyCookie();
 
-$page = new Page("Register", [
-    new Navbar(null, "Register"),
+$title = "Register";
+$page = new Page($title, [
+    new Navbar(null, $title),
     new UserProfileForm(null),
 ]);
 

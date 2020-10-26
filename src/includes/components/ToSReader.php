@@ -2,7 +2,7 @@
 
 require_once "Component.php";
 
-class ToS implements Component
+class ToSReader implements Component
 {
     private $height;
 

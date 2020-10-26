@@ -2,7 +2,7 @@
 
 require_once 'Component.php';
 require_once 'PasswordMeter.php';
-require_once 'ToS.php';
+require_once 'ToSReader.php';
 require_once __DIR__ . '/../types/User.php';
 
 class UserProfileForm implements Component
@@ -102,7 +102,7 @@ class UserProfileForm implements Component
                         </div>
                     </div>
                     <p class="h3">Terms of Service</p>
-                    <?php (new ToS("100px"))->render(); ?>
+                    <?php (new ToSReader("100px"))->render(); ?>
                     <div class="form-group custom-control custom-switch">
                         <input class="custom-control-input" type="checkbox" id="tos-accept" name="tos-accept" />
                         <label class="custom-control-label" for="tos-accept">
