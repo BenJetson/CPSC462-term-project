@@ -1,6 +1,8 @@
 <?php
 
 require_once __DIR__ . '/../types/Article.php';
+require_once __DIR__ . '/../forms/FormProcessor.php';
+require_once __DIR__ . '/../forms/ArticleEditorFP.php';
 require_once 'Component.php';
 
 class ArticleEditor implements Component
@@ -17,6 +19,7 @@ class ArticleEditor implements Component
 ?>
         <div class="container">
             <form method="POST" action="article-editor.php">
+                <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= ArticleEditorFP::OP_EDIT ?>" />
                 <?php if ($this->article->article_id) : ?>
                     <input type="hidden" name="article_id" value="<?= $this->article->article_id ?>" />
                 <?php endif; ?>
@@ -30,8 +33,9 @@ class ArticleEditor implements Component
                     // TODO remember the default
                     ?>
                     <label for="articleCat">Category</label>
-                    <select id="articleCat" class="form-control" name="category">
+                    <select id="articleCat" class="form-control" name="category_id">
                         <option selected>Choose...</option>
+                        <option value="1">Cat 1</option>
                         <option>...</option>
                     </select>
                 </div>
