@@ -29,7 +29,7 @@ class CommentSection implements Component
                 <?php endif; ?>
                 <?php foreach ($this->comments as $comment) : ?>
                     <li class="media">
-                        <span class="h2 avatar mx-3" aria-hidden="true">
+                        <span class="h3 avatar mr-2 mx-lg-3" aria-hidden="true">
                             <?= $comment->author_monogram ?>
                         </span>
                         <div class="media-body">
