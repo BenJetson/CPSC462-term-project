@@ -48,13 +48,22 @@ function create_article_category(PDO $pdo, ArticleCategory $category)
 {
     $stmt = $pdo->prepare("
         INSERT INTO article_category (
-            title
+            title,
+            descr,
+            icon,
+            color
         ) VALUES (
-            :title
+            :title,
+            :descr,
+            :icon,
+            :color
         )
     ");
 
     $stmt->bindParam(":title", $category->title);
+    $stmt->bindParam(":descr", $category->descr);
+    $stmt->bindParam(":icon", $category->icon);
+    $stmt->bindParam(":color", $category->color);
 
     $stmt->execute();
 }
@@ -63,11 +72,18 @@ function update_article_category(PDO $pdo, ArticleCategory $category)
 {
     $stmt = $pdo->prepare("
         UPDATE article_category
-        SET title = :title
+        SET
+            title = :title,
+            descr = :descr,
+            icon = :icon,
+            color = :color
         WHERE article_category_id = :category_id
     ");
 
     $stmt->bindParam(":title", $category->title);
+    $stmt->bindParam(":descr", $category->descr);
+    $stmt->bindParam(":icon", $category->icon);
+    $stmt->bindParam(":color", $category->color);
     $stmt->bindParam(":category_id", $category->article_category_id);
 
     $stmt->execute();
