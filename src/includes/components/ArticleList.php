@@ -38,7 +38,8 @@ class ArticleList implements Component
             ],
             [
                 $this->category->title,
-                "article-list.php?category_id=" . $this->category->article_category_id
+                "article-list.php" . $this->category->article_category_id > 0 ?
+                    "?category_id=" . $this->category->article_category_id : ""
             ],
         ]))->render(); ?>
         <header class="mb-5 py-5" style="<?= $headerStyle ?>">
