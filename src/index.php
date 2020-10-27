@@ -2,9 +2,12 @@
 
 require 'includes/init.php';
 
+require_once 'includes/components/Navbar.php';
+require_once 'includes/components/Homepage.php';
 require_once 'includes/db/connect.php';
 require_once 'includes/db/user.php';
 require_once 'includes/pages/RequestStatusPage.php';
+require_once 'includes/pages/Page.php';
 
 $pdo = db_connect();
 
@@ -16,10 +19,9 @@ if ($user === null) {
 }
 
 // TODO make a real page for this!
-$page = new RequestStatusPage(
-    HTTPStatus::STATUS_OK,
-    $user,
-    "Welcome to the helpdesk! This homepage is still a work in progress."
-);
+$page = new Page("Home", [
+    new Navbar($user, null),
+    new Homepage($user),
+]);
 
 $page->render();
