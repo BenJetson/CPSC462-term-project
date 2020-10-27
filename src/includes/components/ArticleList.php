@@ -72,9 +72,7 @@ class ArticleList implements Component
                             </div>
                             <div class="col-auto pr-2 text-muted">
                                 <i class="fa fa-comments"></i>
-                                0
-                                <?php // FIXME need actual comment count
-                                ?>
+                                <?= $article->comment_count ?>
                             </div>
                             <div class="col-auto pr-2 text-muted">
                                 <i class="fa fa-star"></i>
