@@ -35,14 +35,12 @@ class ArticleEditorFP extends FormProcessor
 
         $article->article_id = null;
         if (isset($_POST["article_id"])) {
-            $article->article_id = $_POST["article_id"];
+            $article->article_id = (int) $_POST["article_id"];
         }
         $article->category_id = (int) $_POST["category_id"];
         $article->author_id = $user->user_id;
         $article->title = $_POST["title"];
         $article->body = $_POST["body"];
-
-        error_log(print_r($article, true));
 
         if (is_null($article->article_id)) {
             create_article($pdo, $article);
