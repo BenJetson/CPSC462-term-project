@@ -22,6 +22,11 @@ class CommentSection implements Component
         <div>
             <h2><?= $this->title ?></h2>
             <ul class="list-unstyled pt-3">
+                <?php if (count($this->comments) === 0) : ?>
+                    <li class="media pb-3">
+                        <div class="media-body">No comments.</div>
+                    </li>
+                <?php endif; ?>
                 <?php foreach ($this->comments as $comment) : ?>
                     <li class="media">
                         <span class="h2 avatar mx-3" aria-hidden="true">
