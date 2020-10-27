@@ -31,8 +31,7 @@ class ArticleViewerFP extends FormProcessor
 
     private static function redirectToArticle($article_id)
     {
-        $href = "article.php?article_id=" . $_POST["article_id"];
-        header("Location: $href");
+        header("Location: article.php?article_id=$article_id");
     }
 
     protected static function processRatingForm(PDO $pdo, User $user)
