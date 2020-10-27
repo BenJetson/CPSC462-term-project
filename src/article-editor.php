@@ -43,10 +43,12 @@ if ($is_edit_mode) {
     }
 }
 
+$categories = get_article_categories($pdo);
+
 $title = $is_edit_mode ? "Article Editor" : "New Article";
 $page = new Page($title, [
     new Navbar($user, $title),
-    new ArticleEditor($article),
+    new ArticleEditor($article, $categories),
 ]);
 
 $page->render();
