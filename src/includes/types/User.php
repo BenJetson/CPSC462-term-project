@@ -42,4 +42,9 @@ class User
         $this->pass_locked_at = new DateTime($this->pass_locked_at); // FIXME check this datetime
 
     }
+
+    public function fullName()
+    {
+        return $this->first_name . " " . $this->last_name;
+    }
 }
