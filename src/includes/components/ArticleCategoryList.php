@@ -21,6 +21,10 @@ class ArticleCategoryList implements Component
         <div class="container">
             <?php if ($this->user->is_admin) : ?>
                 <div class="mb-4 d-flex justify-content-end">
+                    <a class="btn mr-1 btn-secondary" href="article-list.php">
+                        <i class="fa fa-list"></i>
+                        All Articles
+                    </a>
                     <a class="btn mr-1 btn-info" href="article-category-editor.php">
                         <i class="fa fa-archive"></i>
                         New Category
