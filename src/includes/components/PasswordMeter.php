@@ -50,7 +50,6 @@ class PasswordMeter implements Component
                         score > 1 ? "bg-warning" : "bg-danger";
                     bar.className = className;
 
-                    console.log(result);
                     text.innerText = scoreToText[score];
                     help.innerText = result.feedback.warning;
                 }
