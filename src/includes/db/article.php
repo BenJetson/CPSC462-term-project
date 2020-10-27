@@ -98,7 +98,8 @@ define("GET_ARTICLE_QUERY", "
         a.created_at,
         a.updated_at,
         ROUND(AVG(ar.stars)) AS rating,
-        COUNT(ar.stars) AS rating_count
+        COUNT(ar.stars) AS rating_count,
+        COUNT(ac.comment_id) AS comment_count
     FROM article a
     INNER JOIN article_category c
         ON a.article_category_id = c.article_category_id
@@ -106,6 +107,8 @@ define("GET_ARTICLE_QUERY", "
         ON a.author = u.user_id
     LEFT JOIN article_rating ar
         ON a.article_id = ar.article_id
+    LEFT JOIN article_comment ac
+        ON a.article_id = ac.article_id
     GROUP BY a.article_id
 ");
 

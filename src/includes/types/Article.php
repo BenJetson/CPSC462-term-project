@@ -24,6 +24,8 @@ class Article
     public $rating;
     /** @var int */
     public $rating_count;
+    /** @var int */
+    public $comment_count;
 
     /** @var DateTime */
     public $created_at;
@@ -38,6 +40,7 @@ class Article
 
         $this->rating = (int) $this->rating;
         $this->rating_count = (int) $this->rating_count;
+        $this->comment_count = (int) $this->comment_count;
 
         $this->created_at = new DateTime($this->created_at);
         $this->updated_at = new DateTime($this->updated_at);
