@@ -50,8 +50,17 @@ class Navbar implements Component
                         <?php else : ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <div class="avatar" aria-hidden="true"><?= $this->user->monogram() ?></div>
+                                    <div class="avatar" aria-hidden="true">
+                                        <?php if ($this->user->is_admin) : ?>
+                                            <div class="avatar-crown">
+                                                <i class="fa fa-crown"></i>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?= $this->user->monogram() ?></div>
                                     <?= $this->user->fullName() ?>
+                                    <?php if ($this->user->is_admin) : ?>
+                                        <span class="badge badge-warning badge-pill text-uppercase">Admin</span>
+                                    <?php endif; ?>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="whoami.php">My Account</a>
