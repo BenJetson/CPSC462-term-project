@@ -5,9 +5,15 @@ require_once 'Component.php';
 
 class Navbar implements Component
 {
+    /** @var ?User */
     private $user;
+    /** @var ?string */
     private $title;
 
+    /**
+     * @param ?User $user The user to display in the navbar.
+     * @param ?string $title The title of the page to display below the navbar.
+     */
     public function __construct($user, $title)
     {
         $this->user = $user;
@@ -31,6 +37,12 @@ class Navbar implements Component
                         <li class="nav-item">
                             <a class="nav-link" href="index.php">Home</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="kb-home.php">Knowledge Base</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="ticket-home.php">Help Tickets</a>
+                        </li>
                         <?php if ($this->user === null) : ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="login.php">Login</a>
@@ -39,7 +51,7 @@ class Navbar implements Component
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div class="avatar"><?= strtoupper($this->user->first_name[0] . $this->user->last_name[0]) ?></div>
-                                    <?= $this->user->first_name . " " . $this->user->last_name ?>
+                                    <?= $this->user->fullName() ?>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="whoami.php">My Account</a>
