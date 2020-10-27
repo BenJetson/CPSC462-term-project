@@ -18,4 +18,13 @@ INSERT INTO article_category (
 
 INSERT INTO article (article_category_id, author, title, body)
 VALUES
-    (1, 1, 'This is the title!', 'And some body text\nmore\nmore');
+    (1, 1, 'This is the title!', 'And some body text\nmore\nmore'),
+    (2, 1, 'This is the title!', 'And some body text\nmore\nmore'),
+    (3, 1, 'This is the title!', 'And some body text\nmore\nmore'),
+    (4, 1, 'This is the title!', 'And some body text\nmore\nmore'),
+    (5, 1, 'This is the title!', 'And some body text\nmore\nmore'),
+    (6, 1, 'This is the title!', 'And some body text\nmore\nmore'),
+    (7, 1, 'This is the title!', 'And some body text\nmore\nmore'),
+    (8, 1, 'This is the title!', 'And some body text\nmore\nmore'),
+    (9, 1, 'This is the title!', 'And some body text\nmore\nmore'),
+    (10, 1, 'This is the title!', 'And some body text\nmore\nmore');
