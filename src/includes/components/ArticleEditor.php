@@ -4,14 +4,28 @@ require_once __DIR__ . '/../types/Article.php';
 require_once __DIR__ . '/../forms/FormProcessor.php';
 require_once __DIR__ . '/../forms/ArticleEditorFP.php';
 require_once 'Component.php';
+require_once 'DropDown.php';
 
 class ArticleEditor implements Component
 {
+    /** @var Article */
     private $article;
+    /** @var array */
+    private $categories;
 
-    public function __construct(Article $article)
+
+    /**
+     * @param Article $article
+     * @param ArticleCategory[] $categories
+     */
+    public function __construct(Article $article, array $categories)
     {
         $this->article = $article;
+        $this->categories = [];
+
+        foreach ($categories as $category) {
+            $this->categories[$category->article_category_id] = $category->title;
+        }
     }
 
     public function render()
@@ -28,16 +42,14 @@ class ArticleEditor implements Component
                     <input type="text" class="form-control form-control-lg font-weight-bold" autofocus name="title" id="articleTitle" placeholder="Title" value="<?= $this->article->title ?>" />
                 </div>
                 <div class="form-group">
-                    <?php
-                    // TODO use the drop down thing
-                    // TODO remember the default
-                    ?>
-                    <label for="articleCat">Category</label>
-                    <select id="articleCat" class="form-control" name="category_id">
-                        <option selected>Choose...</option>
-                        <option value="1">Cat 1</option>
-                        <option>...</option>
-                    </select>
+                    <?php $defaultCategory = $this->article->category_id ?: null ?>
+                    <?php (new DropDown(
+                        "Category",
+                        "articleCat",
+                        "category_id",
+                        $this->categories,
+                        $defaultCategory
+                    ))->render(); ?>
                 </div>
                 <div class="form-group">
                     <label for="articleBody">Body</label>
