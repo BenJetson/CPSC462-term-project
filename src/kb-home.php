@@ -22,7 +22,7 @@ if ($user === null) {
 
 $categories = get_article_categories($pdo);
 
-$title = "Knowledge Base Home";
+$title = "Knowledge Base";
 $page = new Page($title, [
     new Navbar($user, $title),
     new ArticleCategoryList($categories),
