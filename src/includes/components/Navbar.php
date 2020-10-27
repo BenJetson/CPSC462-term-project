@@ -50,7 +50,7 @@ class Navbar implements Component
                         <?php else : ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <div class="avatar"><?= strtoupper($this->user->first_name[0] . $this->user->last_name[0]) ?></div>
+                                    <div class="avatar" aria-hidden="true"><?= $this->user->monogram() ?></div>
                                     <?= $this->user->fullName() ?>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">

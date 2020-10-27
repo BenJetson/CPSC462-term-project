@@ -47,4 +47,9 @@ class User
     {
         return $this->first_name . " " . $this->last_name;
     }
+
+    public function monogram()
+    {
+        return strtoupper($this->first_name[0] . $this->last_name[0]);
+    }
 }

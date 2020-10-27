@@ -24,7 +24,9 @@ class CommentSection implements Component
             <ul class="list-unstyled pt-3">
                 <?php foreach ($this->comments as $comment) : ?>
                     <li class="media">
-                        <span class="h2 avatar mx-3"><?= $comment->author_monogram ?></span>
+                        <span class="h2 avatar mx-3" aria-hidden="true">
+                            <?= $comment->author_monogram ?>
+                        </span>
                         <div class="media-body">
                             <p class="h5 mt-0 mb-1">
                                 <?= $comment->author_name // FIXME names escaping too
