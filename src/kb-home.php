@@ -25,7 +25,7 @@ $categories = get_article_categories($pdo);
 $title = "Knowledge Base";
 $page = new Page($title, [
     new Navbar($user, $title),
-    new ArticleCategoryList($categories),
+    new ArticleCategoryList($user, $categories),
 ]);
 
 $page->render();

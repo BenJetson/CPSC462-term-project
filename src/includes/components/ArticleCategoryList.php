@@ -6,9 +6,12 @@ class ArticleCategoryList implements Component
 {
     /** @var ArticleCategory[] */
     private $categories;
+    /** @var User */
+    private $user;
 
-    public function __construct(array $categories)
+    public function __construct(User $user, array $categories)
     {
+        $this->user = $user;
         $this->categories = $categories;
     }
 
@@ -16,6 +19,14 @@ class ArticleCategoryList implements Component
     {
 ?>
         <div class="container">
+            <?php if ($this->user->is_admin) : ?>
+                <div class="mb-4 d-flex justify-content-end">
+                    <a class="btn btn-primary" href="article-editor.php">
+                        <i class="fa fa-pencil"></i>
+                        New Article
+                    </a>
+                </div>
+            <?php endif; ?>
             <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4">
                 <?php foreach ($this->categories as $category) : ?>
                     <div class="col mb-4">
