@@ -93,7 +93,7 @@ class ArticleCategoryEditor implements Component
                     // Set the preview icon.
                     previewIcon.classList.remove(...previewIcon.classList);
                     previewIcon.classList.add("fa");
-                    previewIcon.classList.add(icon.value);
+                    if (icon.value) previewIcon.classList.add(icon.value);
 
                     // Set preview text.
                     previewTitle.innerText = title.value;
