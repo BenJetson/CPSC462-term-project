@@ -139,7 +139,7 @@ function get_all_articles(PDO $pdo)
 function get_articles_in_category(PDO $pdo, $category_id)
 {
     $stmt = $pdo->prepare(GET_ARTICLE_QUERY . "
-        HAVING c.category_id = :category_id
+        HAVING c.article_category_id = :category_id
     ");
 
     $stmt->bindParam(":category_id", $category_id);
