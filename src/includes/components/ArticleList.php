@@ -53,7 +53,7 @@ class ArticleList implements Component
             <?php $articleCount = count($this->articles); ?>
             <p>Found <?= $articleCount ?> article<?= $articleCount === 1 ? "" : "s" ?>.</p>
             <?php foreach ($this->articles as $article) : ?>
-                <div class="card">
+                <div class="card mb-3">
                     <div class="card-body">
                         <div class="row no-gutters">
                             <div class="col-md">
