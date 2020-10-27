@@ -1,19 +1,26 @@
 <?php
 
-abstract class DropDown implements Component
+class DropDown implements Component
 {
     private $label;
     private $id;
     private $name;
 
-    protected $options;
-    protected $defaultValue;
+    private $options;
+    private $defaultValue;
 
-    public function __construct($label, $id, $name)
-    {
+    public function __construct(
+        $label,
+        $id,
+        $name,
+        array $options,
+        $defaultValue = null
+    ) {
         $this->label = $label;
         $this->id = $id;
         $this->name = $name;
+        $this->options = $options;
+        $this->defaultValue = $defaultValue;
     }
 
     public function render()
@@ -21,7 +28,7 @@ abstract class DropDown implements Component
 ?>
         <label for="<?= $this->id ?>"><?= $this->label ?></label>
         <select id="<?= $this->id ?>" name="<?= $this->name ?>" class="form-control">
-            <?php if (!isset($this->defaultValue)) : ?>
+            <?php if (is_null($this->defaultValue)) : ?>
                 <option selected>Choose...</option>
             <?php endif; ?>
             <?php foreach ($this->options as $value => $description) : ?>
