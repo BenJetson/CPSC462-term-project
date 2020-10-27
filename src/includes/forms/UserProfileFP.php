@@ -64,7 +64,7 @@ class UserProfileFP extends FormProcessor
             );
         }
 
-        if ($_POST["tos_accept"] !== "on") {
+        if (!isset($_POST["tos_accept"]) || $_POST["tos_accept"] !== "on") {
             throw new InvalidArgumentException(
                 "You must accept the terms of service in order to register."
             );
