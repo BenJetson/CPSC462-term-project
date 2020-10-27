@@ -18,6 +18,7 @@ class ArticleViewerFP extends FormProcessor
                 ["stars", FILTER_VALIDATE_INT],
             ],
             "opt_fields" => [],
+            "req_admin" => false,
         ],
         self::OP_COMMENT => [
             "handler" => "static::processCommentForm",
@@ -26,6 +27,7 @@ class ArticleViewerFP extends FormProcessor
                 ["comment"],
             ],
             "opt_fields" => [],
+            "req_admin" => false,
         ],
     ];
 

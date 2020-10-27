@@ -19,6 +19,7 @@ class ArticleEditorFP extends FormProcessor
             "opt_fields" => [
                 ["article_id", FILTER_VALIDATE_INT],
             ],
+            "req_admin" => true,
         ]
     ];
 

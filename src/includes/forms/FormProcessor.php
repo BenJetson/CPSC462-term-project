@@ -38,11 +38,21 @@ abstract class FormProcessor
         if (
             !isset($recipe["handler"]) ||
             !isset($recipe["req_fields"]) ||
-            !isset($recipe["opt_fields"])
+            !isset($recipe["opt_fields"]) ||
+            !isset($recipe["req_admin"])
         ) {
             throw new RuntimeException(
                 "recipe for operation '$operation' is incomplete"
             );
+        }
+
+        if ($recipe["req_admin"] && !$user->is_admin) {
+            (new RequestStatusPage(
+                HTTPStatus::STATUS_FORBIDDEN,
+                $user,
+                "Only administrative users may perform this action."
+            ))->render();
+            exit();
         }
 
         $handler = $recipe["handler"];
