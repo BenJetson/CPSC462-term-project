@@ -36,6 +36,12 @@ if (isset($_GET["category_id"])) {
 
     $articles = get_articles_in_category($pdo, $_GET["category_id"]);
 } else {
+    if (!$user->is_admin) {
+        $errPage = new RequestStatusPage(HTTPStatus::STATUS_FORBIDDEN, $user);
+        $errPage->render();
+        exit();
+    }
+
     $category = new ArticleCategory();
     $category->title = "All Articles";
     $category->descr = "All articles in the knowledge base, from any category.";

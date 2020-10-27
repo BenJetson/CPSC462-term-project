@@ -20,7 +20,7 @@ if ($user === null) {
     $errPage->render();
     exit();
 } else if (!$user->is_admin) {
-    $errPage = new RequestStatusPage(HTTPStatus::STATUS_FORBIDDEN);
+    $errPage = new RequestStatusPage(HTTPStatus::STATUS_FORBIDDEN, $user);
     $errPage->render();
     exit();
 }
