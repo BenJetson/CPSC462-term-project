@@ -174,8 +174,8 @@ function create_article(PDO $pdo, Article $article)
         )
     ");
 
-    $stmt->bindParam(":article_category_id", $article->article_category_id);
-    $stmt->bindParam(":author", $article->author);
+    $stmt->bindParam(":article_category_id", $article->category_id);
+    $stmt->bindParam(":author", $article->author_id);
     $stmt->bindParam(":title", $article->title);
     $stmt->bindParam(":body", $article->body);
 
@@ -187,15 +187,15 @@ function update_article(PDO $pdo, Article $article)
     $stmt = $pdo->prepare("
         UPDATE article
         SET
-            article_category_id = :article_category_id,
+            article_category_id = :category_id,
             author = :author,
             title = :title,
             body = :body
         WHERE article_id = :article_id
     ");
 
-    $stmt->bindParam(":article_category_id", $article->article_category_id);
-    $stmt->bindParam(":author", $article->author);
+    $stmt->bindParam(":category_id", $article->category_id);
+    $stmt->bindParam(":author", $article->author_id);
     $stmt->bindParam(":title", $article->title);
     $stmt->bindParam(":body", $article->body);
     $stmt->bindParam(":article_id", $article->article_id);
