@@ -21,8 +21,12 @@ class ArticleCategoryList implements Component
         <div class="container">
             <?php if ($this->user->is_admin) : ?>
                 <div class="mb-4 d-flex justify-content-end">
-                    <a class="btn btn-primary" href="article-editor.php">
-                        <i class="fa fa-pencil"></i>
+                    <a class="btn mr-1 btn-info" href="article-category-editor.php">
+                        <i class="fa fa-archive"></i>
+                        New Category
+                    </a>
+                    <a class="btn btn-info" href="article-editor.php">
+                        <i class="fa fa-file-alt"></i>
                         New Article
                     </a>
                 </div>
@@ -31,16 +35,29 @@ class ArticleCategoryList implements Component
                 <?php foreach ($this->categories as $category) : ?>
                     <div class="col mb-4">
                         <div class="card" style="border-color: <?= $category->color ?>">
-                            <div class="card-body pb-1" style="color: <?= $category->color ?>">
+                            <div class="card-body position-relative pb-1" style="color: <?= $category->color ?>">
                                 <p class="h5 card-title">
                                     <i class="fa <?= $category->icon ?>"></i>&nbsp;
                                     <?= $category->title ?>
                                 </p>
+                                <a class="stretched-link" href="<?= "article-list.php?category_id=$category->article_category_id" ?>"></a>
                             </div>
-                            <div class="card-body" style="border-top: 3px solid <?= $category->color ?>">
-                                <p class="card-text"><?= $category->descr ?></p>
+                            <div class="card-body position-relative" style="border-top: 3px solid <?= $category->color ?>">
+                                <p class="card-text mb-0"><?= $category->descr ?></p>
+                                <a class="stretched-link" href="<?= "article-list.php?category_id=$category->article_category_id" ?>"></a>
                             </div>
-                            <a class="stretched-link" href="<?= "article-list.php?category_id=$category->article_category_id" ?>"></a>
+                            <?php if ($this->user->is_admin) : ?>
+                                <div class="card-body pt-0 d-flex justify-content-end">
+                                    <a class="btn btn-sm btn-info mr-1" href="article-category-editor.php?category_id=<?= $category->article_category_id ?>">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-danger" href="">
+                                        <?php // FIXME href should be form maybe ?
+                                        ?>
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
