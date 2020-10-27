@@ -3,16 +3,21 @@
 require_once 'Component.php';
 require_once 'PasswordMeter.php';
 require_once 'ToSReader.php';
+require_once __DIR__ . '/../forms/FormProcessor.php';
 require_once __DIR__ . '/../types/User.php';
 
 class UserProfileForm implements Component
 {
+    private $action;
+    private $operation;
     private $user;
     private $isRegistration;
     private $passMeter;
 
-    public function __construct($user)
+    public function __construct($action, $operation, $user)
     {
+        $this->action = $action;
+        $this->operation = $operation;
         $this->user = $user;
         $this->isRegistration = !isset($this->user)
             || !isset($this->user->user_id);
@@ -23,16 +28,17 @@ class UserProfileForm implements Component
     {
 ?>
         <div class="container mb-5">
-            <form action="register.php" method="post">
+            <form action="<?= $this->action ?>" method="POST">
+                <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= $this->operation ?>" />
                 <p class="h3">Personal Info</p>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="first-name">First Name</label>
-                        <input type="text" class="form-control" id="first-name" name="first-name" required />
+                        <input type="text" class="form-control" id="first-name" name="first_name" required />
                     </div>
                     <div class="form-group col-md-6">
                         <label for="last-name">Last Name</label>
-                        <input type="text" class="form-control" id="last-name" name="last-name" required />
+                        <input type="text" class="form-control" id="last-name" name="last_name" required />
                     </div>
                 </div>
                 <div class="form-row">
@@ -51,7 +57,7 @@ class UserProfileForm implements Component
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="phone">Telephone</label>
-                        <input type="text" class="form-control" id="phone" name="phone" required />
+                        <input type="text" class="form-control" id="phone" name="telephone" required />
                     </div>
                     <div class="form-group col-md-6">
                         <label for="dob">Date of Birth</label>
@@ -62,13 +68,13 @@ class UserProfileForm implements Component
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="address-line-1">Address Line 1</label>
-                        <input type="text" class="form-control" id="address-line-1" name="address-line-1" required />
+                        <input type="text" class="form-control" id="address-line-1" name="address_line_1" required />
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="address-line-2">Address Line 2</label>
-                        <input type="text" class="form-control" id="address-line-2" name="address-line-2" />
+                        <input type="text" class="form-control" id="address-line-2" name="address_line_2" />
                     </div>
                 </div>
                 <div class="form-row">
@@ -104,7 +110,7 @@ class UserProfileForm implements Component
                     <p class="h3">Terms of Service</p>
                     <?php (new ToSReader("100px"))->render(); ?>
                     <div class="form-group custom-control custom-switch">
-                        <input class="custom-control-input" type="checkbox" id="tos-accept" name="tos-accept" />
+                        <input class="custom-control-input" type="checkbox" id="tos-accept" name="tos_accept" />
                         <label class="custom-control-label" for="tos-accept">
                             I have read the terms of service and agree to be
                             bound by them.
