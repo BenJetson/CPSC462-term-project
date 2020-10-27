@@ -7,6 +7,7 @@ require_once 'includes/components/Navbar.php';
 require_once 'includes/db/article.php';
 require_once 'includes/db/connect.php';
 require_once 'includes/db/user.php';
+require_once 'includes/forms/ArticleEditorFP.php';
 require_once 'includes/pages/Page.php';
 require_once 'includes/pages/RequestStatusPage.php';
 require_once 'includes/types/Article.php';
@@ -25,8 +26,7 @@ if ($user === null) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    echo "Got a POST, no processing logic for the data though. :-/"; // FIXME
-    // TODO redirect back to article list
+    ArticleEditorFP::process($pdo, $user);
     exit();
 }
 
