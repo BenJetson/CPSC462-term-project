@@ -21,20 +21,20 @@ class CommentSection implements Component
 ?>
         <div>
             <h2><?= $this->title ?></h2>
-            <ul class="list-unstyled">
+            <ul class="list-unstyled pt-3">
                 <?php foreach ($this->comments as $comment) : ?>
                     <li class="media">
                         <span class="h2 avatar mx-3"><?= $comment->author_monogram ?></span>
                         <div class="media-body">
                             <p class="h5 mt-0 mb-1">
-                                <?= $comment->author_name // FIXME names escaping too 
+                                <?= $comment->author_name // FIXME names escaping too
                                 ?>
                             </p>
                             <p class="text-muted small mt-0 mb-1">
                                 <?= $comment->posted_at->format("Y-m-d h:i:s a"); ?>
                             </p>
                             <p>
-                                <?= $comment->body // FIXME escape this 
+                                <?= $comment->body // FIXME escape this
                                 ?>
                             </p>
                         </div>
