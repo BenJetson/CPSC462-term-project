@@ -34,7 +34,7 @@ if ($loginAttempted) {
     $_COOKIE[REMEMBER_ME_COOKIE] = $rememberMeEmail; // FIXME
 
     if ($grantStatus->granted) {
-        header('Location: whoami.php');
+        header('Location: index.php');
         exit;
     }
 }
