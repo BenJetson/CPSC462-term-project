@@ -36,14 +36,88 @@ class ArticleViewer implements Component
                 <?php endif; ?>
             <?php endforeach; ?>
 
-            <div class="border-top" role="separator">
+            <div class="border-top">
                 <h2>Rate this Article</h2>
                 <form method="POST" action="article.php">
                     <input type="hidden" name="op" value="rate" />
                     <input type="hidden" name="article_id" value="<?= $this->article->article_id ?>" />
-                    <span>Rating:</span>
-                    <input type="range" min="1" max="5" name="stars" class="custom-range" />
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="row no-gutters">
+                        <div class="col mx-1">
+                            <button class="btn btn-sm btn-block btn-outline-warning" type="submit" value="1" name="stars" aria-label="1 star">
+                                <span class="d-lg-none">
+                                    <span class="text-dark">1</span>
+                                    <i class="fa fa-star"></i>
+                                </span>
+                                <span class="d-none d-lg-inline">
+                                    <i class="fa fa-star"></i>
+                                    <br>
+                                    <span class="badge text-dark text-uppercase">1 star</span>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="col mx-1">
+                            <button class="btn btn-sm btn-block btn-outline-warning" type="submit" value="2" name="stars" aria-label="2 stars">
+                                <span class="d-lg-none">
+                                    <span class="text-dark">2</span>
+                                    <i class="fa fa-star"></i>
+                                </span>
+                                <span class="d-none d-lg-inline">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <br>
+                                    <span class="badge text-dark text-uppercase">2 stars</span>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="col mx-1">
+                            <button class="btn btn-sm btn-block btn-outline-warning" type="submit" value="3" name="stars" aria-label="3 stars">
+                                <span class="d-lg-none">
+                                    <span class="text-dark">3</span>
+                                    <i class="fa fa-star"></i>
+                                </span>
+                                <span class="d-none d-lg-inline">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <br>
+                                    <span class="badge text-dark text-uppercase">3 stars</span>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="col mx-1">
+                            <button class="btn btn-sm btn-block btn-outline-warning" type="submit" value="4" name="stars" aria-label="4 stars">
+                                <span class="d-lg-none">
+                                    <span class="text-dark">4</span>
+                                    <i class="fa fa-star"></i>
+                                </span>
+                                <span class="d-none d-lg-inline">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <br>
+                                    <span class="badge text-dark text-uppercase">4 stars</span>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="col mx-1">
+                            <button class="btn btn-sm btn-block btn-outline-warning" type="submit" value="5" name="stars" aria-label="5 stars">
+                                <span class="d-lg-none">
+                                    <span class="text-dark">5</span>
+                                    <i class="fa fa-star"></i>
+                                </span>
+                                <span class="d-none d-lg-inline">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <br>
+                                    <span class="badge text-dark text-uppercase">5 stars</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
                 </form>
             </div>
             <?php (new CommentSection($this->comments))->render(); ?>
