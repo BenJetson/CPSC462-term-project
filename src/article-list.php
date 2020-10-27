@@ -28,7 +28,7 @@ if (isset($_GET["category_id"])) {
         $errPage = new RequestStatusPage(
             HTTPStatus::STATUS_NOT_FOUND,
             $user,
-            "No known category matching ID of '$category_id'."
+            "No known category matching ID of '" . $_GET["category_id"] . "'."
         );
         $errPage->render();
         exit();
