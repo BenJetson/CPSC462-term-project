@@ -42,7 +42,9 @@ class ArticleEditor implements Component
                     <input type="text" class="form-control form-control-lg font-weight-bold" autofocus name="title" id="articleTitle" placeholder="Title" value="<?= $this->article->title ?>" required />
                 </div>
                 <div class="form-group">
-                    <?php $defaultCategory = $this->article->category_id ?: null ?>
+                    <?php $defaultCategory =
+                        $this->article->category_id ?:
+                        intval($_GET["category_id"]) ?: null ?>
                     <?php (new DropDown(
                         "Category",
                         "articleCat",

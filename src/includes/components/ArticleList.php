@@ -52,8 +52,20 @@ class ArticleList implements Component
             </div>
         </header>
         <div class="container">
-            <?php $articleCount = count($this->articles); ?>
-            <p>Found <?= $articleCount ?> article<?= $articleCount === 1 ? "" : "s" ?>.</p>
+            <div class="row mb-3">
+                <div class="col-md">
+                    <?php $articleCount = count($this->articles); ?>
+                    <p>Found <?= $articleCount ?> article<?= $articleCount === 1 ? "" : "s" ?>.</p>
+                </div>
+                <?php if ($this->user->is_admin) : ?>
+                    <div class="col-md-auto">
+                        <a class="btn btn-info" href="article-editor.php?category_id=<?= $this->category->article_category_id ?>">
+                            <i class="fa fa-file-alt"></i>
+                            New Article
+                        </a>
+                    </div>
+                <?php endif; ?>
+            </div>
             <?php foreach ($this->articles as $article) : ?>
                 <div class="card mb-3">
                     <div class="card-body">
