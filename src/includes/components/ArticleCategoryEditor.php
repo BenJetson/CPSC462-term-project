@@ -19,26 +19,31 @@ class ArticleCategoryEditor implements Component
     {
 ?>
         <div class="container">
-            <form method="POST" action="article-category-editor.php">
+            <form method="POST" action="article-category-editor.php" id="category-form" novalidate>
                 <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= ArticleCategoryEditorFP::OP_EDIT ?>" />
                 <?php if ($this->category->article_category_id) : ?>
                     <input type="hidden" name="category_id" value="<?= $this->category->article_category_id ?>" />
                 <?php endif; ?>
                 <div class="form-group">
                     <label for="categoryTitle">Title</label>
-                    <input type="text" class="form-control form-control-lg font-weight-bold" autofocus name="title" id="categoryTitle" placeholder="Title" value="<?= $this->category->title ?>" />
+                    <input type="text" class="form-control form-control-lg font-weight-bold" autofocus name="title" id="categoryTitle" placeholder="Title" value="<?= $this->category->title ?>" required />
                 </div>
                 <div class="form-group">
                     <label for="categoryIcon">Icon</label>
-                    <input type="text" class="form-control text-monospace" autofocus name="icon" id="categoryIcon" placeholder="Icon" value="<?= $this->category->icon ?>" />
+                    <input type="text" class="form-control text-monospace" autofocus name="icon" id="categoryIcon" placeholder="Icon" value="<?= $this->category->icon ?>" pattern="fa-[a-z\-]+" required />
+                    <div class="invalid-feedback">
+                        Icon name must be a valid Font Awesome icon name, all lowercase
+                        with the leading <code>fa-</code>.
+                        <br />For example, <code>fa-mobile-alt</code> is valid.
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="categoryColor">Color</label>
-                    <input type="text" class="form-control text-monospace" autofocus name="color" id="categoryColor" placeholder="Color" value="<?= $this->category->color ?>" />
+                    <input type="text" class="form-control text-monospace" autofocus name="color" id="categoryColor" placeholder="Color" value="<?= $this->category->color ?>" required />
                 </div>
                 <div class="form-group">
                     <label for="categoryDescr">Description</label>
-                    <textarea class="form-control" rows="3" id="categoryDescr" placeholder="Write a description of the category here..." name="descr"><?= $this->category->descr ?></textarea>
+                    <textarea class="form-control" rows="3" id="categoryDescr" placeholder="Write a description of the category here..." name="descr" required><?= $this->category->descr ?></textarea>
                 </div>
 
                 <p class="h5">Preview</p>
@@ -102,6 +107,8 @@ class ArticleCategoryEditor implements Component
 
                 previewHandler();
 
+                // Add event listeners so that the preview will update when
+                // any form field is modified.
                 title.addEventListener("change", previewHandler);
                 title.addEventListener("keyup", previewHandler);
                 color.addEventListener("change", previewHandler);
@@ -110,6 +117,17 @@ class ArticleCategoryEditor implements Component
                 icon.addEventListener("keyup", previewHandler);
                 descr.addEventListener("change", previewHandler);
                 descr.addEventListener("keyup", previewHandler);
+
+                // Add event listener to form to display custom validation.
+                let form = document.getElementById("category-form");
+                form.addEventListener("submit", function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+
+                    form.classList.add('was-validated');
+                });
             })
         </script>
 <?php
