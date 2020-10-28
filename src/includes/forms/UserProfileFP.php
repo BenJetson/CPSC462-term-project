@@ -19,13 +19,13 @@ class UserProfileFP extends FormProcessor
                 ["telephone"], // TODO consider regex validation, may need refactor
                 ["dob"],
                 ["address_line_1"],
-                ["address_line_2"],
                 ["city"],
                 ["state"],
                 ["zip", FILTER_VALIDATE_INT],
                 ["password"],
             ],
             "opt_fields" => [
+                ["address_line_2"],
                 ["tos_accept"],
             ],
             "req_admin" => false,
