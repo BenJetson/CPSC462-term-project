@@ -83,6 +83,7 @@ class Login implements Component
     ?>
         <script>
             window.addEventListener("load", function() {
+                // Add event listener to form to display custom validation.
                 let form = document.getElementById("login-form");
                 form.addEventListener("submit", function(event) {
                     if (!form.checkValidity()) {
@@ -91,7 +92,7 @@ class Login implements Component
                     }
 
                     form.classList.add('was-validated');
-                })
+                });
             });
         </script>
 <?php

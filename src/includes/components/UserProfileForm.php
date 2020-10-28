@@ -159,6 +159,7 @@ class UserProfileForm implements Component
     ?>
         <script>
             window.addEventListener("load", function() {
+                // Add event listener to form to display custom validation.
                 let form = document.getElementById("profile-form");
                 form.addEventListener("submit", function(event) {
                     if (!form.checkValidity()) {
@@ -167,7 +168,7 @@ class UserProfileForm implements Component
                     }
 
                     form.classList.add('was-validated');
-                })
+                });
             });
         </script>
 <?php
