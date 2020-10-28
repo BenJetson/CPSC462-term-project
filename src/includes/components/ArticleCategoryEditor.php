@@ -21,41 +21,46 @@ class ArticleCategoryEditor implements Component
         <div class="container">
             <form method="POST" action="article-category-editor.php" id="category-form" novalidate>
                 <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= ArticleCategoryEditorFP::OP_EDIT ?>" />
-                <?php if ($this->category->article_category_id) : ?>
-                    <input type="hidden" name="category_id" value="<?= $this->category->article_category_id ?>" />
-                <?php endif; ?>
-                <div class="form-group">
-                    <label for="categoryTitle">Title</label>
-                    <input type="text" class="form-control form-control-lg font-weight-bold" autofocus name="title" id="categoryTitle" placeholder="Title" value="<?= $this->category->title ?>" required />
-                </div>
-                <div class="form-group">
-                    <label for="categoryIcon">Icon</label>
-                    <input type="text" class="form-control text-monospace" autofocus name="icon" id="categoryIcon" placeholder="Icon" value="<?= $this->category->icon ?>" pattern="fa-[a-z\-]+" required />
-                    <div class="invalid-feedback">
-                        Icon name must be a valid Font Awesome icon name, all lowercase
-                        with the leading <code>fa-</code>.
-                        <br />For example, <code>fa-mobile-alt</code> is valid.
+                <div class="row">
+                    <div class="col-md-8">
+                        <?php if ($this->category->article_category_id) : ?>
+                            <input type="hidden" name="category_id" value="<?= $this->category->article_category_id ?>" />
+                        <?php endif; ?>
+                        <div class="form-group">
+                            <label for="categoryTitle">Title</label>
+                            <input type="text" class="form-control form-control-lg font-weight-bold" autofocus name="title" id="categoryTitle" placeholder="Title" value="<?= $this->category->title ?>" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="categoryIcon">Icon</label>
+                            <input type="text" class="form-control text-monospace" autofocus name="icon" id="categoryIcon" placeholder="Icon" value="<?= $this->category->icon ?>" pattern="fa-[a-z\-]+" required />
+                            <div class="invalid-feedback">
+                                Icon name must be a valid Font Awesome icon name, all lowercase
+                                with the leading <code>fa-</code>.
+                                <br />For example, <code>fa-mobile-alt</code> is valid.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="categoryColor">Color</label>
+                            <input type="text" class="form-control text-monospace" autofocus name="color" id="categoryColor" placeholder="Color" value="<?= $this->category->color ?>" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="categoryDescr">Description</label>
+                            <textarea class="form-control" rows="3" id="categoryDescr" placeholder="Write a description of the category here..." name="descr" required><?= $this->category->descr ?></textarea>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="categoryColor">Color</label>
-                    <input type="text" class="form-control text-monospace" autofocus name="color" id="categoryColor" placeholder="Color" value="<?= $this->category->color ?>" required />
-                </div>
-                <div class="form-group">
-                    <label for="categoryDescr">Description</label>
-                    <textarea class="form-control" rows="3" id="categoryDescr" placeholder="Write a description of the category here..." name="descr" required><?= $this->category->descr ?></textarea>
-                </div>
-
-                <p class="h5">Preview</p>
-                <div class="card mb-3" id="previewCard">
-                    <div class="card-body pb-1" id="previewCardHeader">
-                        <p class="h5 card-title">
-                            <i id="previewIcon" class="fa <?= $this->category->icon ?>"></i>&nbsp;
-                            <span id="previewTitle"><?= $this->category->title ?></span>
-                        </p>
-                    </div>
-                    <div class="card-body" id="previewBody" style="border-top-width: 3px; border-top-style: solid">
-                        <p class="card-text" id="previewDescr"><?= $this->category->descr ?></p>
+                    <div class="col-md-4">
+                        <p class="h5">Preview</p>
+                        <div class="card mb-3" id="previewCard">
+                            <div class="card-body pb-1" id="previewCardHeader">
+                                <p class="h5 card-title">
+                                    <i id="previewIcon" class="fa <?= $this->category->icon ?>"></i>&nbsp;
+                                    <span id="previewTitle"><?= $this->category->title ?></span>
+                                </p>
+                            </div>
+                            <div class="card-body" id="previewBody" style="border-top-width: 3px; border-top-style: solid">
+                                <p class="card-text" id="previewDescr"><?= $this->category->descr ?></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
