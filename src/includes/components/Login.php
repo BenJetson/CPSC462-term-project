@@ -92,7 +92,7 @@ class Login implements Component
 
                     form.classList.add('was-validated');
                 })
-            })
+            });
         </script>
 <?php
     }
