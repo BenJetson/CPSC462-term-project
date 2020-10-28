@@ -63,8 +63,8 @@ class UserProfileForm implements Component
                         <label for="phone">Telephone</label>
                         <input type="text" class="form-control" id="phone" name="telephone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
                         <div class="invalid-feedback">
-                            Telephone number must be of the form:
-                            XXX-XXX-XXXX with dashes included.
+                            Telephone number must be of the form: XXX-XXX-XXXX
+                            with dashes included.
                         </div>
                     </div>
                     <div class="form-group col-md-6">
