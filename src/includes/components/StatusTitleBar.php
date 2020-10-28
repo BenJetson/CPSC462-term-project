@@ -20,9 +20,10 @@ class StatusTitleBar implements Component
 ?>
         <div class="container py-4">
             <h1>
-                <?php $badgeType = HTTPStatus::isError($this->statusCode) ? "danger" : "success" ?>
+                <?php $badgeType = HTTPStatus::isError($this->statusCode) ? "danger" : "info" ?>
+                <?php $iconName = HTTPStatus::isError($this->statusCode) ? "fa-times-circle" : "fa-info-circle" ?>
                 <span class="text-monospace badge badge-<?= $badgeType ?> mr-2">
-                    <?= $this->statusCode ?>
+                    <i class="fa <?= $iconName ?> mr-2"></i><?= $this->statusCode ?>
                 </span>
                 <?= $this->title ?>
             </h1>
