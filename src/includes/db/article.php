@@ -290,6 +290,7 @@ function get_comments_for_article(PDO $pdo, $article_id)
         INNER JOIN article_comment ac
             ON c.comment_id = ac.comment_id
         WHERE ac.article_id = :article_id
+        ORDER BY c.posted_at DESC
     ");
 
     $stmt->bindParam(":article_id", $article_id);
