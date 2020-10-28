@@ -21,7 +21,7 @@ class ArticleEditorFP extends FormProcessor
                 ["article_id", FILTER_VALIDATE_INT],
             ],
             "req_admin" => true,
-        ]
+        ],
     ];
 
     private static function redirectToArticleList($category_id)

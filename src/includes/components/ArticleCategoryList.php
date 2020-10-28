@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../forms/FormProcessor.php';
+require_once __DIR__ . '/../forms/ArticleCategoryListFP.php';
 require_once 'Component.php';
 
 class ArticleCategoryList implements Component
@@ -55,11 +57,13 @@ class ArticleCategoryList implements Component
                                     <a class="btn btn-sm btn-info mr-1" href="article-category-editor.php?category_id=<?= $category->article_category_id ?>">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <a class="btn btn-sm btn-danger" href="">
-                                        <?php // FIXME href should be form maybe ?
-                                        ?>
-                                        <i class="fa fa-trash"></i>
-                                    </a>
+                                    <form method="POST" action="kb-home.php" class="cat-delete-form">
+                                        <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= ArticleCategoryListFP::OP_DELETE ?>" />
+                                        <input type="hidden" name="category_id" value="<?= $category->article_category_id ?>" />
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -67,11 +71,30 @@ class ArticleCategoryList implements Component
                 <?php endforeach; ?>
             </div>
         </div>
-<?php
+    <?php
     }
 
     public function injectScripts()
     {
-        // FIXME standard comment
+    ?>
+        <?php if ($this->user->is_admin) : ?>
+            <script>
+                window.addEventListener("load", () => {
+                    let deleteForms = document.querySelectorAll(".cat-delete-form");
+                    for (let form of deleteForms) {
+                        form.addEventListener("submit", (event) => {
+                            let ok = confirm("This will delete the category and " +
+                                "all of the articles it contains.\nAre you sure?");
+
+                            if (!ok) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                        });
+                    }
+                });
+            </script>
+        <?php endif; ?>
+<?php
     }
 }
