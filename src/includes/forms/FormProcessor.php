@@ -126,6 +126,12 @@ abstract class FormProcessor
             return; // Field was optional and not set; no validation necessary.
         }
 
+        if ($required && strlen($_POST[$name]) < 1) {
+            throw new InvalidArgumentException(
+                "Required field '$name' cannot be empty."
+            );
+        }
+
         if ($filter !== null) {
             $filteredVal = filter_var($_POST[$name], $filter);
             if ($filteredVal === false) {
