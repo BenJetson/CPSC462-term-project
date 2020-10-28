@@ -38,6 +38,13 @@ class ArticleViewer implements Component
                             <h2 class="card-title h5">Article Metadata</h2>
 
                             <p class="card-text">
+                                <strong>Category</strong>
+                                <br>
+                                <a href="article-list.php?category_id=<?= $this->article->category_id ?>">
+                                    <?= $this->article->category_title ?>
+                                </a>
+                            </p>
+                            <p class="card-text">
                                 <strong>Rating</strong>
                                 <br>
                                 <?php (new StarRating(
