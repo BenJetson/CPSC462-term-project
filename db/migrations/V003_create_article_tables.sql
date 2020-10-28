@@ -60,6 +60,22 @@ BEGIN
 END$$
 DELIMITER ;
 
+DELIMITER $$
+CREATE TRIGGER article_category_delete
+BEFORE DELETE ON article_category
+FOR EACH ROW
+BEGIN
+    DELETE FROM comment
+    WHERE comment_id IN (
+        SELECT ac.comment_id
+        FROM article_comment ac
+        INNER JOIN article a
+            ON a.article_id = ac.article_id
+        WHERE a.article_category_id = OLD.article_category_id
+    );
+END$$
+DELIMITER ;
+
 CREATE TABLE article_comment (
     comment_id integer NOT NULL,
     article_id integer NOT NULL,
