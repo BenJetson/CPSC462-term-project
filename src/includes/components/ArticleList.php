@@ -49,6 +49,7 @@ class ArticleList implements Component
                     <i class="fa <?= $this->category->icon ?>"></i>&nbsp;
                     <?= $this->category->title ?>
                 </h1>
+                <p class="lead text-muted mt-4"><?= $this->category->descr ?></p>
             </div>
         </header>
         <div class="container">
