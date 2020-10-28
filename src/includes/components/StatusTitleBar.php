@@ -21,7 +21,9 @@ class StatusTitleBar implements Component
         <div class="container py-4">
             <h1>
                 <?php $badgeType = HTTPStatus::isError($this->statusCode) ? "danger" : "success" ?>
-                <span class="badge badge-pill badge-<?= $badgeType ?>"><?= $this->statusCode ?></span>
+                <span class="text-monospace badge badge-<?= $badgeType ?> mr-2">
+                    <?= $this->statusCode ?>
+                </span>
                 <?= $this->title ?>
             </h1>
         </div>
