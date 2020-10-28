@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . "/../types/User.php";
+require_once 'NoScriptWarning.php';
 require_once 'Component.php';
 
 class Navbar implements Component
@@ -74,6 +75,7 @@ class Navbar implements Component
                 </div>
             </div>
         </nav>
+        <?php (new NoScriptWarning())->render(); ?>
         <?php if ($this->title !== null) : ?>
             <div class="container py-4">
                 <h1><?= $this->title ?></h1>

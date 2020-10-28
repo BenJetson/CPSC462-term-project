@@ -4,7 +4,6 @@ require 'includes/init.php';
 
 require_once 'includes/components/Login.php';
 require_once 'includes/components/Navbar.php';
-require_once 'includes/components/NoScriptWarning.php';
 require_once 'includes/db/connect.php';
 require_once 'includes/db/user.php';
 require_once 'includes/pages/Page.php';
@@ -45,7 +44,6 @@ $rememberedEmail = $isRemembered ? $_COOKIE[REMEMBER_ME_COOKIE] : null;
 
 $page = new Page("Login", [
     new Navbar(null, null),
-    new NoScriptWarning(),
     new Login(
         $wasLoggedOut,
         $loginAttempted,
