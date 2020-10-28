@@ -46,6 +46,20 @@ BEGIN
 END$$
 DELIMITER ;
 
+DELIMITER $$
+CREATE TRIGGER article_delete
+BEFORE DELETE ON article
+FOR EACH ROW
+BEGIN
+    DELETE FROM comment
+    WHERE comment_id IN (
+        SELECT comment_id
+        FROM article_comment
+        WHERE article_id = OLD.article_id
+    );
+END$$
+DELIMITER ;
+
 CREATE TABLE article_comment (
     comment_id integer NOT NULL,
     article_id integer NOT NULL,
@@ -62,7 +76,6 @@ CREATE TABLE article_comment (
 
 )
 COMMENT = 'article_comment stores user comments on knowledge articles';
-
 
 CREATE TABLE article_rating (
     article_id integer NOT NULL,
