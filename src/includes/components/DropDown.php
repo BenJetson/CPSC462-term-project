@@ -7,6 +7,7 @@ class DropDown implements Component
     private $name;
 
     private $options;
+    private $required;
     private $defaultValue;
 
     public function __construct(
@@ -14,12 +15,14 @@ class DropDown implements Component
         $id,
         $name,
         array $options,
+        $required = false,
         $defaultValue = null
     ) {
         $this->label = $label;
         $this->id = $id;
         $this->name = $name;
         $this->options = $options;
+        $this->required = $required;
         $this->defaultValue = $defaultValue;
     }
 
@@ -27,9 +30,9 @@ class DropDown implements Component
     {
 ?>
         <label for="<?= $this->id ?>"><?= $this->label ?></label>
-        <select id="<?= $this->id ?>" name="<?= $this->name ?>" class="form-control">
+        <select id="<?= $this->id ?>" name="<?= $this->name ?>" class="form-control" <?= $this->required ? "required" : "" ?>>
             <?php if (is_null($this->defaultValue)) : ?>
-                <option selected>Choose...</option>
+                <option value="" selected>Choose...</option>
             <?php endif; ?>
             <?php foreach ($this->options as $value => $description) : ?>
                 <?php $isDefault = $value === $this->defaultValue; ?>
