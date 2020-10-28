@@ -32,12 +32,18 @@ class ArticleCategoryEditor implements Component
                         </div>
                         <div class="form-group">
                             <label for="categoryIcon">Icon</label>
-                            <input type="text" class="form-control text-monospace" autofocus name="icon" id="categoryIcon" placeholder="Icon" value="<?= $this->category->icon ?>" pattern="fa-[a-z\-]+" required />
+                            <input type="text" class="form-control text-monospace" autofocus name="icon" id="categoryIcon" placeholder="fa-icon-name-here" value="<?= $this->category->icon ?>" pattern="fa-[a-z\-]+" required />
                             <div class="invalid-feedback">
                                 Icon name must be a valid Font Awesome icon name, all lowercase
-                                with the leading <code>fa-</code>.
+                                with a leading <code>fa-</code>.
                                 <br />For example, <code>fa-mobile-alt</code> is valid.
                             </div>
+                            <p>
+                                <small>
+                                    You can see a list of all available icons and their associated names over at
+                                    <a href="https://fontawesome.com/icons?d=gallery&m=free">Font Awesome</a>.
+                                </small>
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="categoryColor">Color</label>
