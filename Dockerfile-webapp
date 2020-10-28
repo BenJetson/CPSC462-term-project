@@ -43,6 +43,9 @@ COPY .env.local /var/secrets/.env
 RUN chgrp www-data /var/secrets/.env && \
     chmod g+r /var/secrets/.env
 
+RUN rm -f /var/www/html/index.html
+COPY ./docker/redirector.php /var/www/html/index.php
+
 # Invoke custom script to ensure that the Apache server reliably starts.
 # Copied from the official PHP image in the Docker library.
 #
