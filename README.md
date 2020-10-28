@@ -53,6 +53,12 @@ stack with two key features:
     - `/src/includes/types/` - directory containing PHP classes that model the
       data structures used throughout the application.
 
+  - `/src/vendor/` - directory containing source code that this application
+    depends on, but is not part of this repository. The contents of this
+    directory are controlled by [PHP Composer](getcomposer.org). Vendored code
+    is not checked into the repository and must be fetched by running the
+    composer recipe provided in the Makefile.
+
   - `/src/*.php` - these PHP scripts are the driver scripts, the only ones that
     are accessible to the public via the internet. **ALL EXECUTION STARTS HERE**
 
