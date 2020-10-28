@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../components/Navbar.php';
 require_once __DIR__ . '/../components/AlertBox.php';
+require_once __DIR__ . '/../components/StatusTitleBar.php';
 require_once __DIR__ . '/../types/HTTPStatus.php';
 require_once 'Page.php';
 
@@ -34,16 +35,16 @@ class RequestStatusPage extends Page
     {
         $this->statusCode = $statusCode;
 
-        $title = "$statusCode ";
-        $title .= HTTPSTatus::describe($statusCode);
+        $title = HTTPSTatus::describe($statusCode);
 
         $message = $message;
         if (!isset($message)) {
             $message = self::$defaultMessages[$statusCode];
         }
 
-        parent::__construct($title, [
-            new Navbar($user, $title),
+        parent::__construct("$statusCode $title", [
+            new Navbar($user, null),
+            new StatusTitleBar($statusCode, $title),
             new AlertBox(
                 HTTPStatus::isError($statusCode)
                     ? AlertBox::TYPE_DANGER
