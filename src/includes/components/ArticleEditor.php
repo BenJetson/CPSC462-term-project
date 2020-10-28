@@ -48,6 +48,7 @@ class ArticleEditor implements Component
                         "articleCat",
                         "category_id",
                         $this->categories,
+                        true,
                         $defaultCategory
                     ))->render(); ?>
                 </div>
