@@ -2,6 +2,7 @@
 
 require_once 'Breadcrumb.php';
 require_once 'Component.php';
+require_once __DIR__ . '/../forms/ArticleCategoryListFP.php';
 require_once __DIR__ . '/../types/Article.php';
 require_once __DIR__ . '/../types/ArticleCategory.php';
 require_once __DIR__ . '/../types/User.php';
@@ -86,11 +87,13 @@ class ArticleList implements Component
                                     </a>
                                 </div>
                                 <div class="col-auto pr-2 text-muted">
-                                    <a class="btn btn-sm btn-danger" href="">
-                                        <?php // FIXME href should be form maybe ?
-                                        ?>
-                                        <i class="fa fa-trash"></i>
-                                    </a>
+                                    <form method="POST" action="article-list.php" class="article-delete-form">
+                                        <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= ArticleListFP::OP_DELETE ?>" />
+                                        <input type="hidden" name="article_id" value="<?= $article->article_id ?>" />
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -98,11 +101,31 @@ class ArticleList implements Component
                 </div>
             <?php endforeach; ?>
         </div>
-<?php
+    <?php
     }
 
     public function injectScripts()
     {
-        // FIXME standard comment
+    ?>
+        <?php if ($this->user->is_admin) : ?>
+            <script>
+                window.addEventListener("load", () => {
+                    let deleteForms = document.querySelectorAll(".article-delete-form");
+                    for (let form of deleteForms) {
+                        form.addEventListener("submit", (event) => {
+                            let ok = confirm("This will permanently delete the article " +
+                                "along with all of its associated ratings and comments." +
+                                "\nAre you sure?");
+
+                            if (!ok) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                        });
+                    }
+                });
+            </script>
+        <?php endif; ?>
+<?php
     }
 }

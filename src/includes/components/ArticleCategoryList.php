@@ -2,6 +2,8 @@
 
 require_once __DIR__ . '/../forms/FormProcessor.php';
 require_once __DIR__ . '/../forms/ArticleCategoryListFP.php';
+require_once __DIR__ . '/../types/ArticleCategory.php';
+require_once __DIR__ . '/../types/User.php';
 require_once 'Component.php';
 
 class ArticleCategoryList implements Component
