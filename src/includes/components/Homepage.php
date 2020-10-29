@@ -23,7 +23,7 @@ class Homepage implements Component
             <p class="lead">What would you like to do?</p>
             <div class="card-deck">
                 <div class="card py-5 px-3 bg-info text-light">
-                    <a href="kb-home.php" class="stretched-link"></a>
+                    <a href="article-index.php" class="stretched-link"></a>
                     <div class="card-text text-center display-1">
                         <i class="fa fa-book"></i>
                     </div>

@@ -44,6 +44,6 @@ class ArticleCategoryEditorFP extends FormProcessor
             update_article_category($pdo, $category);
         }
 
-        header("Location: kb-home.php");
+        header("Location: article-index.php");
     }
 }

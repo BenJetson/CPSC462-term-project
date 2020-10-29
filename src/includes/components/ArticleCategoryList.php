@@ -59,7 +59,7 @@ class ArticleCategoryList implements Component
                                     <a class="btn btn-sm btn-info mr-1" href="article-category-editor.php?category_id=<?= $category->article_category_id ?>">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <form method="POST" action="kb-home.php" class="cat-delete-form">
+                                    <form method="POST" action="article-index.php" class="cat-delete-form">
                                         <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= ArticleCategoryListFP::OP_DELETE ?>" />
                                         <input type="hidden" name="category_id" value="<?= $category->article_category_id ?>" />
                                         <button type="submit" class="btn btn-sm btn-danger">

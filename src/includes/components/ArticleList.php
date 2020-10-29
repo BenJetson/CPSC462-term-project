@@ -35,7 +35,7 @@ class ArticleList implements Component
         <?php (new Breadcrumb([
             [
                 "Knowledge Base",
-                "kb-home.php"
+                "article-index.php"
             ],
             [
                 $this->category->title,

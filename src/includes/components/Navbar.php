@@ -39,7 +39,7 @@ class Navbar implements Component
                             <a class="nav-link" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="kb-home.php">Knowledge Base</a>
+                            <a class="nav-link" href="article-index.php">Knowledge Base</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="ticket-home.php">Help Tickets</a>

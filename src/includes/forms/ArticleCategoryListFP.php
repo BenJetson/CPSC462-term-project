@@ -22,6 +22,6 @@ class ArticleCategoryListFP extends FormProcessor
     protected static function processDeleteCategory(PDO $pdo, User $user)
     {
         delete_article_category($pdo, $_POST["category_id"]);
-        header("Location: kb-home.php");
+        header("Location: article-index.php");
     }
 }
