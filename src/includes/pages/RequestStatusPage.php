@@ -18,7 +18,8 @@ class RequestStatusPage extends Page
         HTTPStatus::STATUS_BAD_REQUEST =>
         "Your request contained invalid data which could not be processed.",
         HTTPStatus::STATUS_NOT_AUTHORIZED =>
-        "You must login to access the requested resource.",
+        "You must <a class=\"alert-link\" href=\"login.php\">login</a> to
+            access the requested resource.",
         HTTPStatus::STATUS_FORBIDDEN =>
         "You do not have permission to access the requested resource.",
         HTTPStatus::STATUS_NOT_FOUND =>
