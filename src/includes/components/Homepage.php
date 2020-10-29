@@ -36,7 +36,7 @@ class Homepage implements Component
                     </p>
                 </div>
                 <div class="card py-5 px-3 bg-secondary text-light">
-                    <a href="ticket-home.php" class="stretched-link"></a>
+                    <a href="ticket-index.php" class="stretched-link"></a>
                     <div class="card-text text-center display-1">
                         <i class="fa fa-life-ring"></i>
                     </div>

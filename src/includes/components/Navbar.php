@@ -42,7 +42,7 @@ class Navbar implements Component
                             <a class="nav-link" href="article-index.php">Knowledge Base</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="ticket-home.php">Help Tickets</a>
+                            <a class="nav-link" href="ticket-index.php">Help Tickets</a>
                         </li>
                         <?php if ($this->user->is_admin) : ?>
                             <li class="nav-item">
