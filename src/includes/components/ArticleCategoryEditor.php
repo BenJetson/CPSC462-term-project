@@ -32,7 +32,7 @@ class ArticleCategoryEditor implements Component
                         </div>
                         <div class="form-group">
                             <label for="categoryIcon">Icon</label>
-                            <input type="text" class="form-control text-monospace" autofocus name="icon" id="categoryIcon" placeholder="fa-icon-name-here" value="<?= $this->category->icon ?>" pattern="fa-[a-z\-]+" required />
+                            <input type="text" class="form-control text-monospace" name="icon" id="categoryIcon" placeholder="fa-icon-name-here" value="<?= $this->category->icon ?>" pattern="fa-[a-z\-]+" required />
                             <div class="invalid-feedback">
                                 Icon name must be a valid Font Awesome icon name, all lowercase
                                 with a leading <code>fa-</code>.
@@ -47,7 +47,7 @@ class ArticleCategoryEditor implements Component
                         </div>
                         <div class="form-group">
                             <label for="categoryColor">Color</label>
-                            <input type="text" class="form-control text-monospace" autofocus name="color" id="categoryColor" placeholder="Color" value="<?= $this->category->color ?>" required />
+                            <input type="text" class="form-control text-monospace" name="color" id="categoryColor" placeholder="Color" value="<?= $this->category->color ?>" required />
                         </div>
                         <div class="form-group">
                             <label for="categoryDescr">Description</label>
