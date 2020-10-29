@@ -98,6 +98,7 @@ rsync -e ssh -vpt "$SECRET_FILE" webapp:"$SECRET_DIR/.env"
 umask 333; rm -f ./src/.htaccess; cat << EOF >> ./src/.htaccess
 # Warning: generated as part of deploy.sh. Will be overwritten!
 
+SetEnv TIER "$TIER"
 SetEnv SECRET_DIR "$SECRET_DIR"
 SetEnv LOG_FILE "$LOG_FILE"
 
