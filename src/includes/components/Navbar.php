@@ -44,6 +44,11 @@ class Navbar implements Component
                         <li class="nav-item">
                             <a class="nav-link" href="ticket-home.php">Help Tickets</a>
                         </li>
+                        <?php if ($this->user->is_admin) : ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin-index.php">Administration</a>
+                            </li>
+                        <?php endif; ?>
                         <?php if ($this->user === null) : ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="login.php">Login</a>

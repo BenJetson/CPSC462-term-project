@@ -49,6 +49,23 @@ class Homepage implements Component
                     </p>
                 </div>
             </div>
+            <?php if ($this->user->is_admin) : ?>
+                <div class="card-deck my-4">
+                    <div class="card py-5 px-3 bg-warning text-dark">
+                        <a href="admin-index.php" class="stretched-link"></a>
+                        <div class="card-text text-center display-1">
+                            <i class="fa fa-tools"></i>
+                        </div>
+                        <div class="card-title text-center h2">
+                            Administration
+                        </div>
+                        <p class="card-text lead text-center">
+                            Manage users registered with the help desk and the
+                            database via the administrative dashboard.
+                        </p>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
 <?php
     }
