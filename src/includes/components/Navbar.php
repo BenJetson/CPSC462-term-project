@@ -50,20 +50,23 @@ class Navbar implements Component
                         <li class="nav-item">
                             <a class="nav-link" href="article-index.php">
                                 <i class="fa fa-book"></i>
-                                Knowledge Base
+                                <span class="d-none d-lg-inline d-xl-none">KB</span>
+                                <span class="d-lg-none d-xl-inline">Knowledge Base</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="ticket-index.php">
                                 <i class="fa fa-life-ring"></i>
-                                Help Tickets
+                                <span class="d-none d-lg-inline d-xl-none">Tickets</span>
+                                <span class="d-lg-none d-xl-inline">Help Tickets</span>
                             </a>
                         </li>
                         <?php if ($this->user->is_admin) : ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="admin-index.php">
                                     <i class="fa fa-tools"></i>
-                                    Administration
+                                    <span class="d-none d-lg-inline d-xl-none">Admin</span>
+                                    <span class="d-lg-none d-xl-inline">Administration</span>
                                 </a>
                             </li>
                         <?php endif; ?>
