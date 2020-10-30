@@ -42,17 +42,29 @@ class Navbar implements Component
                 <div class="collapse navbar-collapse" id="navLinks">
                     <ul class="navbar-nav w-100 justify-content-end mt-2 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php">Home</a>
+                            <a class="nav-link" href="index.php">
+                                <i class="fa fa-home"></i>
+                                Home
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="article-index.php">Knowledge Base</a>
+                            <a class="nav-link" href="article-index.php">
+                                <i class="fa fa-book"></i>
+                                Knowledge Base
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="ticket-index.php">Help Tickets</a>
+                            <a class="nav-link" href="ticket-index.php">
+                                <i class="fa fa-life-ring"></i>
+                                Help Tickets
+                            </a>
                         </li>
                         <?php if ($this->user->is_admin) : ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="admin-index.php">Administration</a>
+                                <a class="nav-link" href="admin-index.php">
+                                    <i class="fa fa-tools"></i>
+                                    Administration
+                                </a>
                             </li>
                         <?php endif; ?>
                         <?php if ($this->user === null) : ?>
