@@ -75,8 +75,10 @@ class Navbar implements Component
                                     <?php endif; ?>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="whoami.php">My Account</a>
-                                    <a class="dropdown-item" href="#">Settings</a>
+                                    <a class="dropdown-item" href="profile-editor.php">My Profile</a>
+                                    <a class="dropdown-item" href="change-password.php">Change Password</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="whoami.php">Session Info</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="logout.php">Logout</a>
                                 </div>
