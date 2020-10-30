@@ -25,7 +25,7 @@ function get_article_categories(PDO $pdo)
 
     $categories = $stmt->fetchAll(PDO::FETCH_CLASS, "ArticleCategory");
 
-    if (count($categories) === 0) {
+    if (!$categories || count($categories) === 0) {
         return array();
     }
     return $categories;
@@ -149,7 +149,7 @@ function get_all_articles(PDO $pdo)
 
     $articles = $stmt->fetchAll(PDO::FETCH_CLASS, "Article");
 
-    if (count($articles) === 0) {
+    if (!$articles || count($articles) === 0) {
         return array();
     }
     return $articles;
@@ -167,7 +167,7 @@ function get_articles_in_category(PDO $pdo, $category_id)
 
     $articles = $stmt->fetchAll(PDO::FETCH_CLASS, "Article");
 
-    if (count($articles) === 0) {
+    if (!$articles || count($articles) === 0) {
         return array();
     }
     return $articles;
@@ -298,7 +298,8 @@ function get_comments_for_article(PDO $pdo, $article_id)
     $stmt->execute();
 
     $comments = $stmt->fetchAll(PDO::FETCH_CLASS, "Comment");
-    if (count($comments) < 1) {
+
+    if (!$comments || count($comments) === 0) {
         return [];
     }
     return $comments;

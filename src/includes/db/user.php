@@ -47,7 +47,7 @@ function get_all_users(PDO $pdo)
 
     $users = $stmt->fetchAll(PDO::FETCH_CLASS, 'User');
 
-    if (count($users) === 0) {
+    if (!$users || count($users) === 0) {
         return array();
     }
     return $users;
@@ -71,7 +71,7 @@ function get_active_admin_users(PDO $pdo)
 
     $users = $stmt->fetchAll(PDO::FETCH_CLASS, 'User');
 
-    if (count($users) === 0) {
+    if (!$users || count($users) === 0) {
         return array();
     }
     return $users;

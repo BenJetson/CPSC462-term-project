@@ -54,7 +54,7 @@ function get_all_comments_by_id(PDO $pdo, array $comment_ids)
     $stmt->execute();
 
     $comments = $stmt->fetchAll(PDO::FETCH_CLASS, "Comment");
-    if (count($comments) < 1) {
+    if (!$comments || count($comments) < 1) {
         return [];
     }
     return $comments;
