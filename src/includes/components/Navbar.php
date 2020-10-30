@@ -26,7 +26,8 @@ class Navbar implements Component
 ?>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="index.php">
+                <?php $label = $_SERVER["TIER"] !== "prod" ? ", " . $_SERVER["TIER"] . " tier" : "" ?>
+                <a class="navbar-brand" href="index.php" aria-label="IT Helpdesk<?= $label ?>">
                     🛠 IT Helpdesk
                     <?php if ($_SERVER["TIER"] !== "prod") : ?>
                         <small>
@@ -48,14 +49,14 @@ class Navbar implements Component
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="article-index.php">
+                            <a class="nav-link" href="article-index.php" aria-label="Knowledge Base">
                                 <i class="fa fa-book"></i>
                                 <span class="d-none d-lg-inline d-xl-none">KB</span>
                                 <span class="d-lg-none d-xl-inline">Knowledge Base</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="ticket-index.php">
+                            <a class="nav-link" href="ticket-index.php" aria-label="Help Tickets">
                                 <i class="fa fa-life-ring"></i>
                                 <span class="d-none d-lg-inline d-xl-none">Tickets</span>
                                 <span class="d-lg-none d-xl-inline">Help Tickets</span>
@@ -63,7 +64,7 @@ class Navbar implements Component
                         </li>
                         <?php if ($this->user->is_admin) : ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="admin-index.php">
+                                <a class="nav-link" href="admin-index.php" aria-label="Administration">
                                     <i class="fa fa-tools"></i>
                                     <span class="d-none d-lg-inline d-xl-none">Admin</span>
                                     <span class="d-lg-none d-xl-inline">Administration</span>
