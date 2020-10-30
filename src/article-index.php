@@ -10,7 +10,6 @@ require_once 'includes/db/user.php';
 require_once 'includes/forms/ArticleCategoryListFP.php';
 require_once 'includes/pages/Page.php';
 require_once 'includes/pages/RequestStatusPage.php';
-require_once 'includes/types/Article.php';
 
 $pdo = db_connect();
 
