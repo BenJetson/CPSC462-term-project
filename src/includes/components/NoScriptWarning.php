@@ -9,7 +9,7 @@ class NoScriptWarning implements Component
 ?>
         <noscript>
             <div class="container my-5">
-                <div class="alert alert-danger border-danger">
+                <div class="alert alert-danger border-danger" id="noScriptWarning">
                     <p class="h3">Problem Detected</p>
                     <p>
                         Your browser did not allow JavaScript to run on this
@@ -18,7 +18,7 @@ class NoScriptWarning implements Component
                     </p>
                     <p class="mb-0">
                         <strong>Please enable JavaScript via the
-                            settings panel for your browser.</strong>
+                            settings panel for your browser.</strong><br />
                         Once you have enabled JavaScript, you must
                         <a class="alert-link" href="<?= $_SERVER["PHP_SELF"] ?>">reload the page</a>.
                     </p>

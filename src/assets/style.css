@@ -23,3 +23,17 @@
 .star-rating .star-bright {
   color: orange;
 }
+
+#noScriptWarning {
+  animation: annoyingflash 3s infinite;
+}
+
+@keyframes annoyingflash {
+  0%,
+  100% {
+    box-shadow: 0 0 50px -50px red;
+  }
+  50% {
+    box-shadow: 0 0 50px 50px orange;
+  }
+}
