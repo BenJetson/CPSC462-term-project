@@ -75,12 +75,24 @@ class Navbar implements Component
                                     <?php endif; ?>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="profile-editor.php">My Profile</a>
-                                    <a class="dropdown-item" href="change-password.php">Change Password</a>
+                                    <a class="dropdown-item" href="profile-editor.php">
+                                        <i class="fa fa-user"></i>
+                                        My Profile
+                                    </a>
+                                    <a class="dropdown-item" href="change-password.php">
+                                        <i class="fa fa-key"></i>
+                                        Change Password
+                                    </a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="whoami.php">Session Info</a>
+                                    <a class="dropdown-item" href="whoami.php">
+                                        <i class="fa fa-info-circle"></i>
+                                        Session Info
+                                    </a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="logout.php">Logout</a>
+                                    <a class="dropdown-item" href="logout.php">
+                                        <i class="fa fa-sign-out-alt"></i>
+                                        Logout
+                                    </a>
                                 </div>
                             </li>
                         <?php endif; ?>
