@@ -30,7 +30,7 @@ class HelpTicketEditor implements Component
                     </div>
                 </div>
             </div>
-            <form action="ticket-editor.php" method="POST" novalidate>
+            <form action="ticket-editor.php" method="POST">
                 <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= HelpTicketEditorFP::OP_EDIT ?>" />
                 <div class="form-group">
                     <label for="ticketSubject">Subject</label>
