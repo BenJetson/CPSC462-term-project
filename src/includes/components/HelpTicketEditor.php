@@ -31,7 +31,7 @@ class HelpTicketEditor implements Component
                 </div>
             </div>
             <form action="ticket-editor.php" method="POST">
-                <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= HelpTicketEditorFP::OP_EDIT ?>" />
+                <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= HelpTicketEditorFP::OP_CREATE ?>" />
                 <div class="form-group">
                     <label for="ticketSubject">Subject</label>
                     <input type="text" class="form-control form-control-lg font-weight-bold" autofocus name="subject" id="ticketSubject" placeholder="Subject" required />
