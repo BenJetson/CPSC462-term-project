@@ -20,9 +20,6 @@ CREATE TABLE help_ticket (
 )
 COMMENT = 'help_ticket stores user requests for assistance as tickets';
 
--- Let the help_ticket ID number start at 1000, purely for aesthetics.
-ALTER TABLE help_ticket AUTO_INCREMENT = 1000;
-
 DELIMITER $$
 CREATE TRIGGER help_ticket_insert
 BEFORE INSERT ON help_ticket
