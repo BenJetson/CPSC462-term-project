@@ -1,5 +1,6 @@
 {
   "intelephense.environment.phpVersion": "5.5.9",
+  "intelephense.environment.shortOpenTag": false,
   "files.associations": {
     "Dockerfile*": "dockerfile"
   }
