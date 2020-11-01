@@ -15,7 +15,7 @@ class HTTPStatus
 
     private static $descriptionMap = array(
         self::STATUS_OK => "OK",
-        SELF::STATUS_NO_CONTENT => "No Content",
+        self::STATUS_NO_CONTENT => "No Content",
         self::STATUS_BAD_REQUEST => "Bad Request",
         self::STATUS_NOT_AUTHORIZED => "Not Authorized",
         self::STATUS_FORBIDDEN => "Forbidden",
@@ -27,7 +27,8 @@ class HTTPStatus
     public static function describe($statusCode)
     {
         if (!isset(self::$descriptionMap[$statusCode])) {
-            return "Unknown (TODO)";
+            error_log("no known description for status code $statusCode");
+            return "Unknown Status";
         }
         return self::$descriptionMap[$statusCode];
     }
