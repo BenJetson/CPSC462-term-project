@@ -8,16 +8,33 @@ require_once __DIR__ . '/../types/HelpTicket.php';
 
 define("GET_HELP_TICKET_QUERY", "
     SELECT
-        help_ticket_id,
-        submitter,
-        assignee,
-        submitted_at,
-        is_closed,
-        closed_by_submitter,
-        closed_at,
-        subject,
-        body
-    FROM help_ticket
+        ht.help_ticket_id,
+        ht.submitter AS submitter_id,
+        build_full_name(us.first_name, us.last_name) AS submitter_name,
+        ht.assignee AS assignee_id,
+        ht.submitted_at,
+        ht.is_closed,
+        ht.closed_by_submitter,
+        ht.closed_at,
+        ht.subject,
+        ht.body,
+        COALESCE(
+            (
+                SELECT c.author
+                FROM help_ticket_comment htc
+                INNER JOIN comment c
+                    ON c.comment_id = htc.comment_id
+                WHERE htc.help_ticket_id = ht.help_ticket_id
+                ORDER BY c.posted_at DESC
+                LIMIT 1
+            ),
+            ht.submitter
+        ) AS last_reply_author_id
+    FROM help_ticket ht
+    LEFT JOIN user us
+        ON ht.submitter = us.user_id
+    LEFT JOIN user ua
+        ON ht.assignee = us.user_id
 ");
 
 function get_help_tickets(PDO $pdo, User $user) // TODO , HelpTicketFilter $filter)
@@ -36,6 +53,16 @@ function get_help_tickets(PDO $pdo, User $user) // TODO , HelpTicketFilter $filt
     return $help_tickets;
 }
 
+/**
+ * get_help_ticket_by_id fetches the help ticket with the ID number specified.
+ *
+ * @param PDO $pdo the database connection to use.
+ * @param int $help_ticket_id the ID number of the help ticket to fetch.
+ *
+ * @return ?HelpTicket
+ *
+ * @throws PDOException when the database encounters an error.
+ */
 function get_help_ticket_by_id(PDO $pdo, $help_ticket_id)
 {
     $stmt = $pdo->prepare(GET_HELP_TICKET_QUERY . "
