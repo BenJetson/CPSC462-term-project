@@ -14,6 +14,12 @@ abstract class FormProcessor
 
     public static function process(PDO $pdo, User $user)
     {
+        // Sanitize all form fields to remove/escape any HTML.
+        foreach ($_POST as $key => &$value) {
+            $_POST[$key] = htmlspecialchars(strip_tags($value));
+        }
+
+        // Check to see which form operation we should perform.
         if (!isset($_POST[self::OPERATION])) {
             (new RequestStatusPage(
                 HTTPStatus::STATUS_BAD_REQUEST,
@@ -25,6 +31,7 @@ abstract class FormProcessor
 
         $operation = $_POST[self::OPERATION];
 
+        // Determine recipe for handling this operation.
         if (!isset(static::$operation_map[$operation])) {
             (new RequestStatusPage(
                 HTTPStatus::STATUS_BAD_REQUEST,
@@ -46,6 +53,7 @@ abstract class FormProcessor
             );
         }
 
+        // If the recipe requires admin privileges, check if user is an admin.
         if ($recipe["req_admin"] && !$user->is_admin) {
             (new RequestStatusPage(
                 HTTPStatus::STATUS_FORBIDDEN,
@@ -55,6 +63,8 @@ abstract class FormProcessor
             exit();
         }
 
+        // Fetch the handler function for this operation from the recipe, and
+        // ensure that it is callable.
         $handler = $recipe["handler"];
         if (!is_callable($handler)) {
             throw new RuntimeException(
@@ -63,6 +73,8 @@ abstract class FormProcessor
         }
 
         try {
+            // Validate all form fields to ensure that only desired fields are
+            // provided and that required fields have a value.
             self::checkForExtraFields($recipe, $operation);
 
             foreach ($recipe["req_fields"] as $field) {
@@ -73,8 +85,11 @@ abstract class FormProcessor
                 self::validateField($field, $operation, false);
             }
 
+            // Call the handler.
             call_user_func_array($handler, [$pdo, $user]);
         } catch (InvalidArgumentException $iae) {
+            // Catch InvalidArgumentExceptions thrown by either the field
+            // validation or the handler and show the user an error message.
             (new RequestStatusPage(
                 HTTPStatus::STATUS_BAD_REQUEST,
                 $user,
