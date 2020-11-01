@@ -27,14 +27,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 
 if (!isset($_GET["article_id"])) {
-    $errPage = new RequestStatusPage(HTTPStatus::STATUS_BAD_REQUEST);
+    $errPage = new RequestStatusPage(HTTPStatus::STATUS_BAD_REQUEST, $user);
     $errPage->render();
     exit();
 }
 
 $article = get_article_by_id($pdo, $_GET["article_id"]);
 if (!$article) {
-    $errPage = new RequestStatusPage(HTTPStatus::STATUS_NOT_FOUND);
+    $errPage = new RequestStatusPage(HTTPStatus::STATUS_NOT_FOUND, $user);
     $errPage->render();
     exit();
 }

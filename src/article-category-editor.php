@@ -37,7 +37,7 @@ if ($is_edit_mode) {
     $category = get_article_category_by_id($pdo, $_GET["category_id"]);
 
     if (!$category) {
-        $errPage = new RequestStatusPage(HTTPStatus::STATUS_NOT_FOUND);
+        $errPage = new RequestStatusPage(HTTPStatus::STATUS_NOT_FOUND, $user);
         $errPage->render();
         exit();
     }

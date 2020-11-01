@@ -37,7 +37,7 @@ if ($is_edit_mode) {
     $article = get_article_by_id($pdo, $_GET["article_id"]);
 
     if (!$article) {
-        $errPage = new RequestStatusPage(HTTPStatus::STATUS_NOT_FOUND);
+        $errPage = new RequestStatusPage(HTTPStatus::STATUS_NOT_FOUND, $user);
         $errPage->render();
         exit();
     }
