@@ -2,6 +2,7 @@
 
 require_once 'CommentSection.php';
 require_once 'Component.php';
+require_once 'DropDown.php';
 require_once 'HelpTicketStatusBadge.php';
 require_once __DIR__ . '/../types/HelpTicket.php';
 require_once __DIR__ . '/../types/User.php';
@@ -45,7 +46,7 @@ class HelpTicketViewer implements Component
                     </div>
                 </div>
                 <div class="col-md-5 col-lg-4 col-xl-3">
-                    <div class="card card-light mt-3">
+                    <div class="card bg-light mt-3">
                         <div class="card-body">
                             <h2 class="card-title h5">
                                 Properties
@@ -70,11 +71,25 @@ class HelpTicketViewer implements Component
                                 <?php // TODO
                                 ?>
                             </p>
-                            <p class="card-text">
+                            <div class="card-text">
                                 <strong>Assignee</strong>
                                 <br />
-                                <?= $this->help_ticket->assignee_name ?: "<em>Not Assigned</em>" ?>
-                            </p>
+                                <?php // FIXME make this form work
+                                ?>
+                                <?php if ($this->user->is_admin) : ?>
+                                    <div class="form-group">
+                                        <?php (new DropDown(
+                                            null,
+                                            null,
+                                            null,
+                                            []
+                                        ))->render(); ?>
+                                    </div>
+                                    <button class="btn btn-sm btn-primary">Set Assignee</button>
+                                <?php else : ?>
+                                    <?= $this->help_ticket->assignee_name ?: "<em>Not Assigned</em>" ?>
+                                <?php endif; ?>
+                            </div>
                             <?php if ($this->help_ticket->is_closed) : ?>
                                 <p class="card-text">
                                     <?php // TODO check this
