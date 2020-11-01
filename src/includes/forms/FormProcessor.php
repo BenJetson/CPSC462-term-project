@@ -97,6 +97,28 @@ abstract class FormProcessor
             ))->render();
             exit();
         }
+
+        // Check to see if the handler set a redirect, and if not, display a
+        // generic success message and write a warning to the console.
+        $redirect_set = false;
+        foreach (headers_list() as $header) {
+            if (strpos($header, "Location") === 0) {
+                $redirect_set = true;
+            }
+        }
+
+        if (!$redirect_set) {
+            error_log("no redirect was set after processing for form " .
+                " operation '$operation' of " . get_called_class());
+
+            header("Refresh: 5; index.php");
+            (new RequestStatusPage(
+                HTTPStatus::STATUS_OK,
+                $user,
+                "The form data you sent has been saved. You will be returned " .
+                    "to the homepage momentarily."
+            ))->render();
+        }
     }
 
     private static function checkForExtraFields($recipe, $operation)
