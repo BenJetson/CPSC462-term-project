@@ -22,7 +22,7 @@ class Page
     {
 ?>
         <!DOCTYPE html>
-        <html>
+        <html lang="en">
 
         <head>
             <title><?= $this->title ?> - IT Helpdesk</title>
