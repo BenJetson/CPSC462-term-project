@@ -66,8 +66,10 @@ function get_all_users(PDO $pdo)
 function get_active_admin_users(PDO $pdo)
 {
     $stmt = $pdo->prepare(GET_USER_QUERY . "
-        WHERE is_admin = 1 AND is_disabled = 0
+        WHERE is_admin = TRUE AND is_disabled = FALSE
     ");
+
+    $stmt->execute();
 
     $users = $stmt->fetchAll(PDO::FETCH_CLASS, 'User');
 
