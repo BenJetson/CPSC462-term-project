@@ -49,13 +49,18 @@ if (!$help_ticket->checkUserAccess($user)) {
     exit();
 }
 
+$admin_users = [];
+if ($user->is_admin) {
+    $admin_users = get_active_admin_users($pdo);
+}
+
 // TODO comments for help ticket
 // $comments = get_comments_for_help_ticket($pdo, $help_ticket->help_ticket_id);
 
 $title = "Ticket #$help_ticket->help_ticket_id";
 $page = new Page($title, [
     new Navbar($user, null),
-    new HelpTicketViewer($user, $help_ticket),
+    new HelpTicketViewer($user, $help_ticket, $admin_users),
 ]);
 
 $page->render();
