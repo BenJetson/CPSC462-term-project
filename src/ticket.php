@@ -7,7 +7,7 @@ require_once 'includes/components/Navbar.php';
 require_once 'includes/db/connect.php';
 require_once 'includes/db/help-ticket.php';
 require_once 'includes/db/user.php';
-// require_once 'includes/forms/HelpTicketFP.php'; // TODO
+require_once 'includes/forms/HelpTicketViewerFP.php';
 require_once 'includes/pages/Page.php';
 require_once 'includes/pages/RequestStatusPage.php';
 require_once 'includes/types/HelpTicket.php';
@@ -21,13 +21,10 @@ if ($user === null) {
     exit();
 }
 
-// if ($_SERVER["REQUEST_METHOD"] === "POST") {
-//     // FIXME make sure that the form processor operation handlers for this
-//     //       check the user has access to the ticket, since that logic comes
-//     //       after this and the ticket number is in the POST (not handling here)
-//     HelpTicketFP::process($pdo, $user);
-//     exit();
-// }
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    HelpTicketViewerFP::process($pdo, $user);
+    exit();
+}
 
 if (!isset($_GET["help_ticket_id"])) {
     $errPage = new RequestStatusPage(HTTPStatus::STATUS_BAD_REQUEST, $user);
@@ -54,13 +51,12 @@ if ($user->is_admin) {
     $admin_users = get_active_admin_users($pdo);
 }
 
-// TODO comments for help ticket
-// $comments = get_comments_for_help_ticket($pdo, $help_ticket->help_ticket_id);
+$comments = get_comments_for_help_ticket($pdo, $help_ticket->help_ticket_id);
 
 $title = "Ticket #$help_ticket->help_ticket_id";
 $page = new Page($title, [
     new Navbar($user, null),
-    new HelpTicketViewer($user, $help_ticket, $admin_users),
+    new HelpTicketViewer($user, $help_ticket, $comments, $admin_users),
 ]);
 
 $page->render();
