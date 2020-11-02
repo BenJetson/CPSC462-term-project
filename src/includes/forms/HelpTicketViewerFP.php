@@ -59,6 +59,12 @@ class HelpTicketViewerFP extends FormProcessor
         header("Location: ticket.php?help_ticket_id=$help_ticket_id");
     }
 
+    private static function systemMessageBox($message, $type = "primary")
+    {
+        return "<div class=\"card bg-light border-$type mb-3\">" .
+            "<div class=\"card-body\">$message</div></div>";
+    }
+
     protected static function processAssign(PDO $pdo, User $user)
     {
         $help_ticket_id = $_POST["help_ticket_id"];
@@ -94,8 +100,8 @@ class HelpTicketViewerFP extends FormProcessor
             ? get_user_by_id($pdo, $assignee)->fullName()
             : "Unassigned";
 
-        $comment->body = "Changed assignee from $old_assignee to " .
-            "$new_assignee with reason :\n\n" . $_POST["comment"];
+        $comment->body = self::systemMessageBox("Changed assignee from " .
+            "$old_assignee to $new_assignee") . $_POST["comment"];
 
         create_help_ticket_comment($pdo, $help_ticket_id, $comment);
 
@@ -134,8 +140,10 @@ class HelpTicketViewerFP extends FormProcessor
 
         $comment = new Comment();
         $comment->author_id = $user->user_id;
-        $comment->body = "Closed this help ticket with reason:\n\n"
-            . $_POST["comment"];
+        $comment->body = self::systemMessageBox(
+            "Closed this help ticket.",
+            "danger"
+        ) . $_POST["comment"];
 
         create_help_ticket_comment($pdo, $help_ticket_id, $comment);
 
@@ -169,8 +177,10 @@ class HelpTicketViewerFP extends FormProcessor
 
         $comment = new Comment();
         $comment->author_id = $user->user_id;
-        $comment->body = "Reopened this help ticket with reason:\n\n"
-            . $_POST["comment"];
+        $comment->body = self::systemMessageBox(
+            "Reopened this help ticket.",
+            "success"
+        ) . $_POST["comment"];
 
         create_help_ticket_comment($pdo, $help_ticket_id, $comment);
 
