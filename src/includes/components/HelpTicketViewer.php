@@ -4,6 +4,9 @@ require_once 'CommentSection.php';
 require_once 'Component.php';
 require_once 'DropDown.php';
 require_once 'HelpTicketStatusBadge.php';
+require_once __DIR__ . '/../forms/HelpTicketViewerFP.php';
+require_once __DIR__ . '/../forms/FormProcessor.php';
+require_once __DIR__ . '/../types/Comment.php';
 require_once __DIR__ . '/../types/HelpTicket.php';
 require_once __DIR__ . '/../types/User.php';
 
@@ -15,19 +18,24 @@ class HelpTicketViewer implements Component
     private $help_ticket;
     /** @var array[int]string */
     private $assign_list;
+    /** @var Comment[] */
+    private $comments;
 
     /**
      * @param User $user
      * @param HelpTicket $help_ticket
+     * @param Comment[] $comments
      * @param User[] $admin_users
      */
     public function __construct(
         User $user,
         HelpTicket $help_ticket,
+        array $comments,
         array $admin_users
     ) {
         $this->user = $user;
         $this->help_ticket = $help_ticket;
+        $this->comments = $comments;
         $this->assign_list = [
             0 => "Unassigned",
         ];
@@ -90,19 +98,17 @@ class HelpTicketViewer implements Component
                                 <?php // TODO
                                 ?>
                             </p>
-                            <div class="card-text">
+                            <p class="card-text">
                                 <strong>Assignee</strong>
                                 <br />
-                                <?= $this->help_ticket->assignee_name ?: "<em>Not Assigned</em>" ?>
-                            </div>
+                                <?= $this->help_ticket->assignee_name ?: "<em>Unassigned</em>" ?>
+                            </p>
                             <?php if ($this->help_ticket->is_closed) : ?>
                                 <p class="card-text">
-                                    <?php // TODO check this
-                                    ?>
                                     <strong>Closed At</strong>
                                     <br />
                                     <?= $this->help_ticket->closed_at->format("Y-m-d h:i:s a") ?>
-                                    by
+                                    <br /> by
                                     <?= $this->help_ticket->closed_by_submitter
                                         ? $this->help_ticket->submitter_name
                                         : "helpdesk staff" ?>
@@ -117,11 +123,9 @@ class HelpTicketViewer implements Component
             <div class="card mt-3">
                 <div class="card-body">
                     <div class="d-flex flex-column flex-md-row align-items-md-center">
-                        <?php // FIXME need to dynamically show/hide these
-                        ?>
-                        <p class="card-title h5 mb-md-0 mr-md-3 flex-shrink-1">
+                        <h2 class="card-title h5 mb-md-0 mr-md-3 flex-shrink-1">
                             Actions
-                        </p>
+                        </h2>
                         <?php if ($this->help_ticket->is_closed) : ?>
                             <button type="button" id="reopenTicketBtn" class="btn btn-outline-success m-1 flex-fill">
                                 <i class="fa fa-redo"></i>
@@ -150,9 +154,10 @@ class HelpTicketViewer implements Component
         <div class="container">
             <div class="card mt-3">
                 <div class="card-body">
-                    <?php // FIXME no comments loaded
-                    ?>
-                    <?php (new CommentSection([], "Journal"))->render(); ?>
+                    <?php (new CommentSection(
+                        $this->comments,
+                        "Journal"
+                    ))->render(); ?>
                 </div>
             </div>
         </div>
@@ -160,6 +165,9 @@ class HelpTicketViewer implements Component
             <div class="modal d-none" id="reopenTicketModal">
                 <div class="modal-dialog modal-dialog-centered">
                     <form method="POST" action="ticket.php">
+                        <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= HelpTicketViewerFP::OP_REOPEN ?>" />
+                        <input type="hidden" name="help_ticket_id" value="<?= $this->help_ticket->help_ticket_id ?>" />
+
                         <div class="modal-content">
                             <div class="modal-header">
                                 <p class="h4 mb-0">Reopen Ticket</p>
@@ -171,7 +179,7 @@ class HelpTicketViewer implements Component
                                 <p>Please enter the reason for reopening the ticket below.</p>
                                 <div class="form-group">
                                     <label for="reopenComment">Comment</label>
-                                    <textarea name="comment" id="reopenComment" rows="3" class="form-control" placeholder="Comment"></textarea>
+                                    <textarea name="comment" id="reopenComment" rows="3" class="form-control" placeholder="Comment" required></textarea>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -186,6 +194,9 @@ class HelpTicketViewer implements Component
             <div class="modal d-none" id="closeTicketModal">
                 <div class="modal-dialog modal-dialog-centered">
                     <form method="POST" action="ticket.php">
+                        <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= HelpTicketViewerFP::OP_CLOSE ?>" />
+                        <input type="hidden" name="help_ticket_id" value="<?= $this->help_ticket->help_ticket_id ?>" />
+
                         <div class="modal-content">
                             <div class="modal-header">
                                 <p class="h4 mb-0">Close Ticket</p>
@@ -197,7 +208,7 @@ class HelpTicketViewer implements Component
                                 <p>Please enter the reason for closing the ticket below.</p>
                                 <div class="form-group">
                                     <label for="closeComment">Comment</label>
-                                    <textarea name="comment" id="closeComment" rows="3" class="form-control" placeholder="Comment"></textarea>
+                                    <textarea name="comment" id="closeComment" rows="3" class="form-control" placeholder="Comment" autofocus required></textarea>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -211,6 +222,9 @@ class HelpTicketViewer implements Component
             <div class="modal d-none" id="replyModal">
                 <div class="modal-dialog modal-dialog-centered">
                     <form method="POST" action="ticket.php">
+                        <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= HelpTicketViewerFP::OP_REPLY ?>" />
+                        <input type="hidden" name="help_ticket_id" value="<?= $this->help_ticket->help_ticket_id ?>" />
+
                         <div class="modal-content">
                             <div class="modal-header">
                                 <p class="h4 mb-0">New Reply</p>
@@ -225,7 +239,7 @@ class HelpTicketViewer implements Component
                                 </p>
                                 <div class="form-group">
                                     <label for="commentInput">Comment</label>
-                                    <textarea name="comment" id="commentInput" rows="8" class="form-control" placeholder="Comment"></textarea>
+                                    <textarea name="comment" id="commentInput" rows="8" class="form-control" placeholder="Comment" autofocus></textarea>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -240,6 +254,9 @@ class HelpTicketViewer implements Component
                 <div class="modal d-none" id="assignModal">
                     <div class="modal-dialog modal-dialog-centered">
                         <form method="POST" action="ticket.php">
+                            <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= HelpTicketViewerFP::OP_ASSIGN ?>" />
+                            <input type="hidden" name="help_ticket_id" value="<?= $this->help_ticket->help_ticket_id ?>" />
+
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <p class="h4 mb-0">Assign Ticket</p>
@@ -253,10 +270,11 @@ class HelpTicketViewer implements Component
                                         <?php (new DropDown(
                                             "Assignee",
                                             "assignUser",
-                                            "user",
+                                            "assignee_id",
                                             $this->assign_list,
                                             true,
-                                            $this->help_ticket->assignee_id ?: 0
+                                            $this->help_ticket->assignee_id ?: 0,
+                                            true
                                         ))->render(); ?>
                                     </div>
                                     <div class="form-group">
