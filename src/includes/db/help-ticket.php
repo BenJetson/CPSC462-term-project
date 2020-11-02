@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../types/HelpTicket.php';
+require_once 'comment.php';
 
 //
 // TODO like all of these help ticket drivers
