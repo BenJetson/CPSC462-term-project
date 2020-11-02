@@ -102,6 +102,7 @@ class HelpTicketViewerFP extends FormProcessor
 
         $comment->body = self::systemMessageBox("Changed assignee from " .
             "$old_assignee to $new_assignee") . $_POST["comment"];
+        $comment->is_reply = false;
 
         create_help_ticket_comment($pdo, $help_ticket_id, $comment);
 
@@ -144,6 +145,7 @@ class HelpTicketViewerFP extends FormProcessor
             "Closed this help ticket.",
             "danger"
         ) . $_POST["comment"];
+        $comment->is_reply = false;
 
         create_help_ticket_comment($pdo, $help_ticket_id, $comment);
 
@@ -181,6 +183,7 @@ class HelpTicketViewerFP extends FormProcessor
             "Reopened this help ticket.",
             "success"
         ) . $_POST["comment"];
+        $comment->is_reply = false;
 
         create_help_ticket_comment($pdo, $help_ticket_id, $comment);
 
@@ -213,6 +216,7 @@ class HelpTicketViewerFP extends FormProcessor
         $comment = new Comment();
         $comment->author_id = $user->user_id;
         $comment->body = $_POST["comment"];
+        $comment->is_reply = true;
 
         create_help_ticket_comment($pdo, $help_ticket_id, $comment);
 

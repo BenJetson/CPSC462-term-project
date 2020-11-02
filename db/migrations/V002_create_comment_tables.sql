@@ -3,6 +3,7 @@ CREATE TABLE comment (
     comment_id integer  NOT NULL AUTO_INCREMENT PRIMARY KEY,
     author     integer  NOT NULL,
     posted_at  datetime NOT NULL,
+    is_reply   boolean  NOT NULL,
     body text,
 
     FOREIGN KEY (author)

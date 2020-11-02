@@ -9,7 +9,8 @@ define("GET_COMMENT_QUERY", "
         build_full_name(u.first_name, u.last_name) AS author_name,
         build_monogram(u.first_name, u.last_name) AS author_monogram,
         c.posted_at,
-        c.body
+        c.body,
+        c.is_reply
     FROM comment c
     INNER JOIN user u
         ON c.author = u.user_id
@@ -69,15 +70,18 @@ function create_comment(PDO $pdo, Comment $comment)
     $stmt = $pdo->prepare("
         INSERT INTO comment (
             author,
-            body
+            body,
+            is_reply
         ) VALUES (
             :author,
-            :body
+            :body,
+            :is_reply
         )
     ");
 
     $stmt->bindParam(":author", $comment->author_id);
     $stmt->bindParam(":body", $comment->body);
+    $stmt->bindParam(":is_reply", $comment->is_reply);
 
     $stmt->execute();
 

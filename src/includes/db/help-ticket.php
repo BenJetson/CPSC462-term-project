@@ -27,6 +27,7 @@ define("GET_HELP_TICKET_QUERY", "
                 INNER JOIN comment c
                     ON c.comment_id = htc.comment_id
                 WHERE htc.help_ticket_id = ht.help_ticket_id
+                    AND c.is_reply = TRUE
                 ORDER BY c.posted_at DESC
                 LIMIT 1
             ),
