@@ -15,6 +15,8 @@ class DropDown implements Component
     private $required;
     /** @var mixed */
     private $defaultValue;
+    /** @var bool */
+    private $autofocus;
 
     /**
      * Constructs a new DropDown object.
@@ -30,6 +32,8 @@ class DropDown implements Component
      *     should be selected when the page is loaded, or null for no default.
      *     If no default is specified, a "Choose..." default with no value
      *     is provided.
+     * @param bool $autofocus whether or not this select will be autofocused
+     *     when the form comes into view.
      */
     public function __construct(
         $label,
@@ -37,7 +41,8 @@ class DropDown implements Component
         $name,
         $options,
         $required = false,
-        $defaultValue = null
+        $defaultValue = null,
+        $autofocus = null
     ) {
         $this->label = $label;
         $this->id = $id;
@@ -45,6 +50,7 @@ class DropDown implements Component
         $this->options = $options;
         $this->required = $required;
         $this->defaultValue = $defaultValue;
+        $this->autofocus = $autofocus;
     }
 
     public function render()
@@ -53,7 +59,9 @@ class DropDown implements Component
         <?php if (!is_null($this->label)) : ?>
             <label for="<?= $this->id ?>"><?= $this->label ?></label>
         <?php endif; ?>
-        <select id="<?= $this->id ?>" name="<?= $this->name ?>" class="form-control" <?= $this->required ? "required" : "" ?>>
+        <?php $attributes = ($this->required ? "required " : "") .
+            ($this->autofocus ? "autofocus" : "") ?>
+        <select id="<?= $this->id ?>" name="<?= $this->name ?>" class="form-control" <?= $attributes ?>>
             <?php if (is_null($this->defaultValue)) : ?>
                 <option value="" selected>Choose...</option>
             <?php endif; ?>
