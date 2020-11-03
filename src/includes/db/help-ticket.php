@@ -41,11 +41,15 @@ define("GET_HELP_TICKET_QUERY", "
         ON ht.assignee = ua.user_id
 ");
 
-function get_help_tickets(PDO $pdo, User $user) // TODO , HelpTicketFilter $filter)
+function get_help_tickets(PDO $pdo, HelpTicketFilter $filter)
 {
-    $stmt = $pdo->prepare(GET_HELP_TICKET_QUERY . "
-        /* TODO this should be filtered */
-    ");
+    $filter_query = $filter->toSQL();
+
+    $stmt = $pdo->prepare(GET_HELP_TICKET_QUERY . $filter_query->sql);
+
+    foreach ($filter_query->params as $key => &$val) {
+        $stmt->bindParam($key, $val);
+    }
 
     $stmt->execute();
 
