@@ -94,9 +94,16 @@ class HelpTicketViewer implements Component
                             <p class="card-text">
                                 <strong>Submitted at</strong>
                                 <br />
-                                1970-01-01 12:00 AM
-                                <?php // TODO
-                                ?>
+                                <?= $this->help_ticket->submitted_at->format(
+                                    "Y-m-d h:i:s a"
+                                ) ?>
+                            </p>
+                            <p class="card-text">
+                                <strong>Updated at</strong>
+                                <br />
+                                <?= $this->help_ticket->updated_at->format(
+                                    "Y-m-d h:i:s a"
+                                ) ?>
                             </p>
                             <p class="card-text">
                                 <strong>Assignee</strong>
@@ -107,7 +114,9 @@ class HelpTicketViewer implements Component
                                 <p class="card-text">
                                     <strong>Closed At</strong>
                                     <br />
-                                    <?= $this->help_ticket->closed_at->format("Y-m-d h:i:s a") ?>
+                                    <?= $this->help_ticket->closed_at->format(
+                                        "Y-m-d h:i:s a"
+                                    ) ?>
                                     <br /> by
                                     <?= $this->help_ticket->closed_by_submitter
                                         ? $this->help_ticket->submitter_name
