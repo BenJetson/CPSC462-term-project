@@ -41,7 +41,11 @@ class HelpTicketStatusBadge implements Component
                 <?php endif; ?>
                 needs assignee
             </span>
-        <?php elseif ($this->help_ticket->last_reply_author_id !== $this->user->user_id) : ?>
+        <?php elseif (
+            $this->help_ticket->last_reply_author_id !== $this->user->user_id
+            && ($this->help_ticket->assignee_id === $this->user->user_id
+                || $this->help_ticket->submitter_id === $this->user->user_id)
+        ) : ?>
             <span class="badge badge-warning text-uppercase">
                 <?php if ($this->show_icon) : ?>
                     <i class="fa fa-warning"></i>
