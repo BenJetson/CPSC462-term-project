@@ -80,10 +80,19 @@ class HelpTicketList implements Component
                         <h2 class="h5 mb-0">Ticket #<?= $help_ticket->help_ticket_id ?></h2>
                         <div class="h5 mb-0">
                             <span class="sr-only">Status</span>
-                            <?php (new HelpTicketStatusBadge(
-                                $this->user,
-                                $help_ticket
-                            ))->render(); ?>
+                            <div class="d-md-none">
+                                <?php (new HelpTicketStatusBadge(
+                                    $this->user,
+                                    $help_ticket
+                                ))->render(); ?>
+                            </div>
+                            <div class="d-none d-md-block">
+                                <?php (new HelpTicketStatusBadge(
+                                    $this->user,
+                                    $help_ticket,
+                                    true
+                                ))->render(); ?>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
