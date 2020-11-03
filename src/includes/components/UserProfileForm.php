@@ -2,7 +2,7 @@
 
 require_once 'Component.php';
 require_once 'DropDown.php';
-require_once 'PasswordMeter.php';
+require_once 'NewPasswordInput.php';
 require_once 'ToSReader.php';
 require_once __DIR__ . '/../forms/FormProcessor.php';
 require_once __DIR__ . '/../types/User.php';
@@ -13,16 +13,18 @@ class UserProfileForm implements Component
     private $operation;
     private $user;
     private $isRegistration;
-    private $passMeter;
+    private $passInput;
 
     public function __construct($action, $operation, $user)
     {
         $this->action = $action;
         $this->operation = $operation;
+
         $this->user = $user;
+
         $this->isRegistration = !isset($this->user)
             || !isset($this->user->user_id);
-        $this->passMeter = $this->isRegistration ? new PasswordMeter() : null;
+        $this->passInput = $this->isRegistration ? new NewPasswordInput() : null;
     }
 
     public function render()
@@ -49,13 +51,11 @@ class UserProfileForm implements Component
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="email" required />
                         <div class="invalid-feedback">Must supply a valid email address.</div>
-                        <p>
-                            <small>
-                                A message will be sent to this address to
-                                confirm. Email must be confirmed before you can
-                                comment or send help tickets.
-                            </small>
-                        </p>
+                        <small class="form-text text-muted">
+                            A message will be sent to this address to
+                            confirm. Email must be confirmed before you can
+                            comment or send help tickets.
+                        </small>
                     </div>
                 </div>
                 <div class="form-row">
@@ -123,16 +123,7 @@ class UserProfileForm implements Component
                 </div>
                 <?php if ($this->isRegistration) : ?>
                     <p class="h3">Password</p>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required />
-                            <div class="invalid-feedback">Must supply a password.</div>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <?php $this->passMeter->render(); ?>
-                        </div>
-                    </div>
+                    <?php $this->passInput->render(); ?>
                     <p class="h3">Terms of Service</p>
                     <?php (new ToSReader("100px"))->render(); ?>
                     <div class="form-group custom-control custom-switch">
@@ -154,14 +145,14 @@ class UserProfileForm implements Component
 
     public function injectScripts()
     {
-        !$this->isRegistration ?: $this->passMeter->injectScripts();
+        !$this->isRegistration ?: $this->passInput->injectScripts();
 
     ?>
         <script>
             window.addEventListener("load", function() {
                 // Add event listener to form to display custom validation.
                 let form = document.getElementById("profile-form");
-                form.addEventListener("submit", function(event) {
+                form.addEventListener("submit", (event) => {
                     if (!form.checkValidity()) {
                         event.preventDefault();
                         event.stopPropagation();
