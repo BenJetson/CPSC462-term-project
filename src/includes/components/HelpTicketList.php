@@ -79,6 +79,7 @@ class HelpTicketList implements Component
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h2 class="h5 mb-0">Ticket #<?= $help_ticket->help_ticket_id ?></h2>
                         <div class="h5 mb-0">
+                            <span class="sr-only">Status</span>
                             <?php (new HelpTicketStatusBadge(
                                 $this->user,
                                 $help_ticket
@@ -86,9 +87,35 @@ class HelpTicketList implements Component
                         </div>
                     </div>
                     <div class="card-body">
-                        <p class="card-title h4"><?= $help_ticket->subject ?></p>
+                        <div class="row no-gutters">
+                            <div class="col-md-9">
+                                <span class="sr-only">Subject</span>
+                                <p class="card-title h4"><?= $help_ticket->subject ?></p>
+                            </div>
+                            <div class="col-md-3 text-md-right text-muted">
+                                <p class="mb-0">
+                                    <i class="fa fa-user"></i>
+                                    <span class="sr-only">Submitter</span>
+                                    <?= $help_ticket->submitter_name ?>
+                                </p>
+                                <p class="mb-0">
+                                    <i class="fa fa-user-tag"></i>
+                                    <span class="sr-only">Assignee</span>
+                                    <?= $help_ticket->assignee_name ?: "<em>Unassigned</em>" ?>
+                                </p>
+                                <p class="mb-0">
+                                    <i class="fa fa-calendar-day"></i>
+                                    <span class="sr-only">Last Updated</span>
+                                    <?= $help_ticket->updated_at->format(
+                                        "Y-m-d h:i:s a"
+                                    ) ?>
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <a href="ticket.php?help_ticket_id=<?= $help_ticket->help_ticket_id ?>" class="stretched-link"></a>
+                    <a href="ticket.php?help_ticket_id=<?= $help_ticket->help_ticket_id ?>" class="stretched-link">
+                        <span class="sr-only">View Ticket #<?= $help_ticket->help_ticket_id ?></span>
+                    </a>
                 </div>
             <?php endforeach; ?>
         </div>
