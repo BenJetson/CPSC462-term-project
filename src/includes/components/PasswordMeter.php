@@ -34,7 +34,7 @@ class PasswordMeter implements Component
                     2: "Low",
                     3: "Acceptable",
                     4: "Strong"
-                }
+                };
 
                 let passMeter = () => {
                     let password = input.value;
@@ -52,11 +52,29 @@ class PasswordMeter implements Component
 
                     text.innerText = scoreToText[score];
                     help.innerText = result.feedback.warning;
+
+                    // If the lowercase version of the password equals the
+                    // original, then the password contains no capital letters.
+                    let hasCapital = password !== password.toLowerCase();
+
+                    // If the password does not meet requirements, mark the
+                    // field as invalid.
+                    let validityMsg = "";
+                    if (score < 3 || !hasCapital) {
+                        validityMsg = "Password must be at least acceptable " +
+                            "strength and contain at least one uppercase " +
+                            "letter.";
+                    }
+                    input.setCustomValidity(validityMsg);
                 }
 
+                // Run the password meter when the password input changes value.
                 input.addEventListener("keyup", passMeter);
                 input.addEventListener("paste", passMeter);
-            })
+
+                // Run the password meter on page load.
+                passMeter();
+            });
         </script>
 <?php
     }
