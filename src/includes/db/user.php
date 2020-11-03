@@ -334,7 +334,7 @@ function change_user_password(PDO $pdo, $user_id, $new_pass_hash)
     // Trigger will update the pass_updated_at automatically.
 
     $stmt = $pdo->prepare("
-        UPDATE USER
+        UPDATE user
         SET pass_hash = :pass_hash
         WHERE user_id = :user_id
     ");
