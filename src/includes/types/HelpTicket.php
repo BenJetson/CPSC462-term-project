@@ -10,6 +10,7 @@ class HelpTicket
     public $assignee_id;
     public $assignee_name;
     public $submitted_at;
+    public $updated_at;
     public $is_closed;
     public $closed_by_submitter;
     public $closed_at;
@@ -25,6 +26,7 @@ class HelpTicket
             ? null
             : (int) $this->assignee_id;
         $this->submitted_at = new DateTime($this->submitted_at);
+        $this->updated_at = new DateTime($this->updated_at);
         $this->is_closed = (bool) $this->is_closed;
         $this->closed_by_submitter = (bool) $this->closed_by_submitter;
         $this->closed_at = is_null($this->closed_at)

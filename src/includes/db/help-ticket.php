@@ -15,6 +15,7 @@ define("GET_HELP_TICKET_QUERY", "
         ht.assignee AS assignee_id,
         build_full_name(ua.first_name, ua.last_name) AS assignee_name,
         ht.submitted_at,
+        ht.updated_at,
         ht.is_closed,
         ht.closed_by_submitter,
         ht.closed_at,
