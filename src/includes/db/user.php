@@ -335,7 +335,9 @@ function change_user_password(PDO $pdo, $user_id, $new_pass_hash)
 
     $stmt = $pdo->prepare("
         UPDATE user
-        SET pass_hash = :pass_hash
+        SET
+            pass_hash = :pass_hash,
+            pass_attempts = 0
         WHERE user_id = :user_id
     ");
 

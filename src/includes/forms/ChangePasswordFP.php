@@ -34,6 +34,8 @@ class ChangePasswordFP extends FormProcessor
         }
 
         if ($_POST["password"] !== $_POST["confirm_password"]) {
+            update_user_bump_lockout($pdo, $user->user_id);
+
             throw new InvalidArgumentException(
                 "Passwords do not match!"
             );
