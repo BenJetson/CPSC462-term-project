@@ -58,6 +58,22 @@ class HelpTicketList implements Component
             </div>
         </div>
         <div class="container">
+            <?php if (count($this->help_tickets) === 0) : ?>
+                <div class="card bg-light">
+                    <div class="card-body text-center">
+                        <p class="display-4">
+                            <i class="fa fa-hat-wizard"></i>
+                        </p>
+                        <p class="card-title h5">
+                            No matching tickets were found.
+                        </p>
+                        <p>
+                            That means there's no work to be done here!
+                            Have a great day.
+                        </p>
+                    </div>
+                </div>
+            <?php endif; ?>
             <?php foreach ($this->help_tickets as $help_ticket) : ?>
                 <div class="card mb-3">
                     <div class="card-header d-flex justify-content-between align-items-center">
