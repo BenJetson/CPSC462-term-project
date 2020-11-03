@@ -30,11 +30,13 @@ class HelpTicketList implements Component
     {
 ?>
         <div class="container">
-            <div class="row">
-                <div class="col-md-6">
+            <div class="row flex-column-reverse flex-lg-row">
+                <div class="col-md-6 mb-3">
                     Found <?= count($this->help_tickets) ?> tickets.
+                    <br />
+                    <em>Most recently updated tickets appear at the top.</em>
                 </div>
-                <div class="col-md">
+                <div class="col-md mb-3">
                     <form method="GET" action="ticket-index.php" id="filterForm">
                         <?php (new DropDown(
                             null,
@@ -47,7 +49,7 @@ class HelpTicketList implements Component
                         ))->render(); ?>
                     </form>
                 </div>
-                <div class="col-md-auto">
+                <div class="col-md-auto mb-3 text-right">
                     <a href="ticket-editor.php" class="btn btn-info">
                         <i class="fa fa-file-alt"></i>
                         New Ticket
@@ -55,7 +57,7 @@ class HelpTicketList implements Component
                 </div>
             </div>
         </div>
-        <div class="container mt-3">
+        <div class="container">
             <?php foreach ($this->help_tickets as $help_ticket) : ?>
                 <div class="card mb-3">
                     <div class="card-header d-flex justify-content-between align-items-center">
