@@ -176,24 +176,22 @@ class HelpTicketFilter
     public function toSQL()
     {
         $query = (object) [
-            "sql" => "",
+            "sql" => "
+                WHERE
+            ",
             "params" => [],
         ];
 
         switch ($this->name) {
             case self::ALL:
-                $query->sql = "
-                    ORDER BY ht.updated_at DESC
-                ";
-
+                // No WHERE for fetching all, so clear the query buffer.
+                $query->sql = "";
                 break;
             case self::MINE:
             case self::MINE_CLOSED:
-                $query->sql = "
-                    WHERE
-                        ht.submitter = :user_id
-                        AND ht.is_closed = :is_closed
-                    ORDER BY ht.updated_at DESC
+                $query->sql .= "
+                    ht.submitter = :user_id
+                    AND ht.is_closed = :is_closed
                 ";
 
                 $query->params[":user_id"] = $this->user->user_id;
@@ -201,55 +199,48 @@ class HelpTicketFilter
                     $this->name === self::MINE_CLOSED;
                 break;
             case self::UNASSIGNED:
-                $query->sql = "
-                    WHERE
-                        ht.assignee IS NULL
-                        AND ht.submitter != :user_id
-                    ORDER BY ht.updated_at ASC
+                $query->sql .= "
+                    ht.assignee IS NULL
+                    AND ht.submitter != :user_id
                 ";
 
                 $query->params[":user_id"] = $this->user->user_id;
                 break;
             case self::ASSIGNED:
-                $query->sql = "
-                    WHERE
+                $query->sql .= "
                     ht.assignee = :user_id
                     AND ht.is_closed = FALSE
-                    ORDER BY ht.updated_at DESC
                 ";
 
                 $query->params[":user_id"] = $this->user->user_id;
                 break;
             case self::ALL_ASSIGNED:
-                $query->sql = "
-                    WHERE ht.assignee = :user_id
-                    ORDER BY ht.updated_at DESC
+                $query->sql .= "
+                    ht.assignee = :user_id
                 ";
 
                 $query->params[":user_id"] = $this->user->user_id;
                 break;
             case self::ACTION_REQUIRED:
-                $query->sql = "
-                    WHERE
-                        ht.is_closed = FALSE
-                        AND (
-                            ht.assignee = :assignee_id
-                            OR ht.submitter = :submitter_id
-                        )
-                        AND COALESCE(
-                            (
-                                SELECT c.author
-                                FROM help_ticket_comment htc
-                                INNER JOIN comment c
-                                    ON c.comment_id = htc.comment_id
-                                WHERE htc.help_ticket_id = ht.help_ticket_id
-                                    AND c.is_reply = TRUE
-                                ORDER BY c.posted_at DESC
-                                LIMIT 1
-                            ),
-                            ht.submitter
-                        ) != :user_id
-                    ORDER BY ht.updated_at DESC
+                $query->sql .= "
+                    ht.is_closed = FALSE
+                    AND (
+                        ht.assignee = :assignee_id
+                        OR ht.submitter = :submitter_id
+                    )
+                    AND COALESCE(
+                        (
+                            SELECT c.author
+                            FROM help_ticket_comment htc
+                            INNER JOIN comment c
+                                ON c.comment_id = htc.comment_id
+                            WHERE htc.help_ticket_id = ht.help_ticket_id
+                                AND c.is_reply = TRUE
+                            ORDER BY c.posted_at DESC
+                            LIMIT 1
+                        ),
+                        ht.submitter
+                    ) != :user_id
                 ";
                 $query->params[":assignee_id"] = $this->user->user_id;
                 $query->params[":submitter_id"] = $this->user->user_id;
@@ -259,6 +250,10 @@ class HelpTicketFilter
             default:
                 throw new RuntimeException("unknown filter name");
         }
+
+        $query->sql .= "
+            ORDER BY ht.updated_at DESC
+        ";
 
         return $query;
     }
