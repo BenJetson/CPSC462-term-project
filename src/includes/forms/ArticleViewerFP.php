@@ -47,6 +47,7 @@ class ArticleViewerFP extends FormProcessor
         $comment = new Comment();
         $comment->author_id = $user->user_id;
         $comment->body = $_POST["comment"];
+        $comment->is_reply = true;
 
         create_article_comment($pdo, $_POST["article_id"], $comment);
         self::redirectToArticle($_POST["article_id"]);
