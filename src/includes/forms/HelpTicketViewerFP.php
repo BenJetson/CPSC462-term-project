@@ -87,11 +87,6 @@ class HelpTicketViewerFP extends FormProcessor
 
         assign_help_ticket($pdo, $help_ticket_id, $assignee);
 
-        // FIXME consider making these journal comments have the root user as
-        // the author. Comment contents would be something like
-        // Billy Bob (ID #4983) closed this ticket.
-        // Then put the REASON as a separate comment by the user.
-
         $comment = new Comment();
         $comment->author_id = $user->user_id;
 
@@ -133,11 +128,6 @@ class HelpTicketViewerFP extends FormProcessor
         }
 
         close_help_ticket($pdo, $help_ticket_id, $user->user_id);
-
-        // FIXME consider making these journal comments have the root user as
-        // the author. Comment contents would be something like
-        // Billy Bob (ID #4983) closed this ticket.
-        // Then put the REASON as a separate comment by the user.
 
         $comment = new Comment();
         $comment->author_id = $user->user_id;
