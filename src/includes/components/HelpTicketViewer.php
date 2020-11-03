@@ -161,7 +161,7 @@ class HelpTicketViewer implements Component
             </div>
         </div>
         <div class="container">
-            <div class="card mt-3">
+            <div class="card my-3">
                 <div class="card-body">
                     <?php (new CommentSection(
                         $this->comments,
