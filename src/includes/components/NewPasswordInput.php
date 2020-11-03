@@ -32,7 +32,7 @@ class NewPasswordInput implements Component
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="confirmPassword">Confirm Password</label>
-                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required />
+                <input type="password" class="form-control" id="confirmPassword" name="confirm_password" required />
                 <div class="invalid-feedback">Passwords do not match.</div>
             </div>
         </div>

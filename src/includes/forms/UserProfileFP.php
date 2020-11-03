@@ -23,6 +23,7 @@ class UserProfileFP extends FormProcessor
                 ["state"],
                 ["zip", FILTER_VALIDATE_INT],
                 ["password"],
+                ["confirm_password"],
             ],
             "opt_fields" => [
                 ["address_line_2"],
@@ -67,6 +68,16 @@ class UserProfileFP extends FormProcessor
         if (!isset($_POST["tos_accept"]) || $_POST["tos_accept"] !== "on") {
             throw new InvalidArgumentException(
                 "You must accept the terms of service in order to register."
+            );
+        }
+
+        if ($_POST["password"] !== $_POST["confirm_password"]) {
+            throw new InvalidArgumentException(
+                "Passwords do not match!"
+            );
+        } elseif ($_POST["password"] === strtolower($_POST["password"])) {
+            throw new InvalidArgumentException(
+                "Password does not contain a capital letter!"
             );
         }
 
