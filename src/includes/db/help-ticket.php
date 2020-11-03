@@ -38,7 +38,7 @@ define("GET_HELP_TICKET_QUERY", "
     LEFT JOIN user us
         ON ht.submitter = us.user_id
     LEFT JOIN user ua
-        ON ht.assignee = us.user_id
+        ON ht.assignee = ua.user_id
 ");
 
 function get_help_tickets(PDO $pdo, User $user) // TODO , HelpTicketFilter $filter)
