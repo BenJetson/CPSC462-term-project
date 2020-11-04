@@ -29,10 +29,8 @@ class HelpTicketEditorFP extends FormProcessor
         $help_ticket->body = $_POST["body"];
         $help_ticket->submitter_id = $user->user_id;
 
-        create_help_ticket($pdo, $help_ticket);
+        $help_ticket_id = create_help_ticket($pdo, $help_ticket);
 
-        // TODO consider redirecting to the ticket after creation, but
-        // that would require the DB driver to return the ID.
-        header("Location: ticket-index.php");
+        header("Location: ticket.php?help_ticket_id=$help_ticket_id");
     }
 }
