@@ -16,8 +16,8 @@
   font-size: 0.8em;
   color: var(--warning);
   position: absolute;
-  top: -4px;
-  left: 1.1em;
+  left: 0.5em;
+  top: -0.9em;
 }
 
 .star-rating .star-bright {
