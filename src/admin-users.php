@@ -2,6 +2,7 @@
 
 require 'includes/init.php';
 
+require_once 'includes/components/UserList.php';
 require_once 'includes/components/Navbar.php';
 require_once 'includes/db/connect.php';
 require_once 'includes/db/user.php';
@@ -22,5 +23,12 @@ if ($user === null) {
     exit();
 }
 
-$errPage = new RequestStatusPage(HTTPStatus::STATUS_NOT_IMPLEMENTED, $user);
-$errPage->render();
+$users = get_all_users($pdo);
+
+$title = "User List";
+$page = new Page($title, [
+    new Navbar($user, $title),
+    new UserList($users),
+]);
+
+$page->render();
