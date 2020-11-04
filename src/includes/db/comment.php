@@ -28,8 +28,29 @@ function get_comment_by_id(PDO $pdo, $comment_id)
     return $stmt->fetchObject("Comment");
 }
 
+/**
+ * get_all_comments_by_id fetches all comments that are named in the given
+ * array by identifier. Due to packet size constraints, this may not work as
+ * expected with quantities greater than 1000 identifiers.
+ *
+ * Therefore, as noted below, this function is DEPRECATED.
+ *
+ * @deprecated use comment type specific database drivers instead.
+ *
+ * @pre count($comment_ids) <= 1000
+ *
+ * @param PDO $pdo the database connection to use.
+ * @param array $comment_ids the list of comment IDs to fetch.
+ *
+ * @return Comment[]
+ *
+ * @throws PDOException when the database encounters an error.
+ */
 function get_all_comments_by_id(PDO $pdo, array $comment_ids)
 {
+    // Warn the developer that this is deprecated.
+    trigger_error("Usage of " . __FUNCTION__ . " is deprecated.");
+
     $params = [];
     $q = GET_COMMENT_QUERY . "
         WHERE c.comment_id = ANY (
