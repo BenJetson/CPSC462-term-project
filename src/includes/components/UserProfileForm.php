@@ -11,7 +11,10 @@ class UserProfileForm implements Component
 {
     private $action;
     private $operation;
+
+    /** @var ?User */
     private $user;
+
     private $isRegistration;
     private $passInput;
 
@@ -33,23 +36,26 @@ class UserProfileForm implements Component
         <div class="container mb-5">
             <form action="<?= $this->action ?>" method="POST" id="profile-form" novalidate>
                 <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= $this->operation ?>" />
+                <?php if (!$this->isRegistration) : ?>
+                    <input type="hidden" name="user_id" value="<?= $this->user->user_id ?>" />
+                <?php endif; ?>
                 <p class="h3">Personal Info</p>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="first-name">First Name</label>
-                        <input type="text" class="form-control" id="first-name" name="first_name" required />
+                        <input type="text" class="form-control" id="first-name" name="first_name" value="<?= $this->user ? $this->user->first_name : "" ?>" required />
                         <div class="invalid-feedback">Must supply a first name.</div>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="last-name">Last Name</label>
-                        <input type="text" class="form-control" id="last-name" name="last_name" required />
+                        <input type="text" class="form-control" id="last-name" name="last_name" value="<?= $this->user ? $this->user->last_name : "" ?>" required />
                         <div class="invalid-feedback">Must supply a last name.</div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required />
+                        <input type="email" class="form-control" id="email" name="email" value="<?= $this->user ? $this->user->email : "" ?>" required />
                         <div class="invalid-feedback">Must supply a valid email address.</div>
                         <small class="form-text text-muted">
                             A message will be sent to this address to
@@ -61,7 +67,7 @@ class UserProfileForm implements Component
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="phone">Telephone</label>
-                        <input type="text" class="form-control" id="phone" name="telephone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
+                        <input type="text" class="form-control" id="phone" name="telephone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="<?= $this->user ? $this->user->telephone : "" ?>" required />
                         <div class="invalid-feedback">
                             Telephone number must be of the form: XXX-XXX-XXXX
                             with dashes included.
@@ -69,7 +75,7 @@ class UserProfileForm implements Component
                     </div>
                     <div class="form-group col-md-6">
                         <label for="dob">Date of Birth</label>
-                        <input type="date" class="form-control" id="dob" name="dob" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" required />
+                        <input type="date" class="form-control" id="dob" name="dob" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" value="<?= $this->user ? $this->user->dob->format("m/d/Y") : "" ?>" required />
                         <div class="invalid-feedback">
                             Date of birth must be of the form MM/DD/YYYY with
                             leading zeroes and dashes present.
@@ -80,14 +86,14 @@ class UserProfileForm implements Component
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="address-line-1">Address Line 1</label>
-                        <input type="text" class="form-control" id="address-line-1" name="address_line_1" required />
+                        <input type="text" class="form-control" id="address-line-1" name="address_line_1" value="<?= $this->user ? $this->user->address_line_1 : "" ?>" required />
                         <div class="invalid-feedback">Must supply an address line 1.</div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="address-line-2">Address Line 2</label>
-                        <input type="text" class="form-control" id="address-line-2" name="address_line_2" />
+                        <input type="text" class="form-control" id="address-line-2" name="address_line_2" value="<?= $this->user ? $this->user->address_line_2 : "" ?>" />
                         <div class="valid-feedback">
                             Address line 2 is only required if your address
                             has a second line.
@@ -97,7 +103,7 @@ class UserProfileForm implements Component
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="city">City</label>
-                        <input type="text" class="form-control" id="city" name="city" required />
+                        <input type="text" class="form-control" id="city" name="city" value="<?= $this->user ? $this->user->address_city : "" ?>" required />
                         <div class="invalid-feedback">Must supply a city.</div>
                     </div>
                     <div class="form-group col-md-4">
@@ -110,14 +116,15 @@ class UserProfileForm implements Component
                             "state",
                             "state",
                             $states,
-                            true
+                            true,
+                            $this->user ? $this->user->address_state : null
                         ))->render();
                         ?>
                         <div class="invalid-feedback">Must select a state.</div>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="zip">ZIP Code</label>
-                        <input type="text" class="form-control" id="zip" name="zip" pattern="[0-9]{5}" required />
+                        <input type="text" class="form-control" id="zip" name="zip" pattern="[0-9]{5}" value="<?= $this->user ? $this->user->address_zip : "" ?>" required />
                         <div class="invalid-feedback">ZIP Code must be 5 digits.</div>
                     </div>
                 </div>
