@@ -25,31 +25,31 @@ class UserList implements Component
                     <div class="card-body">
 
                         <div class="row">
-                            <div class="col-auto">
-                                <div class="d-inline-block position-relative">
-                                    <div class="avatar h3" aria-hidden="true">
-                                        <?php if ($user->is_admin) : ?>
-                                            <div class="avatar-crown">
-                                                <i class="fa fa-crown"></i>
-                                            </div>
-                                        <?php endif; ?>
-                                        <?= $user->monogram() ?>
-                                    </div>
-                                </div>
-                                <a href="profile.php?user_id=<?= $user->user_id ?>" class="stretched-link"></a>
-                            </div>
                             <div class="col">
-                                <h2>
+                                <h2 class="h4">
+                                    <div class="d-inline-block position-relative mr-3 mb-3">
+                                        <div class="avatar" aria-hidden="true">
+                                            <?php if ($user->is_admin) : ?>
+                                                <div class="avatar-crown">
+                                                    <i class="fa fa-crown"></i>
+                                                </div>
+                                            <?php endif; ?>
+                                            <?= $user->monogram() ?>
+                                        </div>
+                                    </div>
                                     <?= $user->fullName() ?>
-                                    <?php if ($user->is_admin) : ?>
-                                        <small>
-                                            <span class="badge badge-pill badge-warning text-uppercase ml-2">
-                                                Admin
-                                            </span>
-                                        </small>
-                                    <?php endif; ?>
                                 </h2>
-                                <p><?= $user->email ?></p>
+                                <p>
+                                    <?php if ($user->is_admin) : ?>
+                                        <span class="badge badge-pill badge-warning text-uppercase mr-2">
+                                            Admin
+                                        </span>
+                                    <?php endif; ?>
+                                    <i class="fa fa-fingerprint"></i>
+                                    #<?= $user->user_id ?>
+                                    <i class="fa fa-envelope ml-2"></i>
+                                    <?= $user->email ?>
+                                </p>
                                 <a href="profile.php?user_id=<?= $user->user_id ?>" class="stretched-link"></a>
                             </div>
                             <div class="col-md-auto">
