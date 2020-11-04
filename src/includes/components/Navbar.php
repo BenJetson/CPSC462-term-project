@@ -62,20 +62,20 @@ class Navbar implements Component
                                 <span class="d-lg-none d-xl-inline">Help Tickets</span>
                             </a>
                         </li>
-                        <?php if ($this->user->is_admin) : ?>
-                            <li class="nav-item">
-                                <a class="nav-link" href="admin-index.php" aria-label="Administration">
-                                    <i class="fa fa-tools"></i>
-                                    <span class="d-none d-lg-inline d-xl-none">Admin</span>
-                                    <span class="d-lg-none d-xl-inline">Administration</span>
-                                </a>
-                            </li>
-                        <?php endif; ?>
                         <?php if ($this->user === null) : ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="login.php">Login</a>
                             </li>
                         <?php else : ?>
+                            <?php if ($this->user->is_admin) : ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="admin-index.php" aria-label="Administration">
+                                        <i class="fa fa-tools"></i>
+                                        <span class="d-none d-lg-inline d-xl-none">Admin</span>
+                                        <span class="d-lg-none d-xl-inline">Administration</span>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div class="avatar" aria-hidden="true">
