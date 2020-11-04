@@ -35,7 +35,7 @@ class User
 
         $this->email_changed_at = new DateTime($this->email_changed_at); // FIXME check this datetime
 
-        $this->dob = date_parse($this->dob); // FIXME check this date format
+        $this->dob = new DateTime($this->dob); // FIXME check this date format
 
         $this->pass_changed_at = new DateTime($this->pass_changed_at); // FIXME check this datetime
         $this->pass_attempts = (int) $this->pass_attempts;

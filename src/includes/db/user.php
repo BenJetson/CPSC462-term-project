@@ -247,7 +247,7 @@ function create_user(PDO $pdo, User $user)
     $stmt->bindParam(":email", $user->email);
     $stmt->bindParam(":first_name", $user->first_name);
     $stmt->bindParam(":last_name", $user->last_name);
-    $stmt->bindParam(":dob", $user->dob);
+    $stmt->bindParam(":dob", $user->dob->format("Y-m-d"));
     $stmt->bindParam(":telephone", $user->telephone);
     $stmt->bindParam(":address_line_1", $user->address_line_1);
     $stmt->bindParam(":address_line_2", $user->address_line_2);
@@ -299,7 +299,9 @@ function update_user_profile(PDO $pdo, User $user)
     $stmt->bindParam(":email", $user->email ?: null);
     $stmt->bindParam(":first_name", $user->first_name ?: null);
     $stmt->bindParam(":last_name", $user->last_name ?: null);
-    $stmt->bindParam(":dob", $user->dob ?: null);
+    $stmt->bindParam(":dob", isset($user->dob)
+        ? $user->dob->format("Y-m-d")
+        : null);
     $stmt->bindParam(":telephone", $user->telephone ?: null);
 
     $stmt->bindParam(":address_line_1", $user->address_line_1 ?: null);
@@ -308,7 +310,7 @@ function update_user_profile(PDO $pdo, User $user)
     $stmt->bindParam(":address_state", $user->address_state ?: null);
     $stmt->bindParam(":address_zip", $user->address_zip ?: null);
 
-    $stmt->bindParam(":user_id", $user->user_id ?: null);
+    $stmt->bindParam(":user_id", $user->user_id);
 
     // TODO check for SQLState error code 23000 for unique violation and inform
     // the user that the email is already registered and cannot be used.
