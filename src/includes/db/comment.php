@@ -85,16 +85,9 @@ function create_comment(PDO $pdo, Comment $comment)
 
     $stmt->execute();
 
-    // Get the identifier of the comment just inserted.
+    // Return the identifier of the comment just inserted.
     // This is safe because we are inside a transaction.
-    $stmt = $pdo->prepare("
-        SELECT MAX(comment_id)
-        FROM comment
-    ");
-
-    $stmt->execute();
-
-    return (int) $stmt->fetchColumn();
+    return $pdo->lastInsertId();
 }
 
 function update_comment(PDO $pdo, Comment $comment)
