@@ -86,23 +86,36 @@ function get_help_ticket_by_id(PDO $pdo, $help_ticket_id)
 
 function create_help_ticket(PDO $pdo, HelpTicket $help_ticket)
 {
-    $stmt = $pdo->prepare("
-        INSERT INTO help_ticket(
-            submitter,
-            subject,
-            body
-        ) VALUES (
-            :submitter,
-            :subject,
-            :body
-        )
-    ");
+    $pdo->beginTransaction();
+    $help_ticket_id = 0;
 
-    $stmt->bindParam(":submitter", $help_ticket->submitter_id);
-    $stmt->bindParam(":subject", $help_ticket->subject);
-    $stmt->bindParam(":body", $help_ticket->body);
+    try {
+        $stmt = $pdo->prepare("
+            INSERT INTO help_ticket(
+                submitter,
+                subject,
+                body
+            ) VALUES (
+                :submitter,
+                :subject,
+                :body
+            )
+        ");
 
-    $stmt->execute();
+        $stmt->bindParam(":submitter", $help_ticket->submitter_id);
+        $stmt->bindParam(":subject", $help_ticket->subject);
+        $stmt->bindParam(":body", $help_ticket->body);
+
+        $stmt->execute();
+
+        $help_ticket_id = $pdo->lastInsertId();
+    } catch (Exception $e) {
+        $pdo->rollBack();
+        throw $e;
+    }
+
+    $pdo->commit();
+    return $help_ticket_id;
 }
 
 function assign_help_ticket(PDO $pdo, $help_ticket_id, $user_id)
