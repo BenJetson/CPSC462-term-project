@@ -67,7 +67,7 @@ class UserProfileViewer implements Component
                     <p class="lead">
                         <strong>Telephone</strong>
                         <br />
-                        <?= $this->user->email ?>
+                        <?= $this->user->telephone ?>
                     </p>
                     <p class="lead">
                         <strong>Date of Birth</strong>
