@@ -305,7 +305,7 @@ function update_user_profile(PDO $pdo, User $user)
     $stmt->bindParam(":telephone", $user->telephone ?: null);
 
     $stmt->bindParam(":address_line_1", $user->address_line_1 ?: null);
-    $stmt->bindParam(":address_line_2", $user->address_line_2 ?: null);
+    $stmt->bindParam(":address_line_2", $user->address_line_2);
     $stmt->bindParam(":address_city", $user->address_city ?: null);
     $stmt->bindParam(":address_state", $user->address_state ?: null);
     $stmt->bindParam(":address_zip", $user->address_zip ?: null);
