@@ -34,15 +34,13 @@ class CommentSection implements Component
                         </span>
                         <div class="media-body">
                             <p class="h5 mt-0 mb-1">
-                                <?= $comment->author_name // FIXME names escaping too
-                                ?>
+                                <?= $comment->author_name ?>
                             </p>
                             <p class="text-muted small mt-0 mb-1">
                                 <?= $comment->posted_at->format("Y-m-d h:i:s a"); ?>
                             </p>
                             <p>
-                                <?= $comment->body // FIXME escape this
-                                ?>
+                                <?= nl2br($comment->body) ?>
                             </p>
                         </div>
                     </li>
