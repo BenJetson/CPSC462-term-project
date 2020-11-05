@@ -45,7 +45,10 @@ if (array_key_exists("user_id", $_GET)) {
     }
 }
 
-$title = "Profile Editor";
+$mine = $user->user_id === $edit_user->user_id;
+
+$title = $mine ? "Edit Your Profile" : "Profile Editor";
+
 $page = new Page($title, [
     new Navbar($user, $title),
     new UserProfileForm(
