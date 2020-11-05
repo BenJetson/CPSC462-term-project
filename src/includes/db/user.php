@@ -141,7 +141,14 @@ function get_user_by_token(PDO $pdo)
         return null;
     }
 
-    return get_user_by_id($pdo, $token->user_id);
+    $user = get_user_by_id($pdo, $token->user_id);
+
+    if ($user->is_disabled) {
+        AccessToken::destroyCookie();
+        return null;
+    }
+
+    return $user;
 }
 
 /**
