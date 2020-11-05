@@ -86,7 +86,7 @@ class UserList implements Component
                                 ?>
                                 <button class="btn btn-secondary btn-manage" aria-label="Manage Account" <?= $attrs ?>>
                                     <i class="fa fa-cog"></i>
-                                    <span class="d-none d-md-inline">Manage Profile</span>
+                                    <span class="d-none d-md-inline">Manage Account</span>
                                 </button>
                             </div>
                         </div>
