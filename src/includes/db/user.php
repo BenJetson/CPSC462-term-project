@@ -350,11 +350,12 @@ function change_user_password(PDO $pdo, $user_id, $new_pass_hash)
 }
 
 /**
- * set_user_admin can be used to either promote or demote a user's
- * administrative privileges.
+ * set_user_management_attributes can be used to set a user's disabled/enabled
+ * status and their administrative privilege level.
  *
  * @param PDO $pdo the database connection to use.
  * @param int $user_id the ID number of the user to update.
+ * @param bool $is_disabled whether or not the user's account is disabled.
  * @param bool $is_admin whether or not the user should have administrative
  *      privileges to the application.
  *
@@ -363,49 +364,26 @@ function change_user_password(PDO $pdo, $user_id, $new_pass_hash)
  * @throws Exception when the root user (ID 1) is given.
  * @throws PDOException when the database encounters an error.
  */
-function set_user_admin(PDO $pdo, $user_id, $is_admin)
-{
+function set_user_management_attributes(
+    PDO $pdo,
+    $user_id,
+    $is_disabled,
+    $is_admin
+) {
     if ($user_id === 1) {
         throw new Exception("cannot alter admin status of system owner");
     }
 
     $stmt = $pdo->prepare("
-        UPDATE USER
-        SET is_admin = :is_admin
-        WHERE user_id = :user_id
-    ");
-
-    $stmt->bindParam(":is_admin", boolval($is_admin));
-    $stmt->bindParam(":user_id", $user_id);
-
-    $stmt->execute();
-}
-
-/**
- * set_user_disabled can be used to disable or enable a user's account.
- *
- * @param PDO $pdo the database connection to use.
- * @param int $user_id the ID number of the user to update.
- * @param bool $is_disabled whether or not the user's account is disabled.
- *
- * @return void
- *
- * @throws Exception when the root user (ID 1) is given.
- * @throws PDOException when the database encounters an error.
- */
-function set_user_disabled(PDO $pdo, $user_id, $is_disabled)
-{
-    if ($user_id === 1) {
-        throw new Exception("cannot disable account of system owner");
-    }
-
-    $stmt = $pdo->prepare("
-        UPDATE USER
-        SET is_disabled = :is_disabled
+        UPDATE user
+        SET
+            is_disabled = :is_disabled,
+            is_admin = :is_admin
         WHERE user_id = :user_id
     ");
 
     $stmt->bindParam(":is_disabled", boolval($is_disabled));
+    $stmt->bindParam(":is_admin", boolval($is_admin));
     $stmt->bindParam(":user_id", $user_id);
 
     $stmt->execute();

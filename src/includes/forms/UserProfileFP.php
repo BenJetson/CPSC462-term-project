@@ -1,7 +1,5 @@
 <?php
 
-use ParagonIE\Sodium\Core\Curve25519\Ge\P2;
-
 require_once 'FormProcessor.php';
 require_once __DIR__ . "/../db/user.php";
 require_once __DIR__ . "/../types/User.php";

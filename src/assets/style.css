@@ -37,3 +37,7 @@
     box-shadow: 0 0 50px 50px orange;
   }
 }
+
+.text-strike {
+  text-decoration: line-through;
+}

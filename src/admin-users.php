@@ -6,6 +6,7 @@ require_once 'includes/components/UserList.php';
 require_once 'includes/components/Navbar.php';
 require_once 'includes/db/connect.php';
 require_once 'includes/db/user.php';
+require_once 'includes/forms/AdminUsersFP.php';
 require_once 'includes/pages/Page.php';
 require_once 'includes/pages/RequestStatusPage.php';
 
@@ -20,6 +21,11 @@ if ($user === null) {
 } else if (!$user->is_admin) {
     $errPage = new RequestStatusPage(HTTPStatus::STATUS_FORBIDDEN, $user);
     $errPage->render();
+    exit();
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    AdminUsersFP::process($pdo, $user);
     exit();
 }
 
