@@ -73,6 +73,12 @@ class UserList implements Component
                                     "data-is-admin" => $user->is_admin ? "true" : "false",
                                 ];
 
+                                // Cannot alter management attributes for the
+                                // system owner (user ID 1), so disable button.
+                                if ($user->user_id === 1) {
+                                    $attrMap["disabled"] = true;
+                                }
+
                                 $attrs = "";
                                 foreach ($attrMap as $key => $val) {
                                     $attrs .= "$key=\"$val\" ";
