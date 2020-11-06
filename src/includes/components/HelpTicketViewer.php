@@ -173,7 +173,7 @@ class HelpTicketViewer implements Component
         <?php if ($this->help_ticket->is_closed) : ?>
             <div class="modal d-none" id="reopenTicketModal">
                 <div class="modal-dialog modal-dialog-centered">
-                    <form method="POST" action="ticket.php">
+                    <form method="POST" action="ticket.php" novalidate>
                         <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= HelpTicketViewerFP::OP_REOPEN ?>" />
                         <input type="hidden" name="help_ticket_id" value="<?= $this->help_ticket->help_ticket_id ?>" />
 
@@ -189,6 +189,9 @@ class HelpTicketViewer implements Component
                                 <div class="form-group">
                                     <label for="reopenComment">Comment</label>
                                     <textarea name="comment" id="reopenComment" rows="3" class="form-control" placeholder="Comment" required></textarea>
+                                    <div class="invalid-feedback">
+                                        Must supply a reason for reopening the ticket.
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -202,7 +205,7 @@ class HelpTicketViewer implements Component
         <?php else : ?>
             <div class="modal d-none" id="closeTicketModal">
                 <div class="modal-dialog modal-dialog-centered">
-                    <form method="POST" action="ticket.php">
+                    <form method="POST" action="ticket.php" novalidate>
                         <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= HelpTicketViewerFP::OP_CLOSE ?>" />
                         <input type="hidden" name="help_ticket_id" value="<?= $this->help_ticket->help_ticket_id ?>" />
 
@@ -218,6 +221,9 @@ class HelpTicketViewer implements Component
                                 <div class="form-group">
                                     <label for="closeComment">Comment</label>
                                     <textarea name="comment" id="closeComment" rows="3" class="form-control" placeholder="Comment" autofocus required></textarea>
+                                    <div class="invalid-feedback">
+                                        Must supply a reason for closing the ticket.
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -230,7 +236,7 @@ class HelpTicketViewer implements Component
             </div>
             <div class="modal d-none" id="replyModal">
                 <div class="modal-dialog modal-dialog-centered">
-                    <form method="POST" action="ticket.php">
+                    <form method="POST" action="ticket.php" novalidate>
                         <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= HelpTicketViewerFP::OP_REPLY ?>" />
                         <input type="hidden" name="help_ticket_id" value="<?= $this->help_ticket->help_ticket_id ?>" />
 
@@ -248,7 +254,10 @@ class HelpTicketViewer implements Component
                                 </p>
                                 <div class="form-group">
                                     <label for="commentInput">Comment</label>
-                                    <textarea name="comment" id="commentInput" rows="8" class="form-control" placeholder="Comment" autofocus></textarea>
+                                    <textarea name="comment" id="commentInput" rows="8" class="form-control" placeholder="Comment" autofocus required></textarea>
+                                    <div class="invalid-feedback">
+                                        Must supply a comment to reply to the ticket.
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -262,7 +271,7 @@ class HelpTicketViewer implements Component
             <?php if ($this->user->is_admin) : ?>
                 <div class="modal d-none" id="assignModal">
                     <div class="modal-dialog modal-dialog-centered">
-                        <form method="POST" action="ticket.php">
+                        <form method="POST" action="ticket.php" novalidate>
                             <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= HelpTicketViewerFP::OP_ASSIGN ?>" />
                             <input type="hidden" name="help_ticket_id" value="<?= $this->help_ticket->help_ticket_id ?>" />
 
@@ -333,6 +342,21 @@ class HelpTicketViewer implements Component
                             .addEventListener("click", () => assignModal.show());
                     <?php endif; ?>
                 <?php endif; ?>
+
+                // Add custom validation to all forms on the page.
+                for (let form of document.querySelectorAll("form")) {
+                    form.addEventListener("submit", (event) => {
+                        // Get the calling form in the callback.
+                        let targetForm = event.target;
+
+                        if (!targetForm.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+
+                        targetForm.classList.add('was-validated');
+                    })
+                }
             });
         </script>
 <?php
