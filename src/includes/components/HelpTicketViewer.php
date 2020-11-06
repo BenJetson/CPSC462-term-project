@@ -294,6 +294,10 @@ class HelpTicketViewer implements Component
                                             $this->help_ticket->assignee_id ?: 0,
                                             true
                                         ))->render(); ?>
+                                        <div class="invalid-feedback">
+                                            Ticket is already assigned to this user.<br />
+                                            Assignee must change to reassign the ticket.
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="assignComment">Comment</label>
@@ -348,7 +352,25 @@ class HelpTicketViewer implements Component
                     form.addEventListener("submit", (event) => {
                         // Get the calling form in the callback.
                         let targetForm = event.target;
+                        let op = targetForm.querySelector("[name=op]").value;
 
+                        // If this is the assignment form, we must check to ensure
+                        // that the assignee is different.
+                        if (op === "<?= HelpTicketViewerFP::OP_ASSIGN ?>") {
+                            let assigneeInput = targetForm.querySelector("[name=assignee_id]");
+                            let currentAssignee = "<?= $this->help_ticket->assignee_id ?: 0 ?>";
+                            let selectedAssignee = assigneeInput.value;
+
+                            assigneeInput.setCustomValidity("");
+                            if (currentAssignee === selectedAssignee) {
+                                assigneeInput.setCustomValidity(
+                                    "Assignee must change to reassign."
+                                );
+                            }
+                        }
+
+                        // If the form is not valid, stop the browser from
+                        // submitting the form.
                         if (!targetForm.checkValidity()) {
                             event.preventDefault();
                             event.stopPropagation();
