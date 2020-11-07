@@ -23,6 +23,7 @@ if ($user === null) {
     exit();
 }
 
+// If the download parameter is set, start the download immediately.
 if (isset($_GET["download"])) {
     // Create the backup file at a temporary location.
     $out_file = create_backup_archive($pdo, $user);
@@ -41,6 +42,15 @@ if (isset($_GET["download"])) {
 
     exit();
 }
+
+// After clicking the link from the Administration index page, users land here.
+// We will render a page that tells them the download is about to start.
+//
+// After three seconds, the user's browser will redirect to this page again
+// with the download parameter set, which triggers the download.
+//
+// Since the Refresh header redirected to a download, not another page, the
+// original success page remains visible even after the download starts.
 
 $downloadHref = "admin-backup.php?download";
 header("Refresh: 3; $downloadHref");
