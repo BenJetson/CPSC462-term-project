@@ -42,7 +42,7 @@ class HelpTicketEditor implements Component
                 </div>
                 <div class="form-group">
                     <label for="ticketBody">Body</label>
-                    <textarea class="form-control" rows="10" id="ticketBody" placeholder="Describe your issue with as much details as possible..." name="body" required></textarea>
+                    <textarea class="form-control" rows="10" id="ticketBody" placeholder="Describe your issue with as much detail as possible..." name="body" required></textarea>
                     <small class="form-text text-muted">
                         Provide as much information about your problem as you
                         know, as well as any steps you have already tried.
