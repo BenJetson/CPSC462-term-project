@@ -25,7 +25,7 @@ class HelpTicketEditor implements Component
                                 <i class="fa fa-book"></i>
                                 knowledge base
                             </a>
-                            to see if your query has alredy been answered.
+                            to see if your query has already been answered.
                         </p>
                     </div>
                 </div>
