@@ -189,6 +189,9 @@ class HelpTicketViewer implements Component
                                 <div class="form-group">
                                     <label for="reopenComment">Comment</label>
                                     <textarea name="comment" id="reopenComment" rows="3" class="form-control" placeholder="Comment" required></textarea>
+                                    <div class="invalid-feedback">
+                                        Must supply a reason for reopening the ticket.
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -218,6 +221,9 @@ class HelpTicketViewer implements Component
                                 <div class="form-group">
                                     <label for="closeComment">Comment</label>
                                     <textarea name="comment" id="closeComment" rows="3" class="form-control" placeholder="Comment" autofocus required></textarea>
+                                    <div class="invalid-feedback">
+                                        Must supply a reason for closing the ticket.
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -248,7 +254,10 @@ class HelpTicketViewer implements Component
                                 </p>
                                 <div class="form-group">
                                     <label for="commentInput">Comment</label>
-                                    <textarea name="comment" id="commentInput" rows="8" class="form-control" placeholder="Comment" autofocus></textarea>
+                                    <textarea name="comment" id="commentInput" rows="8" class="form-control" placeholder="Comment" autofocus required></textarea>
+                                    <div class="invalid-feedback">
+                                        Must supply a comment to reply to the ticket.
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -285,6 +294,10 @@ class HelpTicketViewer implements Component
                                             $this->help_ticket->assignee_id ?: 0,
                                             true
                                         ))->render(); ?>
+                                        <div class="invalid-feedback">
+                                            Ticket is already assigned to this user.<br />
+                                            Assignee must change to reassign the ticket.
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="assignComment">Comment</label>
@@ -333,6 +346,43 @@ class HelpTicketViewer implements Component
                             .addEventListener("click", () => assignModal.show());
                     <?php endif; ?>
                 <?php endif; ?>
+
+                // Add custom validation to all forms on the page.
+                for (let form of document.forms) {
+                    // Since we are using custom validation, we must disable the
+                    // browser's default validation that happens before submit.
+                    form.setAttribute("novalidate", true);
+
+                    form.addEventListener("submit", (event) => {
+                        // Get the calling form in the callback.
+                        let targetForm = event.target;
+                        let op = targetForm.querySelector("[name=op]").value;
+
+                        // If this is the assignment form, we must check to ensure
+                        // that the assignee is different.
+                        if (op === "<?= HelpTicketViewerFP::OP_ASSIGN ?>") {
+                            let assigneeInput = targetForm.querySelector("[name=assignee_id]");
+                            let currentAssignee = "<?= $this->help_ticket->assignee_id ?: 0 ?>";
+                            let selectedAssignee = assigneeInput.value;
+
+                            assigneeInput.setCustomValidity("");
+                            if (currentAssignee === selectedAssignee) {
+                                assigneeInput.setCustomValidity(
+                                    "Assignee must change to reassign."
+                                );
+                            }
+                        }
+
+                        // If the form is not valid, stop the browser from
+                        // submitting the form.
+                        if (!targetForm.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+
+                        targetForm.classList.add('was-validated');
+                    })
+                }
             });
         </script>
 <?php

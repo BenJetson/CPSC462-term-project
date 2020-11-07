@@ -34,7 +34,7 @@ class UserProfileForm implements Component
     {
 ?>
         <div class="container mb-5">
-            <form action="<?= $this->action ?>" method="POST" id="profile-form" novalidate>
+            <form action="<?= $this->action ?>" method="POST" id="profile-form">
                 <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= $this->operation ?>" />
                 <?php if (!$this->isRegistration) : ?>
                     <input type="hidden" name="user_id" value="<?= $this->user->user_id ?>" />
@@ -157,8 +157,13 @@ class UserProfileForm implements Component
     ?>
         <script>
             window.addEventListener("load", function() {
-                // Add event listener to form to display custom validation.
                 let form = document.getElementById("profile-form");
+
+                // Since we are using custom validation, we must disable the
+                // browser's default validation that happens before submit.
+                form.setAttribute("novalidate", true);
+
+                // Add event listener to form to display custom validation.
                 form.addEventListener("submit", (event) => {
                     if (!form.checkValidity()) {
                         event.preventDefault();
