@@ -128,6 +128,8 @@ define("GET_ARTICLE_QUERY", "
     GROUP BY a.article_id
 ");
 
+// FIXME There seems to be a bug here. Maybe delete comment count.
+
 function get_article_by_id(PDO $pdo, $article_id)
 {
     $stmt = $pdo->prepare(GET_ARTICLE_QUERY . "
