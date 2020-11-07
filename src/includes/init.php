@@ -20,6 +20,7 @@ function render_server_error()
     ob_clean();
 
     require_once 'pages/RequestStatusPage.php';
+    require_once 'types/HTTPStatus.php';
     (new RequestStatusPage(
         HTTPStatus::STATUS_INTERNAL_SERVER_ERROR
     ))->render();
@@ -82,4 +83,32 @@ session_start();
 if (isset($_SERVER["LOG_FILE"])) {
     ini_set("error_log", $_SERVER["LOG_FILE"]);
     ini_set("log_errors", 1);
+}
+
+// Application should be aware of its tier, otherwise it must fail.
+if (!isset($_SERVER["TIER"]) || empty($_SERVER["TIER"])) {
+    throw new RuntimeException("could not determine tier: must set TIER");
+}
+
+// Detect when running on a non-local environment and redirect to HTTPS if the
+// connection is using plain, unencrypted HTTP.
+//
+// Inspired by: https://stackoverflow.com/a/5106355
+if (
+    $_SERVER["TIER"] !== "local"
+    && (!isset($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] !== "on")
+) {
+    require_once 'types/HTTPStatus.php';
+
+    // Get the host and URI values set by Apache.
+    $host = $_SERVER["HTTP_HOST"];
+    $uri = $_SERVER["REQUEST_URI"];
+
+    // Rebuild the URL that the user visited, this time with HTTPS!
+    $target = "https://$host$uri";
+
+    // Do a 301 redirect to the secure page.
+    // Since this is a permanent redirect, the browser can cache this.
+    header("Location: $target", true, HTTPStatus::STATUS_MOVED_PERMANENTLY);
+    exit();
 }
