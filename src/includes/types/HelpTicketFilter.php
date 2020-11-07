@@ -116,8 +116,8 @@ class HelpTicketFilter
         }
 
         $options = [];
-        foreach (static::$user_options as $key => $val) {
-            $options[$key] = $val;
+        foreach (static::$user_options as $name) {
+            $options[$name] = static::$option_names[$name];
         }
         return $options;
     }
