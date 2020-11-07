@@ -28,7 +28,8 @@ class Navbar implements Component
             <div class="container">
                 <?php $label = $_SERVER["TIER"] !== "prod" ? ", " . $_SERVER["TIER"] . " tier" : "" ?>
                 <a class="navbar-brand" href="index.php" aria-label="IT Helpdesk<?= $label ?>">
-                    🛠 IT Helpdesk
+                    <i class="fa fa-question-circle"></i>
+                    IT Helpdesk
                     <?php if ($_SERVER["TIER"] !== "prod") : ?>
                         <small>
                             <span class="badge badge-pill badge-warning">
