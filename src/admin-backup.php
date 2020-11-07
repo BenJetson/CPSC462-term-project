@@ -59,11 +59,11 @@ $page = new RequestStatusPage(
     HTTPStatus::STATUS_OK,
     $user,
     <<< EOF
-Your backup will begin to download shortly.
-<br />
-<br />
-If it does not start after a few moments, you may
-<a class="alert-link" href="$downloadHref">start the download manually</a>.
+    Your backup will begin to download shortly.
+    <br />
+    <br />
+    If it does not start after a few moments, you may
+    <a class="alert-link" href="$downloadHref">start the download manually</a>.
 EOF
 );
 $page->render();
