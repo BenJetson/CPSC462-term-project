@@ -141,6 +141,15 @@ function get_article_by_id(PDO $pdo, $article_id)
     return $stmt->fetchObject("Article");
 }
 
+/**
+ * get_all_articles fetches all articles in the database from any category.
+ *
+ * @param PDO $pdo the database connection to use.
+ *
+ * @return Article[]
+ *
+ * @throws PDOException when the database encounters an error.
+ */
 function get_all_articles(PDO $pdo)
 {
     $stmt = $pdo->prepare(GET_ARTICLE_QUERY);

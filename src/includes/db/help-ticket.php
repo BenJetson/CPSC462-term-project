@@ -41,6 +41,17 @@ define("GET_HELP_TICKET_QUERY", "
         ON ht.assignee = ua.user_id
 ");
 
+/**
+ * get_help_tickets fetches any help tickets that match the given filter.
+ *
+ * @param PDO $pdo the database connection to use.
+ * @param HelpTicketFilter $filter the filter object that describes which
+ *      tickets should be retrieved.
+ *
+ * @return HelpTicket[]
+ *
+ * @throws PDOException when the database encounters an error.
+ */
 function get_help_tickets(PDO $pdo, HelpTicketFilter $filter)
 {
     $filter_query = $filter->toSQL();
