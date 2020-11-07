@@ -132,7 +132,7 @@ class UserProfileFP extends FormProcessor
         update_user_profile($pdo, $profile);
 
         $href = "profile.php";
-        if ($profile->user_id !== $user->user_id) {
+        if (intval($profile->user_id) !== $user->user_id) {
             $href .= "?user_id=$profile->user_id";
         }
 
