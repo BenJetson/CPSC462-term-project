@@ -50,7 +50,7 @@ class Login implements Component
                 </div>
             <?php endif; ?>
 
-            <form method="POST" action="" id="login-form" novalidate>
+            <form method="POST" action="" id="login-form">
                 <div class="form-group">
                     <label for="user-email">Email</label>
                     <input type="email" class="form-control" id="user-email" name="email" value="<?= $this->rememberedEmail ?>" required <?= !$this->isRemembered ? "autofocus" : "" ?> />
@@ -83,8 +83,13 @@ class Login implements Component
     ?>
         <script>
             window.addEventListener("load", function() {
-                // Add event listener to form to display custom validation.
                 let form = document.getElementById("login-form");
+
+                // Since we are using custom validation, we must disable the
+                // browser's default validation that happens before submit.
+                form.setAttribute("novalidate", true);
+
+                // Add event listener to form to display custom validation.
                 form.addEventListener("submit", function(event) {
                     if (!form.checkValidity()) {
                         event.preventDefault();

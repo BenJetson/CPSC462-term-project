@@ -18,7 +18,7 @@ class ChangePasswordForm implements Component
     {
 ?>
         <div class="container mb-5">
-            <form action="change-password.php" method="POST" id="changePasswordForm" novalidate>
+            <form action="change-password.php" method="POST" id="changePasswordForm">
                 <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= ChangePasswordFP::OP_CHANGE_PASS ?>">
                 <div class="card mb-4">
                     <div class="card-body">
@@ -74,8 +74,13 @@ class ChangePasswordForm implements Component
     ?>
         <script>
             window.addEventListener("load", function() {
-                // Add event listener to form to display custom validation.
                 let form = document.getElementById("changePasswordForm");
+
+                // Since we are using custom validation, we must disable the
+                // browser's default validation that happens before submit.
+                form.setAttribute("novalidate", true);
+
+                // Add event listener to form to display custom validation.
                 form.addEventListener("submit", (event) => {
                     if (!form.checkValidity()) {
                         event.preventDefault();

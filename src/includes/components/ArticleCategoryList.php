@@ -83,6 +83,9 @@ class ArticleCategoryList implements Component
             <script>
                 window.addEventListener("load", () => {
                     let deleteForms = document.querySelectorAll(".cat-delete-form");
+
+                    // Attach an event listener to each category deletion form
+                    // that will show a confirmation dialog before submission.
                     for (let form of deleteForms) {
                         form.addEventListener("submit", (event) => {
                             let ok = confirm("This will delete the category and " +

@@ -19,7 +19,7 @@ class ArticleCategoryEditor implements Component
     {
 ?>
         <div class="container">
-            <form method="POST" action="article-category-editor.php" id="category-form" novalidate>
+            <form method="POST" action="article-category-editor.php" id="category-form">
                 <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= ArticleCategoryEditorFP::OP_EDIT ?>" />
                 <div class="row">
                     <div class="col-md-8">
@@ -129,8 +129,13 @@ class ArticleCategoryEditor implements Component
                 descr.addEventListener("change", previewHandler);
                 descr.addEventListener("keyup", previewHandler);
 
-                // Add event listener to form to display custom validation.
                 let form = document.getElementById("category-form");
+
+                // Since we are using custom validation, we must disable the
+                // browser's default validation that happens before submit.
+                form.setAttribute("novalidate", true);
+
+                // Add event listener to form to display custom validation.
                 form.addEventListener("submit", function(event) {
                     if (!form.checkValidity()) {
                         event.preventDefault();

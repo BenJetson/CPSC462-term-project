@@ -124,6 +124,9 @@ class ArticleList implements Component
             <script>
                 window.addEventListener("load", () => {
                     let deleteForms = document.querySelectorAll(".article-delete-form");
+
+                    // Attach an event listener to each article deletion form
+                    // that will show a confirmation dialog before submission.
                     for (let form of deleteForms) {
                         form.addEventListener("submit", (event) => {
                             let ok = confirm("This will permanently delete the article " +

@@ -173,7 +173,7 @@ class HelpTicketViewer implements Component
         <?php if ($this->help_ticket->is_closed) : ?>
             <div class="modal d-none" id="reopenTicketModal">
                 <div class="modal-dialog modal-dialog-centered">
-                    <form method="POST" action="ticket.php" novalidate>
+                    <form method="POST" action="ticket.php">
                         <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= HelpTicketViewerFP::OP_REOPEN ?>" />
                         <input type="hidden" name="help_ticket_id" value="<?= $this->help_ticket->help_ticket_id ?>" />
 
@@ -205,7 +205,7 @@ class HelpTicketViewer implements Component
         <?php else : ?>
             <div class="modal d-none" id="closeTicketModal">
                 <div class="modal-dialog modal-dialog-centered">
-                    <form method="POST" action="ticket.php" novalidate>
+                    <form method="POST" action="ticket.php">
                         <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= HelpTicketViewerFP::OP_CLOSE ?>" />
                         <input type="hidden" name="help_ticket_id" value="<?= $this->help_ticket->help_ticket_id ?>" />
 
@@ -236,7 +236,7 @@ class HelpTicketViewer implements Component
             </div>
             <div class="modal d-none" id="replyModal">
                 <div class="modal-dialog modal-dialog-centered">
-                    <form method="POST" action="ticket.php" novalidate>
+                    <form method="POST" action="ticket.php">
                         <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= HelpTicketViewerFP::OP_REPLY ?>" />
                         <input type="hidden" name="help_ticket_id" value="<?= $this->help_ticket->help_ticket_id ?>" />
 
@@ -271,7 +271,7 @@ class HelpTicketViewer implements Component
             <?php if ($this->user->is_admin) : ?>
                 <div class="modal d-none" id="assignModal">
                     <div class="modal-dialog modal-dialog-centered">
-                        <form method="POST" action="ticket.php" novalidate>
+                        <form method="POST" action="ticket.php">
                             <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= HelpTicketViewerFP::OP_ASSIGN ?>" />
                             <input type="hidden" name="help_ticket_id" value="<?= $this->help_ticket->help_ticket_id ?>" />
 
@@ -348,7 +348,11 @@ class HelpTicketViewer implements Component
                 <?php endif; ?>
 
                 // Add custom validation to all forms on the page.
-                for (let form of document.querySelectorAll("form")) {
+                for (let form of document.forms) {
+                    // Since we are using custom validation, we must disable the
+                    // browser's default validation that happens before submit.
+                    form.setAttribute("novalidate", true);
+
                     form.addEventListener("submit", (event) => {
                         // Get the calling form in the callback.
                         let targetForm = event.target;
