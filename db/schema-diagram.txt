@@ -26,19 +26,25 @@ comment_id integer pk autoincrement
 author integer fk >- user.user_id
 posted_at timestamp
 body text
+is_reply boolean
 
 article
 ---
 article_id integer pk autoincrement
 article_category_id integer fk >- article_category.article_category_id
 author integer fk >- user.user_id
+title text
 body text
+created_at timestamp
 updated_at timestamp
 
 article_category
 ---
 article_category_id integer pk autoincrement
 name text
+descr text
+color text
+icon text
 
 article_comment
 ---
@@ -57,6 +63,7 @@ help_ticket_id integer pk autoincrement
 submitter integer fk >- user.user_id
 assignee nullable integer fk >- user.user_id
 submitted_at timestamp
+updated_at timestamp
 is_closed bool default=false
 closed_by_submitter bool
 closed_at timestamp
