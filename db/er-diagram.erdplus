@@ -17,8 +17,8 @@
       "details": {
         "name": "Article",
         "type": "regular",
-        "x": 1154,
-        "y": 241,
+        "x": 1203,
+        "y": 328,
         "id": 2
       }
     },
@@ -48,7 +48,7 @@
         "name": "Article Category",
         "type": "regular",
         "x": 1328,
-        "y": 145,
+        "y": 144,
         "id": 5
       }
     },
@@ -347,8 +347,8 @@
       "details": {
         "name": "Rates",
         "isIdentifying": false,
-        "x": 1306,
-        "y": 378,
+        "x": 1267,
+        "y": 415,
         "slots": [
           {
             "slotIndex": 0,
@@ -377,7 +377,7 @@
       "details": {
         "name": "Comment",
         "type": "regular",
-        "x": 904,
+        "x": 905,
         "y": 614,
         "id": 40
       }
@@ -422,7 +422,7 @@
         "isComposite": false,
         "isUnique": false,
         "x": 1328,
-        "y": 61,
+        "y": 60,
         "id": 47
       }
     },
@@ -449,8 +449,8 @@
         "isOptional": false,
         "isComposite": false,
         "isUnique": false,
-        "x": 483,
-        "y": 330,
+        "x": 421,
+        "y": 397,
         "id": 51
       }
     },
@@ -463,8 +463,8 @@
         "isOptional": false,
         "isComposite": false,
         "isUnique": false,
-        "x": 494,
-        "y": 391,
+        "x": 405,
+        "y": 454,
         "id": 53
       }
     },
@@ -477,8 +477,8 @@
         "isOptional": false,
         "isComposite": false,
         "isUnique": false,
-        "x": 501,
-        "y": 270,
+        "x": 462,
+        "y": 345,
         "id": 55
       }
     },
@@ -589,8 +589,8 @@
         "isOptional": false,
         "isComposite": false,
         "isUnique": false,
-        "x": 816,
-        "y": 153,
+        "x": 811,
+        "y": 152,
         "id": 71
       }
     },
@@ -616,7 +616,7 @@
         "isMultivalued": false,
         "isOptional": false,
         "isComposite": false,
-        "isUnique": false,
+        "isUnique": true,
         "x": 981,
         "y": 80,
         "id": 75
@@ -673,7 +673,7 @@
         "isOptional": false,
         "isComposite": false,
         "isUnique": false,
-        "x": 826,
+        "x": 827,
         "y": 700,
         "id": 83
       }
@@ -687,9 +687,135 @@
         "isOptional": false,
         "isComposite": false,
         "isUnique": false,
-        "x": 938,
+        "x": 939,
         "y": 709,
         "id": 85
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Color",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 1440,
+        "y": 70,
+        "id": 207
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Icon",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 1465,
+        "y": 127,
+        "id": 209
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Description",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 1460,
+        "y": 182,
+        "id": 211
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Body",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 1233,
+        "y": 240,
+        "id": 213
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Created At",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 1321,
+        "y": 288,
+        "id": 215
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Title",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 1332,
+        "y": 212,
+        "id": 217
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Updated At",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 1327,
+        "y": 347,
+        "id": 219
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Updated At",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 467,
+        "y": 287,
+        "id": 221
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Is Reply?",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 869,
+        "y": 749,
+        "id": 223
       }
     }
   ],
@@ -895,7 +1021,7 @@
     {
       "type": "Connector",
       "details": {
-        "id": 48
+        "id": 187
       },
       "source": 47,
       "destination": 5
@@ -903,7 +1029,7 @@
     {
       "type": "Connector",
       "details": {
-        "id": 50
+        "id": 188
       },
       "source": 49,
       "destination": 4
@@ -911,7 +1037,7 @@
     {
       "type": "Connector",
       "details": {
-        "id": 52
+        "id": 189
       },
       "source": 51,
       "destination": 6
@@ -919,7 +1045,7 @@
     {
       "type": "Connector",
       "details": {
-        "id": 54
+        "id": 190
       },
       "source": 53,
       "destination": 6
@@ -927,7 +1053,7 @@
     {
       "type": "Connector",
       "details": {
-        "id": 56
+        "id": 191
       },
       "source": 55,
       "destination": 6
@@ -935,7 +1061,7 @@
     {
       "type": "Connector",
       "details": {
-        "id": 58
+        "id": 192
       },
       "source": 57,
       "destination": 1
@@ -943,7 +1069,7 @@
     {
       "type": "Connector",
       "details": {
-        "id": 60
+        "id": 193
       },
       "source": 59,
       "destination": 57
@@ -951,7 +1077,7 @@
     {
       "type": "Connector",
       "details": {
-        "id": 62
+        "id": 194
       },
       "source": 61,
       "destination": 57
@@ -959,7 +1085,7 @@
     {
       "type": "Connector",
       "details": {
-        "id": 64
+        "id": 195
       },
       "source": 63,
       "destination": 57
@@ -967,7 +1093,7 @@
     {
       "type": "Connector",
       "details": {
-        "id": 66
+        "id": 196
       },
       "source": 65,
       "destination": 57
@@ -975,7 +1101,7 @@
     {
       "type": "Connector",
       "details": {
-        "id": 68
+        "id": 197
       },
       "source": 67,
       "destination": 57
@@ -983,7 +1109,7 @@
     {
       "type": "Connector",
       "details": {
-        "id": 70
+        "id": 198
       },
       "source": 69,
       "destination": 1
@@ -991,7 +1117,7 @@
     {
       "type": "Connector",
       "details": {
-        "id": 72
+        "id": 199
       },
       "source": 71,
       "destination": 69
@@ -999,7 +1125,7 @@
     {
       "type": "Connector",
       "details": {
-        "id": 74
+        "id": 200
       },
       "source": 73,
       "destination": 69
@@ -1007,7 +1133,7 @@
     {
       "type": "Connector",
       "details": {
-        "id": 76
+        "id": 201
       },
       "source": 75,
       "destination": 1
@@ -1015,7 +1141,7 @@
     {
       "type": "Connector",
       "details": {
-        "id": 78
+        "id": 202
       },
       "source": 77,
       "destination": 1
@@ -1023,7 +1149,7 @@
     {
       "type": "Connector",
       "details": {
-        "id": 80
+        "id": 203
       },
       "source": 79,
       "destination": 1
@@ -1031,7 +1157,7 @@
     {
       "type": "Connector",
       "details": {
-        "id": 82
+        "id": 204
       },
       "source": 81,
       "destination": 6
@@ -1039,7 +1165,7 @@
     {
       "type": "Connector",
       "details": {
-        "id": 84
+        "id": 205
       },
       "source": 83,
       "destination": 40
@@ -1047,9 +1173,81 @@
     {
       "type": "Connector",
       "details": {
-        "id": 86
+        "id": 206
       },
       "source": 85,
+      "destination": 40
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 208
+      },
+      "source": 207,
+      "destination": 5
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 210
+      },
+      "source": 209,
+      "destination": 5
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 212
+      },
+      "source": 211,
+      "destination": 5
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 214
+      },
+      "source": 213,
+      "destination": 2
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 216
+      },
+      "source": 215,
+      "destination": 2
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 218
+      },
+      "source": 217,
+      "destination": 2
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 220
+      },
+      "source": 219,
+      "destination": 2
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 222
+      },
+      "source": 221,
+      "destination": 6
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 224
+      },
+      "source": 223,
       "destination": 40
     }
   ],
