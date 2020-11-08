@@ -85,7 +85,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "many",
             "role": "",
             "entityId": 1
           },
@@ -94,7 +94,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "one",
             "role": "",
             "entityId": 2
           }
@@ -115,7 +115,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "many",
             "role": "",
             "entityId": 1
           },
@@ -124,7 +124,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "one",
             "role": "",
             "entityId": 6
           }
@@ -137,15 +137,15 @@
       "details": {
         "name": "Assigned",
         "isIdentifying": false,
-        "x": 781,
-        "y": 401,
+        "x": 780,
+        "y": 400,
         "slots": [
           {
             "slotIndex": 0,
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "many",
             "role": "",
             "entityId": 1
           },
@@ -154,7 +154,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "one",
             "role": "",
             "entityId": 6
           }
@@ -167,15 +167,15 @@
       "details": {
         "name": "Writes",
         "isIdentifying": false,
-        "x": 887,
-        "y": 511,
+        "x": 886,
+        "y": 512,
         "slots": [
           {
             "slotIndex": 0,
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "many",
             "role": "",
             "entityId": 1
           },
@@ -184,7 +184,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "one",
             "role": "",
             "entityId": 40
           }
@@ -197,7 +197,7 @@
       "details": {
         "name": "Associated With",
         "isIdentifying": false,
-        "x": 1067,
+        "x": 1065,
         "y": 682,
         "slots": [
           {
@@ -205,7 +205,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "one",
             "role": "",
             "entityId": 40
           },
@@ -214,7 +214,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "one",
             "role": "",
             "entityId": 3
           }
@@ -235,7 +235,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "many",
             "role": "",
             "entityId": 1
           },
@@ -244,7 +244,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "one",
             "role": "",
             "entityId": 4
           }
@@ -257,7 +257,7 @@
       "details": {
         "name": "For",
         "isIdentifying": false,
-        "x": 1148,
+        "x": 1147,
         "y": 430,
         "slots": [
           {
@@ -265,7 +265,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "one",
             "role": "",
             "entityId": 3
           },
@@ -274,7 +274,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "many",
             "role": "",
             "entityId": 2
           }
@@ -295,7 +295,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "one",
             "role": "",
             "entityId": 7
           },
@@ -304,7 +304,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "many",
             "role": "",
             "entityId": 6
           }
@@ -317,7 +317,7 @@
       "details": {
         "name": "Within",
         "isIdentifying": false,
-        "x": 1203,
+        "x": 1202,
         "y": 166,
         "slots": [
           {
@@ -325,7 +325,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "one",
             "role": "",
             "entityId": 2
           },
@@ -334,7 +334,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "many",
             "role": "",
             "entityId": 5
           }
@@ -355,7 +355,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "one",
             "role": "",
             "entityId": 4
           },
@@ -364,7 +364,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "many",
             "role": "",
             "entityId": 2
           }
@@ -395,7 +395,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "one",
             "role": "",
             "entityId": 40
           },
@@ -404,7 +404,7 @@
             "minimum": "",
             "maximum": "",
             "participation": "unspecified",
-            "cardinality": "unspecified",
+            "cardinality": "one",
             "role": "",
             "entityId": 7
           }
@@ -816,6 +816,20 @@
         "x": 869,
         "y": 749,
         "id": 223
+      }
+    },
+    {
+      "type": "Attribute",
+      "details": {
+        "name": "Account Disabled?",
+        "isDerived": false,
+        "isMultivalued": false,
+        "isOptional": false,
+        "isComposite": false,
+        "isUnique": false,
+        "x": 1079,
+        "y": 264,
+        "id": 225
       }
     }
   ],
@@ -1249,6 +1263,14 @@
       },
       "source": 223,
       "destination": 40
+    },
+    {
+      "type": "Connector",
+      "details": {
+        "id": 226
+      },
+      "source": 225,
+      "destination": 1
     }
   ],
   "width": 2000,
