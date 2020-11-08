@@ -127,6 +127,8 @@ class HelpTicketFilter
      * parameter. In the event that the parameter is not defined or contains
      * an invalid filter value, the MINE filter will be used.
      *
+     * @param User // TODO
+     *
      * @return HelpTicketFilter the newly constructed object.
      */
     public static function constructFromURL(User $user)
