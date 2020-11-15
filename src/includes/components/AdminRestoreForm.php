@@ -1,6 +1,8 @@
 <?php
 
 require_once 'Component.php';
+require_once __DIR__ . '/../forms/FormProcessor.php';
+require_once __DIR__ . '/../forms/AdminRestoreFP.php';
 
 class AdminRestoreForm implements Component
 {
@@ -9,6 +11,8 @@ class AdminRestoreForm implements Component
 ?>
         <div class="container">
             <form method="POST" action="admin-restore.php" enctype="multipart/form-data">
+                <input type="hidden" name="<?= FormProcessor::OPERATION ?>" value="<?= AdminRestoreFP::OP_RESTORE ?>">
+
                 <div class="form-group">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" name="restore_file" id="restoreFile" accept="application/zip" required>

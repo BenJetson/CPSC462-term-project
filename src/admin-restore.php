@@ -6,6 +6,7 @@ require_once 'includes/components/AdminRestoreForm.php';
 require_once 'includes/components/Navbar.php';
 require_once 'includes/db/connect.php';
 require_once 'includes/db/user.php';
+require_once 'includes/forms/AdminRestoreFP.php';
 require_once 'includes/pages/Page.php';
 require_once 'includes/pages/RequestStatusPage.php';
 
@@ -24,7 +25,7 @@ if ($user === null) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // TODO call to a formprocessor
+    AdminRestoreFP::process($pdo, $user);
 
     $page = new RequestStatusPage(
         HTTPStatus::STATUS_OK,

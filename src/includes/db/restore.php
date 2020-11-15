@@ -49,7 +49,7 @@ function restore_users(PDO $pdo, array $users)
 
     foreach ($chunks as $chunk) {
         $query = "
-            INSERT INTO USER (
+            INSERT INTO user (
                 user_id,
                 is_admin,
                 is_disabled,
