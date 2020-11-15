@@ -65,7 +65,16 @@ class Navbar implements Component
                         </li>
                         <?php if ($this->user === null) : ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="login.php">Login</a>
+                                <a class="nav-link" href="about.php">
+                                    <i class="fa fa-info-circle"></i>
+                                    About
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="login.php">
+                                    <i class="fa fa-key"></i>
+                                    Login
+                                </a>
                             </li>
                         <?php else : ?>
                             <?php if ($this->user->is_admin) : ?>
@@ -104,8 +113,13 @@ class Navbar implements Component
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="whoami.php">
-                                        <i class="fa fa-info-circle"></i>
+                                        <i class="fa fa-user-clock"></i>
                                         Session Info
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="about.php">
+                                        <i class="fa fa-info-circle"></i>
+                                        About IT Helpdesk
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="logout.php">
