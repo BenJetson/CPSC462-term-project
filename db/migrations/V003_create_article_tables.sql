@@ -32,8 +32,10 @@ CREATE TRIGGER article_insert
 BEFORE INSERT ON article
 FOR EACH ROW
 BEGIN
-    SET NEW.created_at = NOW();
-    SET NEW.updated_at = NOW();
+    IF (triggers_active()) THEN
+        SET NEW.created_at = NOW();
+        SET NEW.updated_at = NOW();
+    END IF;
 END$$
 DELIMITER ;
 
@@ -42,7 +44,9 @@ CREATE TRIGGER article_update
 BEFORE UPDATE ON article
 FOR EACH ROW
 BEGIN
-    SET NEW.updated_at = NOW();
+    IF (triggers_active()) THEN
+        SET NEW.updated_at = NOW();
+    END IF;
 END$$
 DELIMITER ;
 
@@ -51,12 +55,14 @@ CREATE TRIGGER article_delete
 BEFORE DELETE ON article
 FOR EACH ROW
 BEGIN
-    DELETE FROM comment
-    WHERE comment_id IN (
-        SELECT comment_id
-        FROM article_comment
-        WHERE article_id = OLD.article_id
-    );
+    IF (triggers_active()) THEN
+        DELETE FROM comment
+        WHERE comment_id IN (
+            SELECT comment_id
+            FROM article_comment
+            WHERE article_id = OLD.article_id
+        );
+    END IF;
 END$$
 DELIMITER ;
 
@@ -65,14 +71,16 @@ CREATE TRIGGER article_category_delete
 BEFORE DELETE ON article_category
 FOR EACH ROW
 BEGIN
-    DELETE FROM comment
-    WHERE comment_id IN (
-        SELECT ac.comment_id
-        FROM article_comment ac
-        INNER JOIN article a
-            ON a.article_id = ac.article_id
-        WHERE a.article_category_id = OLD.article_category_id
-    );
+    IF (triggers_active()) THEN
+        DELETE FROM comment
+        WHERE comment_id IN (
+            SELECT ac.comment_id
+            FROM article_comment ac
+            INNER JOIN article a
+                ON a.article_id = ac.article_id
+            WHERE a.article_category_id = OLD.article_category_id
+        );
+    END IF;
 END$$
 DELIMITER ;
 

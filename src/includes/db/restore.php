@@ -23,14 +23,16 @@ function restore_clear_db(PDO $pdo)
     $pdo->exec("DELETE FROM help_ticket");
     $pdo->exec("DELETE FROM user");
 
-    // FIXME need to find a way to disable triggers
-    $pdo->exec("");
+    $pdo->exec("
+        SET @DISABLE_TRIGGERS = TRUE
+    ");
 }
 
 function restore_finalize_db(PDO $pdo)
 {
-    // FIXME need to find a way to re-enable triggers
-    $pdo->exec("");
+    $pdo->exec("
+        SET @DISABLE_TRIGGERS = FALSE
+    ");
 }
 
 function restore_users(PDO $pdo, array $users)
@@ -128,7 +130,7 @@ function restore_users(PDO $pdo, array $users)
         $stmt = $pdo->prepare($query);
 
         foreach ($params as $key => &$val) {
-            $stmt->bindParam($key, $value);
+            $stmt->bindParam($key, $val);
         }
 
         $stmt->execute();
@@ -188,7 +190,7 @@ function restore_comments(PDO $pdo, array $comments)
         $stmt = $pdo->prepare($query);
 
         foreach ($params as $key => &$val) {
-            $stmt->bindParam($key, $value);
+            $stmt->bindParam($key, $val);
         }
 
         $stmt->execute();
@@ -250,7 +252,7 @@ function restore_article_categories(PDO $pdo, array $article_categories)
         $stmt = $pdo->prepare($query);
 
         foreach ($params as $key => &$val) {
-            $stmt->bindParam($key, $value);
+            $stmt->bindParam($key, $val);
         }
 
         $stmt->execute();

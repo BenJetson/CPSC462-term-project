@@ -17,6 +17,8 @@ CREATE TRIGGER comment_insert
 BEFORE INSERT ON comment
 FOR EACH ROW
 BEGIN
-    SET NEW.posted_at = NOW();
+    IF (triggers_active()) THEN
+        SET NEW.posted_at = NOW();
+    END IF;
 END$$
 DELIMITER ;

@@ -26,8 +26,10 @@ CREATE TRIGGER help_ticket_insert
 BEFORE INSERT ON help_ticket
 FOR EACH ROW
 BEGIN
-    SET NEW.submitted_at = NOW();
-    SET NEW.updated_at = NOW();
+    IF (triggers_active()) THEN
+        SET NEW.submitted_at = NOW();
+        SET NEW.updated_at = NOW();
+    END IF;
 END$$
 DELIMITER ;
 
@@ -36,7 +38,9 @@ CREATE TRIGGER help_ticket_update
 BEFORE UPDATE ON help_ticket
 FOR EACH ROW
 BEGIN
-    SET NEW.updated_at = NOW();
+    IF (triggers_active()) THEN
+        SET NEW.updated_at = NOW();
+    END IF;
 END$$
 DELIMITER ;
 
@@ -62,8 +66,10 @@ CREATE TRIGGER help_ticket_comment_insert
 AFTER INSERT ON help_ticket_comment
 FOR EACH ROW
 BEGIN
-    UPDATE help_ticket
-    SET updated_at = NOW()
-    WHERE help_ticket_id = NEW.help_ticket_id;
+    IF (triggers_active()) THEN
+        UPDATE help_ticket
+        SET updated_at = NOW()
+        WHERE help_ticket_id = NEW.help_ticket_id;
+    END IF;
 END$$
 DELIMITER ;

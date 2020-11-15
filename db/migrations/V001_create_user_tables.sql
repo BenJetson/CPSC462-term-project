@@ -41,11 +41,13 @@ CREATE TRIGGER user_telephone_insert
 BEFORE INSERT ON user
 FOR EACH ROW
 BEGIN
-    CALL check_phone_number(NEW.telephone);
+    IF (triggers_active()) THEN
+        CALL check_phone_number(NEW.telephone);
 
-    SET NEW.email_changed_at = NOW();
-    SET NEW.pass_changed_at = NOW();
-    SET NEW.pass_locked_at = FROM_UNIXTIME(0);
+        SET NEW.email_changed_at = NOW();
+        SET NEW.pass_changed_at = NOW();
+        SET NEW.pass_locked_at = FROM_UNIXTIME(0);
+    END IF;
 END$$
 DELIMITER ;
 
@@ -54,15 +56,17 @@ CREATE TRIGGER user_telephone_update
 BEFORE UPDATE ON user
 FOR EACH ROW
 BEGIN
-    CALL check_phone_number(NEW.telephone);
+    IF (triggers_active()) THEN
+        CALL check_phone_number(NEW.telephone);
 
-    IF (NEW.email != OLD.email) THEN
-        SET NEW.email_changed_at = NOW();
-        SET NEW.email_confirmed = FALSE;
-    END IF;
+        IF (NEW.email != OLD.email) THEN
+            SET NEW.email_changed_at = NOW();
+            SET NEW.email_confirmed = FALSE;
+        END IF;
 
-    IF (NEW.pass_hash != OLD.pass_hash) THEN
-        SET NEW.pass_changed_at = NOW();
+        IF (NEW.pass_hash != OLD.pass_hash) THEN
+            SET NEW.pass_changed_at = NOW();
+        END IF;
     END IF;
 END$$
 DELIMITER ;
