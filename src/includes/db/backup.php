@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../types/Backup.php';
 require_once __DIR__ . '/../types/HelpTicketFilter.php';
+require_once __DIR__ . '/../types/User.php';
 require_once __DIR__ . '/article.php'; // why was this ambiguous?
 require_once 'comment.php';
 require_once 'help-ticket.php';
