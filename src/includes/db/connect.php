@@ -11,7 +11,7 @@ function db_connect()
         $_SERVER["MYSQL_PASSWORD"],
         [
             PDO::MYSQL_ATTR_INIT_COMMAND => "
-                SET NAMES utf8;
+                SET NAMES utf8mb4;
             ",
         ]
     );

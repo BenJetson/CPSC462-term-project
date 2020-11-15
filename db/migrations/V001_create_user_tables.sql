@@ -4,7 +4,7 @@ CREATE TABLE user (
     is_admin     boolean NOT NULL DEFAULT false,
     is_disabled  boolean NOT NULL DEFAULT false,
 
-    email            varchar(254) NOT NULL UNIQUE,
+    email            varchar(180) NOT NULL UNIQUE,
     email_changed_at datetime     NOT NULL,
     email_confirmed  boolean      NOT NULL DEFAULT false,
 
