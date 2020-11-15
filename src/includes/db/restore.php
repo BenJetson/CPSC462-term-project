@@ -23,6 +23,10 @@ function restore_clear_db(PDO $pdo)
     $pdo->exec("DELETE FROM help_ticket");
     $pdo->exec("DELETE FROM user");
 
+    // Must disable triggers so that updated_at and created_at timestamps
+    // do not get automatically set when inserting restored records.
+    //
+    // This only applies to the current database session/connection.
     $pdo->exec("
         SET @DISABLE_TRIGGERS = TRUE
     ");
@@ -30,6 +34,8 @@ function restore_clear_db(PDO $pdo)
 
 function restore_finalize_db(PDO $pdo)
 {
+    // Must re-enable triggers so that subsequent calls to the DB from this
+    // session will fire triggers as expected.
     $pdo->exec("
         SET @DISABLE_TRIGGERS = FALSE
     ");
@@ -270,22 +276,272 @@ function restore_article_categories(PDO $pdo, array $article_categories)
 
 function restore_articles(PDO $pdo, array $articles)
 {
+    // To avoid hitting the maximum parameters limit, we chunk this query.
+    // This also guarantees that each chunk is indexed numerically.
+    $chunks = array_chunk($articles, 64);
+
+    foreach ($chunks as $chunk) {
+        $query = "
+            INSERT INTO article (
+                article_id,
+                article_category_id,
+                author,
+                title,
+                body,
+                created_at,
+                updated_at
+            )
+            VALUES
+        ";
+        $params = [];
+
+        foreach ($chunk as $idx => $article) {
+            $query .= "
+                (
+                    :article_id_$idx,
+                    :article_category_id_$idx,
+                    :author_$idx,
+                    :title_$idx,
+                    :body_$idx,
+                    :created_at_$idx,
+                    :updated_at_$idx
+                )
+            ";
+
+            if ($idx !== count($chunk) - 1) $query .= ",";
+
+            $params = array_merge($params, [
+                ":article_id_$idx"          => $article->article_id,
+                ":article_category_id_$idx" => $article->category_id,
+                ":author_$idx"              => $article->author_id,
+                ":title_$idx"               => $article->title,
+                ":body_$idx"                => $article->body,
+                ":created_at_$idx"          => $article->created_at,
+                ":updated_at_$idx"          => $article->updated_at,
+            ]);
+        }
+
+        $stmt = $pdo->prepare($query);
+
+        foreach ($params as $key => &$val) {
+            $stmt->bindParam($key, $val);
+        }
+
+        $stmt->execute();
+    }
+
+    // Reset the auto increment counter to the next appropriate value.
+    $pdo->exec("
+        ALTER TABLE article
+        AUTO_INCREMENT = (
+            SELECT MAX(article_id) + 1
+            FROM article
+        )
+    ");
 }
 
 function restore_article_comments(PDO $pdo, array $article_comments)
 {
+    // To avoid hitting the maximum parameters limit, we chunk this query.
+    // This also guarantees that each chunk is indexed numerically.
+    $chunks = array_chunk($article_comments, 64);
+
+    foreach ($chunks as $chunk) {
+        $query = "
+            INSERT INTO article_comment (
+                article_id,
+                comment_id
+            )
+            VALUES
+        ";
+        $params = [];
+
+        foreach ($chunk as $idx => $article_comment) {
+            $query .= "
+                (
+                    :article_id_$idx,
+                    :comment_id_$idx
+                )
+            ";
+
+            if ($idx !== count($chunk) - 1) $query .= ",";
+
+            $params = array_merge($params, [
+                ":article_id_$idx" => $article_comment->article_id,
+                ":comment_id_$idx" => $article_comment->comment_id,
+            ]);
+        }
+
+        $stmt = $pdo->prepare($query);
+
+        foreach ($params as $key => &$val) {
+            $stmt->bindParam($key, $val);
+        }
+
+        $stmt->execute();
+    }
 }
 
 function restore_article_ratings(PDO $pdo, array $article_ratings)
 {
+    // To avoid hitting the maximum parameters limit, we chunk this query.
+    // This also guarantees that each chunk is indexed numerically.
+    $chunks = array_chunk($article_ratings, 64);
+
+    foreach ($chunks as $chunk) {
+        $query = "
+            INSERT INTO article_rating (
+                article_id,
+                user_id,
+                stars
+            )
+            VALUES
+        ";
+        $params = [];
+
+        foreach ($chunk as $idx => $article_rating) {
+            $query .= "
+                (
+                    :article_id_$idx,
+                    :user_id_$idx,
+                    :stars_$idx
+                )
+            ";
+
+            if ($idx !== count($chunk) - 1) $query .= ",";
+
+            $params = array_merge($params, [
+                ":article_id_$idx" => $article_rating->article_id,
+                ":user_id_$idx" => $article_rating->user_id,
+                ":stars_$idx" => $article_rating->stars,
+            ]);
+        }
+
+        $stmt = $pdo->prepare($query);
+
+        foreach ($params as $key => &$val) {
+            $stmt->bindParam($key, $val);
+        }
+
+        $stmt->execute();
+    }
 }
 
 function restore_help_tickets(PDO $pdo, array $help_tickets)
 {
+    // To avoid hitting the maximum parameters limit, we chunk this query.
+    // This also guarantees that each chunk is indexed numerically.
+    $chunks = array_chunk($help_tickets, 64);
+
+    foreach ($chunks as $chunk) {
+        $query = "
+            INSERT INTO help_ticket (
+                help_ticket_id,
+                submitter,
+                assignee,
+                submitted_at,
+                updated_at,
+                is_closed,
+                closed_by_submitter,
+                closed_at,
+                subject,
+                body
+            )
+            VALUES
+        ";
+        $params = [];
+
+        foreach ($chunk as $idx => $help_ticket) {
+            $query .= "
+                (
+                    :help_ticket_id_$idx,
+                    :submitter_$idx,
+                    :assignee_$idx,
+                    :submitted_at_$idx,
+                    :updated_at_$idx,
+                    :is_closed_$idx,
+                    :closed_by_submitter_$idx,
+                    :closed_at_$idx,
+                    :subject_$idx,
+                    :body_$idx
+                )
+            ";
+
+            if ($idx !== count($chunk) - 1) $query .= ",";
+
+            $params = array_merge($params, [
+                ":help_ticket_id_$idx"      => $help_ticket->help_ticket_id,
+                ":submitter_$idx"           => $help_ticket->submitter_id,
+                ":assignee_$idx"            => $help_ticket->assignee_id,
+                ":submitted_at_$idx"        => $help_ticket->submitted_at,
+                ":updated_at_$idx"          => $help_ticket->updated_at,
+                ":is_closed_$idx"           => $help_ticket->is_closed,
+                ":closed_by_submitter_$idx" => $help_ticket->closed_by_submitter,
+                ":closed_at_$idx"           => $help_ticket->closed_at,
+                ":subject_$idx"             => $help_ticket->subject,
+                ":body_$idx"                => $help_ticket->body,
+            ]);
+        }
+
+        $stmt = $pdo->prepare($query);
+
+        foreach ($params as $key => &$val) {
+            $stmt->bindParam($key, $val);
+        }
+
+        $stmt->execute();
+    }
+
+    // Reset the auto increment counter to the next appropriate value.
+    $pdo->exec("
+        ALTER TABLE help_ticket
+        AUTO_INCREMENT = (
+            SELECT MAX(help_ticket_id) + 1
+            FROM help_ticket
+        )
+    ");
 }
 
 function restore_help_ticket_comments(PDO $pdo, array $help_ticket_comments)
 {
+    // To avoid hitting the maximum parameters limit, we chunk this query.
+    // This also guarantees that each chunk is indexed numerically.
+    $chunks = array_chunk($help_ticket_comments, 64);
+
+    foreach ($chunks as $chunk) {
+        $query = "
+            INSERT INTO help_ticket_comment (
+                help_ticket_id,
+                comment_id
+            )
+            VALUES
+        ";
+        $params = [];
+
+        foreach ($chunk as $idx => $help_ticket_comment) {
+            $query .= "
+                (
+                    :help_ticket_id_$idx,
+                    :comment_id_$idx
+                )
+            ";
+
+            if ($idx !== count($chunk) - 1) $query .= ",";
+
+            $params = array_merge($params, [
+                ":help_ticket_id_$idx" => $help_ticket_comment->help_ticket_id,
+                ":comment_id_$idx"     => $help_ticket_comment->comment_id,
+            ]);
+        }
+
+        $stmt = $pdo->prepare($query);
+
+        foreach ($params as $key => &$val) {
+            $stmt->bindParam($key, $val);
+        }
+
+        $stmt->execute();
+    }
 }
 
 function restore_from_file(PDO $pdo, $file_name)
@@ -329,4 +585,19 @@ function restore_from_file(PDO $pdo, $file_name)
     // Close the ZIP archive and delete it.
     $zip->close();
     unlink($file_name);
+
+    // Validation?
+    // TODO might want to do some validation here.
+
+    // Restore
+    restore_clear_db($pdo);
+    restore_users($pdo, $users);
+    restore_comments($pdo, $comments);
+    restore_article_categories($pdo, $article_categories);
+    restore_articles($pdo, $articles);
+    restore_article_ratings($pdo, $article_ratings);
+    restore_article_comments($pdo, $article_comments);
+    restore_help_tickets($pdo, $help_tickets);
+    restore_help_ticket_comments($pdo, $help_ticket_comments);
+    restore_finalize_db($pdo);
 }
