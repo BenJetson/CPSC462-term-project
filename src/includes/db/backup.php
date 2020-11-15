@@ -13,6 +13,7 @@ function create_backup_archive(PDO $pdo, User $user)
     // Lock the database so that data does not change during the course of
     // the backup operation. This statement also deletes caches to ensure that
     // the backup will not contain stale cached data.
+    // FIXME
     // $pdo->exec("
     //     LOCK TABLES
     //         user READ,
