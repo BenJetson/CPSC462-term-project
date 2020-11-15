@@ -63,7 +63,12 @@ function create_backup_archive(PDO $pdo, User $user)
     $article_comments = [];
     foreach ($articles as $article) {
         $comments = get_comments_for_article($pdo, $article->article_id);
-        $article_comments[$article->article_id] = $comments;
+        foreach ($comments as $comment) {
+            array_push($article_comments, (object) [
+                "article_id" => $article->article_id,
+                "comment_id" => $comment->comment_id,
+            ]);
+        }
     }
     $zip->addFromString(
         "article-comments.json",
@@ -88,7 +93,12 @@ function create_backup_archive(PDO $pdo, User $user)
     $ticket_comments = [];
     foreach ($help_tickets as $ticket) {
         $comments = get_comments_for_help_ticket($pdo, $ticket->help_ticket_id);
-        $ticket_comments[$ticket->help_ticket_id] = $comments;
+        foreach ($comments as $comment) {
+            array_push($ticket_comments, (object) [
+                "help_ticket_id" => $ticket->help_ticket_id,
+                "comment_id" => $comment->comment_id,
+            ]);
+        }
     }
     $zip->addFromString(
         "help-ticket-comments.json",
