@@ -2,6 +2,7 @@
 
 require 'includes/init.php';
 
+require_once 'includes/components/AdminRestoreForm.php';
 require_once 'includes/components/Navbar.php';
 require_once 'includes/db/connect.php';
 require_once 'includes/db/user.php';
@@ -22,5 +23,23 @@ if ($user === null) {
     exit();
 }
 
-$errPage = new RequestStatusPage(HTTPStatus::STATUS_NOT_IMPLEMENTED, $user);
-$errPage->render();
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // TODO call to a formprocessor
+
+    $page = new RequestStatusPage(
+        HTTPStatus::STATUS_OK,
+        null,
+        "The restore operation is now processing. Please wait."
+    );
+    $page->render();
+
+    exit();
+}
+
+$title = "Restore";
+$page = new Page($title, [
+    new Navbar($user, $title),
+    new AdminRestoreForm(),
+]);
+
+$page->render();
