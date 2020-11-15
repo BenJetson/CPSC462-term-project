@@ -70,6 +70,12 @@ function create_backup_archive(PDO $pdo, User $user)
         json_encode($article_comments, JSON_PRETTY_PRINT)
     );
 
+    $article_ratings = get_article_ratings($pdo);
+    $zip->addFromString(
+        "article-ratings.json",
+        json_encode($article_ratings, JSON_PRETTY_PRINT)
+    );
+
     // Get all help tickets.
     $ticket_filter = new HelpTicketFilter(HelpTicketFilter::ALL, $user);
     $help_tickets = get_help_tickets($pdo, $ticket_filter);

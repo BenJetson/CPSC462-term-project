@@ -2,6 +2,7 @@
 
 require_once __DIR__ . "/../types/Article.php";
 require_once __DIR__ . "/../types/ArticleCategory.php";
+require_once __DIR__ . "/../types/ArticleRating.php";
 require_once 'comment.php';
 
 
@@ -182,6 +183,27 @@ function get_articles_in_category(PDO $pdo, $category_id)
         return array();
     }
     return $articles;
+}
+
+
+function get_article_ratings(PDO $pdo)
+{
+    $stmt = $pdo->prepare("
+        SELECT
+            article_id,
+            user_id,
+            stars
+        FROM article_rating
+    ");
+
+    $stmt->execute();
+
+    $ratings = $stmt->fetchAll(PDO::FETCH_CLASS, "ArticleRating");
+
+    if (!$ratings || count($ratings) === 0) {
+        return [];
+    }
+    return $ratings;
 }
 
 
