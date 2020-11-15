@@ -28,6 +28,18 @@ function get_comment_by_id(PDO $pdo, $comment_id)
     return $stmt->fetchObject("Comment");
 }
 
+function get_all_comments(PDO $pdo)
+{
+    $stmt = $pdo->prepare(GET_COMMENT_QUERY);
+    $stmt->execute();
+
+    $comments = $stmt->fetchAll(PDO::FETCH_CLASS, "Comment");
+    if (!$comments || count($comments) < 1) {
+        return [];
+    }
+    return $comments;
+}
+
 /**
  * get_all_comments_by_id fetches all comments that are named in the given
  * array by identifier. Due to packet size constraints, this may not work as

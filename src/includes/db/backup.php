@@ -45,6 +45,13 @@ function create_backup_archive(PDO $pdo, User $user)
         json_encode($users, JSON_PRETTY_PRINT)
     );
 
+    // Add comment data.
+    $comments = get_all_comments($pdo);
+    $zip->addFromString(
+        "comments.json",
+        json_encode($comments, JSON_PRETTY_PRINT)
+    );
+
     // Add article category data.
     $article_categories = get_article_categories($pdo);
     $zip->addFromString(
