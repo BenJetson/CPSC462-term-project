@@ -7,6 +7,15 @@ require_once __DIR__ . '/../types/Comment.php';
 require_once __DIR__ . '/../types/HelpTicket.php';
 require_once __DIR__ . '/../types/User.php';
 
+
+function json_datetime_string($obj)
+{
+    if (is_null($obj)) {
+        return null;
+    }
+    return (new DateTime($obj->date))->format("Y-m-d H:i:s");
+}
+
 /**
  * restore_clear_db will destroy ALL records stored in the database  to prepare
  * for further restore operations.
@@ -115,11 +124,17 @@ function restore_users(PDO $pdo, array $users)
                 ":is_admin_$idx"         => $user->is_admin,
                 ":is_disabled_$idx"      => $user->is_disabled,
                 ":email_$idx"            => $user->email,
-                ":email_changed_at_$idx" => $user->email_changed_at,
+
+                ":email_changed_at_$idx" =>
+                json_datetime_string($user->email_changed_at),
+
                 ":email_confirmed_$idx"  => $user->email_confirmed,
                 ":first_name_$idx"       => $user->first_name,
                 ":last_name_$idx"        => $user->last_name,
-                ":dob_$idx"              => $user->dob,
+
+                ":dob_$idx"              =>
+                json_datetime_string($user->dob),
+
                 ":telephone_$idx"        => $user->telephone,
                 ":address_line_1_$idx"   => $user->address_line_1,
                 ":address_line_2_$idx"   => $user->address_line_2,
@@ -127,9 +142,14 @@ function restore_users(PDO $pdo, array $users)
                 ":address_state_$idx"    => $user->address_state,
                 ":address_zip_$idx"      => $user->address_zip,
                 ":pass_hash_$idx"        => $user->pass_hash,
-                ":pass_changed_at_$idx"  => $user->pass_changed_at,
+
+                ":pass_changed_at_$idx"  =>
+                json_datetime_string($user->pass_changed_at),
+
                 ":pass_attempts_$idx"    => $user->pass_attempts,
-                ":pass_locked_at_$idx"   => $user->pass_locked_at,
+
+                ":pass_locked_at_$idx"   =>
+                json_datetime_string($user->pass_locked_at),
             ]);
         }
 
@@ -143,13 +163,10 @@ function restore_users(PDO $pdo, array $users)
     }
 
     // Reset the auto increment counter to the next appropriate value.
-    $pdo->exec("
-        ALTER TABLE user
-        AUTO_INCREMENT = (
-            SELECT MAX(user_id) + 1
-            FROM user
-        )
-    ");
+    $stmt = $pdo->prepare("SELECT MAX(user_id) + 1 FROM user");
+    $stmt->execute();
+    $next_id = intval($stmt->fetchColumn());
+    $pdo->exec("ALTER TABLE user AUTO_INCREMENT = $next_id");
 }
 
 function restore_comments(PDO $pdo, array $comments)
@@ -186,8 +203,11 @@ function restore_comments(PDO $pdo, array $comments)
 
             $params = array_merge($params, [
                 ":comment_id_$idx" => $comment->comment_id,
-                ":author_$idx"     => $comment->author,
-                ":posted_at_$idx"  => $comment->posted_at,
+                ":author_$idx"     => $comment->author_id,
+
+                ":posted_at_$idx"  =>
+                json_datetime_string($comment->posted_at),
+
                 ":body_$idx"       => $comment->body,
                 ":is_reply_$idx"   => $comment->is_reply,
             ]);
@@ -203,13 +223,10 @@ function restore_comments(PDO $pdo, array $comments)
     }
 
     // Reset the auto increment counter to the next appropriate value.
-    $pdo->exec("
-        ALTER TABLE comment
-        AUTO_INCREMENT = (
-            SELECT MAX(comment_id) + 1
-            FROM comment
-        )
-    ");
+    $stmt = $pdo->prepare("SELECT MAX(comment_id) + 1 FROM comment");
+    $stmt->execute();
+    $next_id = intval($stmt->fetchColumn());
+    $pdo->exec("ALTER TABLE comment AUTO_INCREMENT = $next_id");
 }
 
 function restore_article_categories(PDO $pdo, array $article_categories)
@@ -265,13 +282,10 @@ function restore_article_categories(PDO $pdo, array $article_categories)
     }
 
     // Reset the auto increment counter to the next appropriate value.
-    $pdo->exec("
-        ALTER TABLE article_category
-        AUTO_INCREMENT = (
-            SELECT MAX(article_category_id) + 1
-            FROM article_category
-        )
-    ");
+    $stmt = $pdo->prepare("SELECT MAX(article_category_id) + 1 FROM article_category");
+    $stmt->execute();
+    $next_id = intval($stmt->fetchColumn());
+    $pdo->exec("ALTER TABLE article_category AUTO_INCREMENT = $next_id");
 }
 
 function restore_articles(PDO $pdo, array $articles)
@@ -316,8 +330,12 @@ function restore_articles(PDO $pdo, array $articles)
                 ":author_$idx"              => $article->author_id,
                 ":title_$idx"               => $article->title,
                 ":body_$idx"                => $article->body,
-                ":created_at_$idx"          => $article->created_at,
-                ":updated_at_$idx"          => $article->updated_at,
+
+                ":created_at_$idx"          =>
+                json_datetime_string($article->created_at),
+
+                ":updated_at_$idx"          =>
+                json_datetime_string($article->updated_at),
             ]);
         }
 
@@ -331,13 +349,10 @@ function restore_articles(PDO $pdo, array $articles)
     }
 
     // Reset the auto increment counter to the next appropriate value.
-    $pdo->exec("
-        ALTER TABLE article
-        AUTO_INCREMENT = (
-            SELECT MAX(article_id) + 1
-            FROM article
-        )
-    ");
+    $stmt = $pdo->prepare("SELECT MAX(article_id) + 1 FROM article");
+    $stmt->execute();
+    $next_id = intval($stmt->fetchColumn());
+    $pdo->exec("ALTER TABLE article AUTO_INCREMENT = $next_id");
 }
 
 function restore_article_comments(PDO $pdo, array $article_comments)
@@ -473,11 +488,19 @@ function restore_help_tickets(PDO $pdo, array $help_tickets)
                 ":help_ticket_id_$idx"      => $help_ticket->help_ticket_id,
                 ":submitter_$idx"           => $help_ticket->submitter_id,
                 ":assignee_$idx"            => $help_ticket->assignee_id,
-                ":submitted_at_$idx"        => $help_ticket->submitted_at,
-                ":updated_at_$idx"          => $help_ticket->updated_at,
+
+                ":submitted_at_$idx"        =>
+                json_datetime_string($help_ticket->submitted_at),
+
+                ":updated_at_$idx"          =>
+                json_datetime_string($help_ticket->updated_at),
+
                 ":is_closed_$idx"           => $help_ticket->is_closed,
                 ":closed_by_submitter_$idx" => $help_ticket->closed_by_submitter,
-                ":closed_at_$idx"           => $help_ticket->closed_at,
+
+                ":closed_at_$idx"           =>
+                json_datetime_string($help_ticket->closed_at),
+
                 ":subject_$idx"             => $help_ticket->subject,
                 ":body_$idx"                => $help_ticket->body,
             ]);
@@ -493,13 +516,10 @@ function restore_help_tickets(PDO $pdo, array $help_tickets)
     }
 
     // Reset the auto increment counter to the next appropriate value.
-    $pdo->exec("
-        ALTER TABLE help_ticket
-        AUTO_INCREMENT = (
-            SELECT MAX(help_ticket_id) + 1
-            FROM help_ticket
-        )
-    ");
+    $stmt = $pdo->prepare("SELECT MAX(help_ticket_id) + 1 FROM help_ticket");
+    $stmt->execute();
+    $next_id = intval($stmt->fetchColumn());
+    $pdo->exec("ALTER TABLE help_ticket AUTO_INCREMENT = $next_id");
 }
 
 function restore_help_ticket_comments(PDO $pdo, array $help_ticket_comments)
