@@ -79,6 +79,16 @@ function handle_shutdown()
 // Always start or resume the PHP session when a user requests a page.
 session_start();
 
+/* TODO fix session bug from chat with @holder9
+
+if (!session_start) {
+    blank value for PHPSESID cookie and all other php session id fields
+    start session again
+    if it fails, throw exception
+}
+
+*/
+
 // If a log file is specified, write the application errors there.
 if (isset($_SERVER["LOG_FILE"])) {
     ini_set("error_log", $_SERVER["LOG_FILE"]);
