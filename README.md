@@ -74,3 +74,25 @@ stack with two key features:
   within this repository may be used.
 - `/Makefile` - this file contains recipes that can be invoked via make to
   build and deploy this application.
+
+## Deployment Notes
+
+This project includes deployment scripts. The necessary files will be copied
+to the server automatically.
+
+1. Fill in the appropriate `.env` file for the desired target tier. Use
+   `.env.prod` for production and `.env.dev` for development.
+1. Configure your SSH client for the SoC web application server. We must set two
+   options for the script to work.
+
+   ```ssh_config
+   Host webapp
+       HostName webapp.computing.clemson.edu
+       User bfgodfr
+       ForwardAgent yes
+       BatchMode yes
+       ConnectTimeout 2
+   ```
+
+1. Then you may run one of the deploy commands, depending on the desired target
+   tier. Run `make deploy` for production and `make dev` for development.
